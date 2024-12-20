@@ -23,7 +23,7 @@
         flex-direction: row;
     }
     button {
-        font-family: "Tajawal", monospace;
+        font-family: "Tajawal", sans-serif;
         font-size: 1em;
         margin: 0px 10px;
         background: transparent;

@@ -13,7 +13,7 @@
         background-color: #cfd1d2;
     }
     #monogramDiv {
-        font-family: "Space Mono";
+        font-family: "Space Mono", monospace;
         margin: auto;
         padding: 50px 0px;
         width: 400px;
