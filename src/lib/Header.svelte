@@ -1,36 +1,49 @@
 <script>
+    import "../app.css";
 </script>
 
 <header>
     <nav>
-        <button id="home" name="home">Home</button>
-        <button id="portfolio" name="portfolio">Portfolio</button>
-        <button id="resume" name="resume">Resume</button>
+        <button id="home" name="home">
+            <a href=".">Home</a>
+        </button>
+        <button id="about" name="about">
+            <a href="./about">About</a>
+        </button>
+        <button id="portfolio" name="portfolio">
+            <a href="./portfolio">Portfolio</a>
+        </button>
+        <!-- <button id="resume" name="resume">Resume</button> -->
     </nav>
 </header>
 
 <style>
     header {
+        padding: 0.5rem;
         margin: 20px 0px;
-        border-right: 3px;
-        border-width: 1px;
-        border-color: black;
+        border-color: white;
     }
     nav {
-        color: black;
         display: flex;
         justify-content: center;
         flex-direction: row;
     }
     button {
-        font-family: "Tajawal", sans-serif;
-        font-size: 1em;
         margin: 0px 10px;
         background: transparent;
         border: 0px;
     }
     button:hover {
-        text-decoration: underline;
         cursor: pointer;
+    }
+    a {
+        font-family: "Tajawal", sans-serif;
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+    }
+    a:hover {
+        color: var(--red);
     }
 </style>
