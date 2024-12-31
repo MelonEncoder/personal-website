@@ -2,21 +2,20 @@
     import "../app.css";
 </script>
 
-<div id="monogramDiv">
+<div id="monogram-div">
+    <img id="monogram" src="monogram.svg" type="svg" alt="monogram of 'IG'" />
     <p>Ian Gillette</p>
-    <img src="monogram.svg" type="svg" alt="monogram of 'IG'" />
 </div>
 
 <style>
     :global(body) {
         background-color: var(--body-color);
     }
-    #monogramDiv {
+    #monogram-div {
         font-family: "Space Mono", monospace;
         margin: auto;
-        padding: 50px 0px;
         width: 300px;
-        height: 450px;
+        height: 520px;
         border-radius: 5px;
         border-width: 5px;
         border-color: blue;
@@ -26,17 +25,25 @@
         align-items: center;
         flex-direction: column;
     }
-    #monogramDiv > img {
-        height: 100%;
-        padding: 1rem 2rem;
+    #monogram {
+        height: 310px;
+        width: 210px;
         background-color: rgb(180, 10, 50);
-        border-radius: 5px;
+        border-radius: 105px;
+        padding-top: 48px;
+        padding-bottom: 48px;
+        box-shadow: 0px 0px 12px 10px rgba(0, 0, 0, 0.35);
+        transition: scale 300ms ease-in-out;
     }
-    #monogramDiv > p {
-        margin-top: 0px;
+    #monogram:hover {
+        scale: 1.04;
+        cursor: pointer;
+    }
+    #monogram-div p {
+        margin-bottom: 0px;
+        margin-top: 1rem;
         color: white;
         font-size: 1.5rem;
         font-weight: bold;
-        border-radius: 5px;
     }
 </style>

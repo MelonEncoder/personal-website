@@ -4,12 +4,13 @@ This is the source code to my personal website that is meant to represent me and
 ## Progress
 |         Task       |        Status      |   Comments         |
 |--------------------|--------------------|--------------------|
-| Landing Page | WIP | Have a basic landing page. |
-| Home Page | WIP |Currently using the landing page. |
-| Portfolio Page | Not Started | N/A  |
-| Resume Page | Not Started | N/A |
+| Home Page | WIP | Minimal |
+| About Page | WIP | Missing social links + content |
+| Portfolio Page | WIP | Currently just some coding projects.  |
+| Resume Page | Not Started |  |
 
 ## Extra Things
 - [ ] Visitor Count
-- [ ] Cool Artwork
-- [ ] Puzzles
+- [ ] Aesthetic Graphics
+- [ ] Character
+- [ ] Puzzles / Activities
