@@ -1,5 +1,5 @@
 <script>
-    import "../app.css";
+    import "$lib/app.css";
 </script>
 
 <header>
@@ -12,6 +12,9 @@
         </button>
         <button id="portfolio" name="portfolio">
             <a href="./portfolio">Portfolio</a>
+        </button>
+        <button id="blog" name="blog">
+            <a href="./blog">Blog</a>
         </button>
         <!-- <button id="resume" name="resume">Resume</button> -->
     </nav>

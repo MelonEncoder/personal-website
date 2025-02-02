@@ -4,4 +4,4 @@
 </script>
 
 <Header />
-<Monogram />
+<Monogram style="margin:  auto" />

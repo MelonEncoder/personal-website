@@ -1,0 +1,25 @@
+:root {
+    --body-color: rgb(20, 20, 20);
+    --red: rgb(220, 20, 60);
+    --sans-font: "Tajawal";
+    --main-font: "Space Mono";
+}
+
+.blog-post {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    font-family: var(--main-font);
+    max-width: 600px;
+}
+
+.blog-post > h1 {
+    text-align: center;
+}
+
+.blog-post > p {
+    text-align: left;
+}

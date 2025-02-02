@@ -7,8 +7,8 @@
 <div id="content">
     <p>
         I have a passion for learning, problem solving, and discovering new
-        things. Some things that I enjoy are programming, drawing, graphic
-        design, and reading.
+        things. I enjoy programming, drawing, robotics, graphic design, reading,
+        and videogames.
     </p>
 </div>
 
