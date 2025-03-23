@@ -8,7 +8,7 @@
         <li>
             <h2>
                 <a
-                    href="https://github.com/ianseeingbeing/pdf_to_video"
+                    href="https://github.com/MelonEncoder/pdf_to_video"
                     target="_blank">PDF to Video</a
                 >
             </h2>
@@ -20,7 +20,7 @@
         </li>
         <li>
             <h2>
-                <a href="https://github.com/ianseeingbeing/pong" target="_blank"
+                <a href="https://github.com/MelonEncoder/pong" target="_blank"
                     >Pong</a
                 >
             </h2>
@@ -30,7 +30,7 @@
         <li>
             <h2>
                 <a
-                    href="https://github.com/ianseeingbeing/personal_website"
+                    href="https://github.com/MelonEncoder/personal_website"
                     target="_blank">This Website</a
                 >
             </h2>
