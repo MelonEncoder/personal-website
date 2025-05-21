@@ -1,0 +1,26 @@
+:root {
+    --body-color: rgb(20, 20, 20);
+    --red: rgb(220, 20, 60);
+    --dark-red: rgb(190, 15, 50);
+    --sans-font: "Tajawal";
+    --main-font: "Space Mono";
+}
+
+body {
+    background-color: var(--body-color);
+}
+
+#monogram-container {
+    background-color: var(--dark-red);
+    padding: 20px;
+    width: 220px;
+    margin: auto;
+    border-radius: 12px;
+}
+
+#monogram {
+    background-color: var(--red);
+    padding: 40px 10px;
+    border-radius: 120px;
+    margin: 0;
+}
