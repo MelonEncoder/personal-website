@@ -2,25 +2,57 @@
     --body-color: rgb(20, 20, 20);
     --red: rgb(220, 20, 60);
     --dark-red: rgb(190, 15, 50);
+    --darker-red: rgb(160, 10, 40);
     --sans-font: "Tajawal";
     --main-font: "Space Mono";
 }
 
 body {
     background-color: var(--body-color);
+    height: 900px;
 }
 
 #monogram-container {
-    background-color: var(--dark-red);
-    padding: 20px;
-    width: 220px;
-    margin: auto;
-    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
-#monogram {
+#monogram-container-1 {
     background-color: var(--red);
-    padding: 40px 10px;
-    border-radius: 120px;
+    padding: 35px 10px;
     margin: 0;
+    border-radius: 120px;
+    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+#monogram-container-1:hover {
+    cursor: pointer;
+    border-width: 5px;
+    border-color: white;
+    border-color: blue;
+}
+
+#monogram-container-1:active {
+    scale: 0.95;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    background-color: var(--dark-red);
+}
+
+#monogram-container-2 {
+    background-color: var(--dark-red);
+    border-radius: 140px;
+    padding: 20px;
+    margin: 0;
+    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+#monogram-container-3 {
+    background-color: var(--darker-red);
+    width: 280px;
+    border-radius: 180px;
+    padding: 20px;
+    margin: auto;
+    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.2);
 }
