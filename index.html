@@ -5,32 +5,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="style.css" />
         <link rel="icon" href="./static/favicon.svg" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     </head>
-    <body>
-        <div id="home">
-            <nav id="page-nav">
-                <a href="/">
-                    <img
-                        id="monogram"
-                        src="./static/monogram-white.svg"
-                        alt="ian monogram white"
-                        width="100px"
-                    />
+    <body id="home">
+        <nav id="page-nav">
+            <img
+                id="monogram"
+                src="./static/monogram-white.svg"
+                alt="ian monogram white"
+                width="100px"
+            />
+            <ul>
+                <a href="./pages/about.html">
+                    <li class="button" id="about">About</li>
                 </a>
-                <ul>
-                    <a href="/">
-                        <li class="tab" id="about">About</li>
-                    </a>
-                    <a href="/">
-                        <li class="tab" id="projects">Projects</li>
-                    </a>
-                    <a href="/">
-                        <li class="tab" id="contect">Contact</li>
-                    </a>
-                </ul>
-            </nav>
-        </div>
+                <a href="./pages/projects.html">
+                    <li class="button" id="projects">Projects</li>
+                </a>
+                <a href="./pages/contact.html">
+                    <li class="button" id="contect">Contact</li>
+                </a>
+            </ul>
+        </nav>
     </body>
 </html>
