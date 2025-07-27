@@ -1,17 +1,11 @@
 import "./App.css";
-import monogram from "./assets/monogram-white.svg";
+import HomePage from "./routes/HomePage.tsx";
 
 function App() {
     return (
-        <>
-            <img
-                id="monogram"
-                src={monogram}
-                alt="monogram white"
-                width="100px"
-            />
-            <h1>Ian Gillette</h1>
-        </>
+        <div className="app-container">
+            <HomePage />
+        </div>
     );
 }
 
