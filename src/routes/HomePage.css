@@ -7,12 +7,11 @@
 
 .word-container {
     box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.25);
-    background-color: var(--white);
-    color: var(--black);
+    background-color: var(--color-2);
+    color: var(--color-1);
     border-radius: 1rem;
     padding: 2rem;
     max-width: 600px;
-    margin: 0 1rem;
 }
 
 .word-title {
@@ -51,4 +50,12 @@
     font-weight: normal;
     text-align: left;
     margin: 0;
+}
+
+.monogram {
+    width: 100px;
+}
+
+.monogram > g > path {
+    fill: var(--color-2);
 }
