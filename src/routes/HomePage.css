@@ -1,10 +1,26 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    margin: 1rem;
+}
 .monogram-container {
     display: flex;
     flex-direction: column;
     place-items: center;
     margin-bottom: 2rem;
 }
-
+.monogram {
+    width: 100px;
+    height: 100px;
+}
+.monogram > g > path {
+    fill: var(--color-2);
+}
+.my-name {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}
 .word-container {
     box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.25);
     background-color: var(--color-2);
@@ -13,7 +29,6 @@
     padding: 2rem;
     max-width: 600px;
 }
-
 .word-title {
     display: flex;
     flex-direction: row;
@@ -21,14 +36,12 @@
     align-items: baseline;
     margin-bottom: 1rem;
 }
-
 .word {
     font-size: 2rem;
     font-weight: bold;
     text-align: left;
     margin: 0;
 }
-
 .word-type {
     font-size: 1.25rem;
     font-weight: bold;
@@ -36,7 +49,6 @@
     margin: 0;
     margin-left: 0.5rem;
 }
-
 .word-sound {
     font-size: 1.25rem;
     font-weight: normal;
@@ -44,18 +56,9 @@
     margin: 0;
     margin-bottom: 1rem;
 }
-
 .definition {
     font-size: 1rem;
     font-weight: normal;
     text-align: left;
     margin: 0;
-}
-
-.monogram {
-    width: 100px;
-}
-
-.monogram > g > path {
-    fill: var(--color-2);
 }
