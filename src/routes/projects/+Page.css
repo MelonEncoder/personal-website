@@ -1,0 +1,11 @@
+.projects-page {
+}
+
+.extern-link {
+    color: var(--color-2);
+    text-decoration: underline;
+}
+
+.extern-link:hover {
+    text-decoration: none;
+}
