@@ -20,9 +20,15 @@
 	}
 
 	:global(body) {
-		font-family: 'Cascadia Mono';
+		font-family: 'Inter';
 		min-height: 100vh;
 		margin: 0;
 		background-color: var(--white-1);
+	}
+	:global(h1) {
+		font-family: 'Cascadia Mono';
+	}
+	:global(p) {
+		font-family: 'Inter';
 	}
 </style>
