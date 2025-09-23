@@ -1,5 +1,8 @@
 <script>
 	import monogram from '$lib/assets/monogram.svg';
+
+	const programmingLanguages = ['C', 'C++', 'Javascript', 'Go', 'Svelte', 'HTML/CSS'];
+	const tools = ['Blender', 'Affinity Photo', 'Affinity Designer', 'Godot'];
 </script>
 
 <div id="page">
@@ -18,39 +21,51 @@
 	<div class="grid">
 		<div class="box">
 			<h1>Ian Gillette</h1>
-			<h3>United States</h3>
+			<p>Florida, United States</p>
 		</div>
 		<div class="box" id="about">
 			<h1>About me</h1>
-			<p>I</p>
-			<p>Hello! I'm Ian.</p>
+			<p>Hello!</p>
+			<p>It's still a work in progress</p>
 		</div>
 		<div class="box">
 			<h1>Links</h1>
+			<a href="https://github.com/MelonEncoder">GitHub</a>
+			<a href="https://linkedin.com/in/iangillette">LinkedIn</a>
 		</div>
 		<div class="box">
-			<h1>Tools</h1>
-			<h3>Programming</h3>
+			<h1>Tech I Use</h1>
+			<h3>Programming Languages</h3>
 			<ul>
-				<li>C</li>
-				<li>C++</li>
-				<li>Javascript</li>
-				<li>HTML/CSS</li>
+				{#each programmingLanguages as lang (lang)}
+					<li class="programming-item" id={lang}>{lang}</li>
+				{/each}
 			</ul>
-			<h3>Graphic Design</h3>
+			<h3>Software</h3>
 			<ul>
-				<li>Affinity Designer</li>
-				<li>Blender</li>
+				{#each tools as tool (tool)}
+					<li class="software-item" id={tool}>{tool}</li>
+				{/each}
 			</ul>
 		</div>
 	</div>
 </div>
 
 <style>
+	.programming-item,
+	.software-item {
+		font-size: 1rem;
+		border: 1px solid var(--black-1);
+		border-radius: 0.2rem;
+		padding: 0.2rem 0.35rem;
+		margin-right: 0.5rem;
+	}
+
 	.box {
 		padding: 1rem;
 		border: 2px solid var(--black-1);
 		border-radius: 1rem;
+		/*box-shadow: 0px 8px 0px 0px var(--black-1);*/
 	}
 
 	.grid {
@@ -71,9 +86,8 @@
 		padding: 40px;
 		background-color: var(--black-1);
 		color: var(--white-1);
-		margin: auto;
-		border-bottom-left-radius: 1rem;
-		border-bottom-right-radius: 1rem;
+		margin: 2rem auto;
+		border-radius: 0.45rem;
 	}
 
 	nav {
@@ -105,10 +119,22 @@
 		color: var(--black-1);
 		outline: 2px solid var(--white-1);
 		outline-style: dotted;
-		outline-offset: 5px;
+		outline-offset: 0.4rem;
 	}
 
 	button:active {
 		background-color: var(--white-2);
+	}
+
+	@media (max-width: 1200px) {
+		#page {
+			padding: 0 1rem;
+		}
+	}
+
+	@media (max-width: 755px) {
+		.grid {
+			grid: repeat(1, auto) / 1fr;
+		}
 	}
 </style>
