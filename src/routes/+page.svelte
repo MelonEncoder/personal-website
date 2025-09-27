@@ -62,8 +62,8 @@
 		<div class="grid-item" id="about-section">
 			<h1>About Me</h1>
 			<p>
-				Hello! My name is Ian Gillette and I'm currently a student at University studying Computer
-				Science. I enjoy drawing, programming, and learning new things.
+				Hello! My name is Ian Gillette and I'm currently a student studying Computer Science. I
+				enjoy doing art, programming tools, and learning new things.
 			</p>
 		</div>
 		<div class="grid-item" id="welcome-section">
