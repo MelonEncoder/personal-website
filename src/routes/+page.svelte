@@ -6,18 +6,24 @@
 	import linkedinLogo from '$lib/assets/linkedin-logo-black.svg';
 	import businessCard from '$lib/assets/digital-media/ian-business-card.jpg';
 
+	import Window from './window.svelte';
+
 	const programmingLanguages = ['C', 'C++', 'Javascript', 'HTML/CSS', 'Go', 'Swift'];
 	const developerTools = ['Git', 'Svelte', 'OpenCV', 'Poppler', 'SFML'];
 	const programms = ['Blender', 'Affinity Photo', 'Affinity Designer', 'Godot', 'Davinci Resolve'];
 
+	let showArt: boolean = $state(true);
+
 	let year: string = new Date().getFullYear().toString();
-	let localTime = new Intl.DateTimeFormat('en-US', {
-		timeZone: 'America/New_York',
-		hour: 'numeric',
-		minute: 'numeric',
-		second: 'numeric',
-		hour12: false
-	}).format(new Date());
+	let localTime = $state(
+		new Intl.DateTimeFormat('en-US', {
+			timeZone: 'America/New_York',
+			hour: 'numeric',
+			minute: 'numeric',
+			second: 'numeric',
+			hour12: false
+		}).format(new Date())
+	);
 
 	onMount(() => {
 		localTime = new Intl.DateTimeFormat('en-US', {
@@ -46,7 +52,7 @@
 	}
 
 	function moreDigitalMedia() {
-		alert('Work in progress.');
+		showArt = !showArt;
 	}
 </script>
 
@@ -93,7 +99,7 @@
 						</p>
 					</div>
 				</div>
-				<button class="more-button" on:click={moreProgrammingProjects}>More</button>
+				<button class="more-button" onclick={moreProgrammingProjects}>More</button>
 			</div>
 			<div class="work-item" id="graphic-design-section">
 				<div>
@@ -109,7 +115,10 @@
 						</div>
 					</div>
 				</div>
-				<button class="more-button" on:click={moreDigitalMedia}>More</button>
+				<button class="more-button" onclick={moreDigitalMedia}>More</button>
+				{#if showArt}
+					<Window />
+				{/if}
 			</div>
 		</div>
 
