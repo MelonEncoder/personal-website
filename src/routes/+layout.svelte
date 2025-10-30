@@ -36,25 +36,4 @@
 		margin: 0;
 		background-color: var(--white-1);
 	}
-	/*:global(h1) {
-		font-family: var(--font-1), sans-serif;
-		font-size: 3rem;
-		font-weight: 700;
-		line-height: 1.2;
-		margin: 0 0 1.25rem 0;
-	}
-
-	:global(h2) {
-		font-size: 2rem;
-		font-weight: 600;
-		line-height: 1.3;
-		margin: 1.5rem 0 0.75rem 0;
-	}
-
-	:global(p) {
-		font-size: 1rem;
-		font-weight: 400;
-		line-height: 1.6;
-		margin: 0 0 1rem 0;
-	}*/
 </style>

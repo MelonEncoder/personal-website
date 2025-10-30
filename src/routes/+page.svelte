@@ -1,7 +1,21 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import infoIcon from '$lib/assets/icons/info.svg';
 	import linkIcon from '$lib/assets/icons/link.svg';
 	import folderIcon from '$lib/assets/icons/folder.svg';
+
+	function handleAboutClick() {
+		goto(resolve('./about'));
+	}
+
+	function handleLinksClick() {
+		goto(resolve('./links'));
+	}
+
+	function handleWorkClick() {
+		goto(resolve('./work'));
+	}
 </script>
 
 <div class="page">
@@ -16,7 +30,7 @@
 		</header>
 		<ul class="welcome-list">
 			<li class="welcome-list-item">
-				<button class="welcome-list-button">
+				<button class="welcome-list-button" id="about-button" onclick={handleAboutClick}>
 					<div class="button-content">
 						<img src={infoIcon} alt="info icon" />
 						about
@@ -24,7 +38,7 @@
 				</button>
 			</li>
 			<li class="welcome-list-item">
-				<button class="welcome-list-button">
+				<button class="welcome-list-button" id="links-button" onclick={handleLinksClick}>
 					<div class="button-content">
 						<img src={linkIcon} alt="link icon" />
 						links
@@ -32,9 +46,12 @@
 				</button>
 			</li>
 			<li class="welcome-list-item">
-				<button class="welcome-list-button"
-					><div class="button-content"><img src={folderIcon} alt="folder icon" />work</div></button
-				>
+				<button class="welcome-list-button" id="work-button" onclick={handleWorkClick}>
+					<div class="button-content">
+						<img src={folderIcon} alt="folder icon" />
+						work
+					</div>
+				</button>
 			</li>
 		</ul>
 	</div>
@@ -94,6 +111,7 @@
 	}
 
 	.welcome-list-button {
+		cursor: pointer;
 		font-size: 1.5rem;
 		font-weight: 800;
 		padding: 1.5rem;
@@ -102,23 +120,20 @@
 		width: 600px;
 		background-color: transparent;
 		box-shadow: 0 5px var(--black-1);
+		transition: all 0.2s ease;
 	}
 
 	.welcome-list-button:hover {
-		position: relative;
 		box-shadow: 0 10px var(--accent-main-1);
 		border-color: var(--accent-main-1);
-		top: -5px;
-		cursor: pointer;
+		transform: translateY(-5px);
 	}
 
 	.welcome-list-button:active {
-		position: relative;
-		box-shadow: 0 -5px var(--accent-main-1);
+		transition: all 0.08s ease;
+		box-shadow: 0 0px var(--accent-main-1);
 		border-color: var(--accent-main-1);
-		top: 5px;
-		padding-bottom: calc(1.5rem - 5px);
-		margin-top: 5px;
+		transform: translateY(5px);
 	}
 
 	.button-content {
