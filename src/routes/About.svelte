@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Modal from '$lib/components/Modal.svelte';
 	import monogram from '$lib/assets/monogram.svg';
+
 	const developmentItems = [
 		'C',
 		'C++',
@@ -11,46 +11,44 @@
 		'Svelte',
 		'Git'
 	];
-	const softwareItems = ['Affinity Photo', 'Affinity Designer', 'Blender', 'Figma', 'Godot'];
+	const softwareItems = ['Affinity', 'Blender', 'Figma', 'Godot'];
 
 	let year = new Date().getFullYear().toString();
 </script>
 
-<Modal closePath="/">
-	<div class="about-content">
-		<h1 class="main-heading"><span class="grad-text">About Me</span></h1>
-		<p class="intro-text">
-			Hello! My name is Ian Gillette and I'm currently at UCF studying Computer Science. I enjoy
-			doing creative projects, programming, and learning new things.
-		</p>
-		<h2 class="section-heading">Development</h2>
-		<ul class="tool-list">
-			{#each developmentItems as item (item)}
-				<li class="tool-item" id={item}>{item}</li>
-			{/each}
-		</ul>
-		<h2 class="section-heading">Tools</h2>
-		<ul class="tool-list">
-			{#each softwareItems as item (item)}
-				<li class="tool-item" id={item}>{item}</li>
-			{/each}
-		</ul>
-		<h2 class="section-heading">Language Fluency</h2>
-		<p class="section-text">
-			I am actively learning Japanese at the moment, with the plan to be fluent in not only
-			<span class="highlight">Japanese</span>
-			but <span class="highlight">Spanish</span> and a few other languages. Where I'm at:
-		</p>
-		<ul class="language-list">
-			<li>Japanese/日本語 (Elementary Level)</li>
-			<li>Spanish/Español (Elementary Level)</li>
-		</ul>
-		<footer>
-			<img id="monogram" src={monogram} alt="ian's monogram" width="75px" />
-			<p>Copyright &copy; {year} Ian Gillette</p>
-		</footer>
-	</div>
-</Modal>
+<div class="about-content">
+	<h1 class="main-heading"><span class="grad-text">About Me</span></h1>
+	<p class="intro-text">
+		Hello! My name is Ian Gillette and I'm currently at UCF studying Computer Science. I enjoy doing
+		creative projects, programming, and learning new things.
+	</p>
+	<h2 class="section-heading">Development</h2>
+	<ul class="tool-list">
+		{#each developmentItems as item (item)}
+			<li class="tool-item" id={item}>{item}</li>
+		{/each}
+	</ul>
+	<h2 class="section-heading">Tools</h2>
+	<ul class="tool-list">
+		{#each softwareItems as item (item)}
+			<li class="tool-item" id={item}>{item}</li>
+		{/each}
+	</ul>
+	<h2 class="section-heading">Language Fluency</h2>
+	<p class="section-text">
+		I am actively learning Japanese at the moment, with the plan to be fluent in not only
+		<span class="highlight">Japanese</span>
+		but <span class="highlight">Spanish</span> and a few other languages. Where I'm at:
+	</p>
+	<ul class="language-list">
+		<li>Japanese/日本語 (Elementary Level)</li>
+		<li>Spanish/Español (Elementary Level)</li>
+	</ul>
+	<footer>
+		<img id="monogram" src={monogram} alt="ian's monogram" width="75px" />
+		<p>Copyright &copy; {year} Ian Gillette</p>
+	</footer>
+</div>
 
 <style>
 	.about-content {

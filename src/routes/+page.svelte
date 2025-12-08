@@ -1,20 +1,18 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { resolve } from '$app/paths';
 	import infoIcon from '$lib/assets/icons/info.svg';
 	import linkIcon from '$lib/assets/icons/link.svg';
 	import folderIcon from '$lib/assets/icons/folder.svg';
+	import About from './About.svelte';
+	import Work from './Work.svelte';
+	import Links from './Links.svelte';
+	import Modal from '$lib/components/Modal.svelte';
 
-	function handleAboutClick() {
-		goto(resolve('./about'));
-	}
+	type FloatingWindows = 'About' | 'Links' | 'Work' | undefined;
 
-	function handleLinksClick() {
-		goto(resolve('./links'));
-	}
+	let floatingWindow: FloatingWindows = undefined;
 
-	function handleWorkClick() {
-		goto(resolve('./work'));
+	function closeModal() {
+		floatingWindow = undefined;
 	}
 </script>
 
@@ -30,7 +28,13 @@
 		</header>
 		<ul class="welcome-list">
 			<li class="welcome-list-item">
-				<button class="welcome-list-button" id="about-button" onclick={handleAboutClick}>
+				<button
+					class="welcome-list-button"
+					id="about-button"
+					onclick={() => {
+						floatingWindow = 'About';
+					}}
+				>
 					<div class="button-content">
 						<img src={infoIcon} alt="info icon" />
 						about
@@ -38,7 +42,13 @@
 				</button>
 			</li>
 			<li class="welcome-list-item">
-				<button class="welcome-list-button" id="links-button" onclick={handleLinksClick}>
+				<button
+					class="welcome-list-button"
+					id="links-button"
+					onclick={() => {
+						floatingWindow = 'Links';
+					}}
+				>
 					<div class="button-content">
 						<img src={linkIcon} alt="link icon" />
 						links
@@ -46,7 +56,13 @@
 				</button>
 			</li>
 			<li class="welcome-list-item">
-				<button class="welcome-list-button" id="work-button" onclick={handleWorkClick}>
+				<button
+					class="welcome-list-button"
+					id="work-button"
+					onclick={() => {
+						floatingWindow = 'Work';
+					}}
+				>
 					<div class="button-content">
 						<img src={folderIcon} alt="folder icon" />
 						work
@@ -54,6 +70,17 @@
 				</button>
 			</li>
 		</ul>
+		{#if floatingWindow !== undefined}
+			<Modal {closeModal}>
+				{#if floatingWindow === 'About'}
+					<About />
+				{:else if floatingWindow === 'Work'}
+					<Work />
+				{:else if floatingWindow === 'Links'}
+					<Links />
+				{/if}
+			</Modal>
+		{/if}
 	</div>
 </div>
 

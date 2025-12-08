@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Modal from '$lib/components/Modal.svelte';
 	import businessCard from '$lib/assets/digital-media/ian-business-card.jpg';
 	import queensGambitPoster from '$lib/assets/digital-media/the-queens-gambit-poster.png';
 	import magazineCover from '$lib/assets/digital-media/magazine-cover.jpg';
@@ -32,119 +31,117 @@
 	}
 </script>
 
-<Modal closePath="/">
-	<div class="work-content">
-		<h1 class="main-heading grad-text">My Work</h1>
-		<p class="intro-text">
-			Here is a collection of much of my work. From CLI tools to graphic designs to video games, I
-			do my best to stay well versed in many fields.
-		</p>
+<div class="work-content">
+	<h1 class="main-heading grad-text">My Work</h1>
+	<p class="intro-text">
+		Here is a collection of much of my work. From CLI tools to graphic designs to video games, I do
+		my best to stay well versed in many fields.
+	</p>
 
-		<h2 class="section-heading">Programming Projects</h2>
-		<div class="programming-list">
-			<div class="programming-item">
-				<h3 class="project-title">
-					<a href="https://github.com/MelonEncoder/pdf-to-video" rel="external">
-						PDF to Video CLI tool
-						<img src={linkIcon} alt="link icon" />
-					</a>
-				</h3>
-				<p class="section-text">
-					This is a program that converts a .pdf file into a .mp4 file. You can set the FPS,
-					duration, resolution, and even animate the pdf.
-				</p>
-			</div>
-			<div class="programming-item">
-				<h3 class="project-title">
-					<a href="https://github.com/MelonEncoder/personal-website" rel="external">
-						Personal Website (the one you are on)
-						<img src={linkIcon} alt="link icon" />
-					</a>
-				</h3>
-				<p class="section-text">
-					Made using Svelte with the intention to showcase myself and my work.
-				</p>
-			</div>
-			<div class="programming-item">
-				<h3 class="project-title">
-					<a href="https://github.com/MelonEncoder/img-downloader" rel="external">
-						HTML Image Parser
-						<img src={linkIcon} alt="link icon" />
-					</a>
-				</h3>
-				<p class="section-text">
-					I created this program to test out the Go programming language. Just describe the prefix
-					you want want to look for like "src=" and then all the respective images will downloaded.
-				</p>
-			</div>
+	<h2 class="section-heading">Programming Projects</h2>
+	<div class="programming-list">
+		<div class="programming-item">
+			<h3 class="project-title">
+				<a href="https://github.com/MelonEncoder/pdf-to-video" rel="external">
+					PDF to Video CLI tool
+					<img src={linkIcon} alt="link icon" />
+				</a>
+			</h3>
+			<p class="section-text">
+				This is a program that converts a .pdf file into a .mp4 file. You can set the FPS, duration,
+				resolution, and even animate the pdf.
+			</p>
 		</div>
-
-		<h2 class="section-heading">Graphic Design</h2>
-		<div class="graphics-grid">
-			<button
-				class="image-button"
-				onclick={() => openImage(businessCard)}
-				onkeydown={(e) => handleImageKeydown(e, businessCard)}
-				aria-label="View business card design"
-			>
-				<img src={businessCard} alt="ian's business card" />
-				<img src={zoomInIcon} alt="" class="zoom-icon" />
-			</button>
-			<button
-				class="image-button"
-				onclick={() => openImage(mountainGraphic)}
-				onkeydown={(e) => handleImageKeydown(e, mountainGraphic)}
-				aria-label="View mountain graphic"
-			>
-				<img src={mountainGraphic} alt="mountain graphic design" />
-				<img src={zoomInIcon} alt="" class="zoom-icon" />
-			</button>
-			<button
-				class="image-button"
-				onclick={() => openImage(magazineCover)}
-				onkeydown={(e) => handleImageKeydown(e, magazineCover)}
-				aria-label="View magazine cover"
-			>
-				<img src={magazineCover} alt="magazine cover design" />
-				<img src={zoomInIcon} alt="" class="zoom-icon" />
-			</button>
-			<button
-				class="image-button"
-				onclick={() => openImage(queensGambitPoster)}
-				onkeydown={(e) => handleImageKeydown(e, queensGambitPoster)}
-				aria-label="View Queen's Gambit poster"
-			>
-				<img src={queensGambitPoster} alt="the queen's gambit poster" />
-				<img src={zoomInIcon} alt="" class="zoom-icon" />
-			</button>
+		<div class="programming-item">
+			<h3 class="project-title">
+				<a href="https://github.com/MelonEncoder/personal-website" rel="external">
+					Personal Website (the one you are on)
+					<img src={linkIcon} alt="link icon" />
+				</a>
+			</h3>
+			<p class="section-text">
+				Made using Svelte with the intention to showcase myself and my work.
+			</p>
 		</div>
-
-		<h2 class="section-heading">Video Games</h2>
-		<div class="game-item">
-			<button
-				class="game-image-button"
-				onclick={() => openImage(whiteButtonScreenshot)}
-				onkeydown={(e) => handleImageKeydown(e, whiteButtonScreenshot)}
-				aria-label="View White Button game screenshot"
-			>
-				<img src={whiteButtonScreenshot} alt="white button video game screenshot" />
-				<img src={zoomInIcon} alt="" class="zoom-icon" />
-			</button>
-			<div class="game-info">
-				<h3 class="project-title">
-					<a href="https://karpoonz.itch.io/white-button" rel="external">
-						White Button
-						<img src={linkIcon} alt="link icon" />
-					</a>
-				</h3>
-				<p class="section-text">
-					White Button was created during a week long game jam where the theme was 1-bit color
-					palette. Your goal is to click all the buttons before the lava reaches you.
-				</p>
-			</div>
+		<div class="programming-item">
+			<h3 class="project-title">
+				<a href="https://github.com/MelonEncoder/img-downloader" rel="external">
+					HTML Image Parser
+					<img src={linkIcon} alt="link icon" />
+				</a>
+			</h3>
+			<p class="section-text">
+				I created this program to test out the Go programming language. Just describe the prefix you
+				want want to look for like "src=" and then all the respective images will downloaded.
+			</p>
 		</div>
 	</div>
-</Modal>
+
+	<h2 class="section-heading">Graphic Design</h2>
+	<div class="graphics-grid">
+		<button
+			class="image-button"
+			onclick={() => openImage(businessCard)}
+			onkeydown={(e) => handleImageKeydown(e, businessCard)}
+			aria-label="View business card design"
+		>
+			<img src={businessCard} alt="ian's business card" />
+			<img src={zoomInIcon} alt="" class="zoom-icon" />
+		</button>
+		<button
+			class="image-button"
+			onclick={() => openImage(mountainGraphic)}
+			onkeydown={(e) => handleImageKeydown(e, mountainGraphic)}
+			aria-label="View mountain graphic"
+		>
+			<img src={mountainGraphic} alt="mountain graphic design" />
+			<img src={zoomInIcon} alt="" class="zoom-icon" />
+		</button>
+		<button
+			class="image-button"
+			onclick={() => openImage(magazineCover)}
+			onkeydown={(e) => handleImageKeydown(e, magazineCover)}
+			aria-label="View magazine cover"
+		>
+			<img src={magazineCover} alt="magazine cover design" />
+			<img src={zoomInIcon} alt="" class="zoom-icon" />
+		</button>
+		<button
+			class="image-button"
+			onclick={() => openImage(queensGambitPoster)}
+			onkeydown={(e) => handleImageKeydown(e, queensGambitPoster)}
+			aria-label="View Queen's Gambit poster"
+		>
+			<img src={queensGambitPoster} alt="the queen's gambit poster" />
+			<img src={zoomInIcon} alt="" class="zoom-icon" />
+		</button>
+	</div>
+
+	<h2 class="section-heading">Video Games</h2>
+	<div class="game-item">
+		<button
+			class="game-image-button"
+			onclick={() => openImage(whiteButtonScreenshot)}
+			onkeydown={(e) => handleImageKeydown(e, whiteButtonScreenshot)}
+			aria-label="View White Button game screenshot"
+		>
+			<img src={whiteButtonScreenshot} alt="white button video game screenshot" />
+			<img src={zoomInIcon} alt="" class="zoom-icon" />
+		</button>
+		<div class="game-info">
+			<h3 class="project-title">
+				<a href="https://karpoonz.itch.io/white-button" rel="external">
+					White Button
+					<img src={linkIcon} alt="link icon" />
+				</a>
+			</h3>
+			<p class="section-text">
+				White Button was created during a week long game jam where the theme was 1-bit color
+				palette. Your goal is to click all the buttons before the lava reaches you.
+			</p>
+		</div>
+	</div>
+</div>
 
 {#if enlargedImage}
 	<div class="image-overlay" onclick={handleBackdropClick} role="presentation">

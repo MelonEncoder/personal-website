@@ -1,34 +1,31 @@
 <script lang="ts">
-	import Modal from '$lib/components/Modal.svelte';
 	import githubLogo from '$lib/assets/icons/logo-github.svg';
 	import linkedinLogo from '$lib/assets/icons/logo-linkedin.svg';
 </script>
 
-<Modal closePath="/">
-	<div class="links-content">
-		<h1 class="main-heading grad-text">Links</h1>
-		<div class="links">
-			<a
-				class="link section-heading"
-				id="github"
-				href="https://github.com/MelonEncoder"
-				rel="external"
-			>
-				<img src={githubLogo} alt="github logo" />
-				GitHub
-			</a>
-			<a
-				class="link section-heading"
-				id="linkedin"
-				href="https://linkedin.com/in/iangillette"
-				rel="external"
-			>
-				<img src={linkedinLogo} alt="linkedin logo" />
-				LinkedIn
-			</a>
-		</div>
+<div class="links-content">
+	<h1 class="main-heading grad-text">Links</h1>
+	<div class="links">
+		<a
+			class="link section-heading"
+			id="github"
+			href="https://github.com/MelonEncoder"
+			rel="external"
+		>
+			<img src={githubLogo} alt="github logo" />
+			GitHub
+		</a>
+		<a
+			class="link section-heading"
+			id="linkedin"
+			href="https://linkedin.com/in/iangillette"
+			rel="external"
+		>
+			<img src={linkedinLogo} alt="linkedin logo" />
+			LinkedIn
+		</a>
 	</div>
-</Modal>
+</div>
 
 <style>
 	.main-heading {

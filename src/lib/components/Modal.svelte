@@ -1,22 +1,15 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { resolve } from '$app/paths';
-
-	let { children, closePath } = $props();
-
-	function onClose() {
-		goto(resolve(closePath));
-	}
+	let { children, closeModal } = $props();
 
 	function handleBackdropClick(e: MouseEvent) {
 		if (e.target === e.currentTarget) {
-			onClose();
+			closeModal();
 		}
 	}
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape') {
-			onClose();
+			closeModal();
 		}
 	}
 
@@ -65,7 +58,7 @@
 			onmousedown={dragStart}
 			ontouchstart={dragStart}
 		>
-			<button class="close-button" onclick={onClose} aria-label="Close modal">
+			<button class="close-button" onclick={closeModal} aria-label="Close modal">
 				<svg
 					width="24"
 					height="24"
@@ -94,12 +87,12 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background-color: var(--white-1);
+		background-color: rgba(100, 100, 100, 0.05);
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		z-index: 1000;
-		backdrop-filter: blur(10px);
+		backdrop-filter: blur(3px);
 	}
 
 	.modal-window {
