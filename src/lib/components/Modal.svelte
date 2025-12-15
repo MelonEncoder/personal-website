@@ -97,8 +97,8 @@
 
 	.modal-window {
 		position: relative;
-		background-color: var(--white-1);
-		border: 2px solid var(--black-1);
+		background-color: var(--white);
+		border: 2px solid var(--black);
 		border-radius: 1rem;
 		box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.25);
 		max-width: 90vw;
@@ -110,14 +110,14 @@
 	}
 
 	.modal-header {
-		border-bottom: 2px solid var(--black-1);
+		border-bottom: 2px solid var(--black);
 		padding: 0.75rem 1rem;
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
 		cursor: move;
 		user-select: none;
-		background-color: var(--black-1);
+		background-color: var(--black);
 	}
 
 	.close-button {
@@ -128,7 +128,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: var(--white-1);
+		color: var(--white);
 		border-radius: 4px;
 		transition: all 0.2s;
 	}

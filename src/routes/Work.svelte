@@ -167,14 +167,14 @@
 <style>
 	.work-content {
 		font-family: var(--font-1), sans-serif;
-		color: var(--black-1);
+		color: var(--black);
 	}
 
 	.main-heading {
 		font-size: 3rem;
 		font-weight: 800;
 		margin: 0 0 1.5rem 0;
-		color: var(--black-1);
+		color: var(--black);
 		line-height: 1.2;
 	}
 
@@ -182,7 +182,7 @@
 		font-size: 2rem;
 		font-weight: 700;
 		margin: 2.5rem 0 1.25rem 0;
-		color: var(--black-1);
+		color: var(--black);
 		line-height: 1.3;
 	}
 
@@ -200,7 +200,7 @@
 	.intro-text {
 		font-size: 1.125rem;
 		line-height: 1.7;
-		color: var(--black-1);
+		color: var(--black);
 		margin-bottom: 1.5rem;
 		font-weight: 400;
 	}
@@ -208,7 +208,7 @@
 	.section-text {
 		font-size: 1rem;
 		line-height: 1.7;
-		color: var(--black-2);
+		color: var(--black);
 		margin: 0;
 		font-weight: 400;
 	}
@@ -221,11 +221,11 @@
 	}
 
 	.programming-item {
-		border: 2px solid var(--black-1);
+		border: 2px solid var(--black);
 		border-radius: 0.5rem;
 		padding: 1.5rem;
 		transition: all 0.2s ease;
-		background-color: var(--white-1);
+		background-color: var(--white);
 	}
 
 	.programming-item:hover {
@@ -241,11 +241,11 @@
 		font-size: 1.25rem;
 		font-weight: 600;
 		margin: 0 0 0.75rem 0;
-		color: var(--black-1);
+		color: var(--black);
 	}
 
 	.project-title a {
-		color: var(--black-1);
+		color: var(--black);
 		text-decoration: none;
 		transition: color 0.2s ease;
 	}
@@ -264,7 +264,7 @@
 
 	.image-button {
 		background: none;
-		border: 2px solid var(--black-1);
+		border: 2px solid var(--black);
 		border-radius: 0.5rem;
 		padding: 0;
 		cursor: pointer;
@@ -314,15 +314,15 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
-		border: 2px solid var(--black-1);
+		border: 2px solid var(--black);
 		border-radius: 0.5rem;
 		padding: 1.5rem;
-		background-color: var(--white-1);
+		background-color: var(--white);
 	}
 
 	.game-image-button {
 		background: none;
-		border: 2px solid var(--black-1);
+		border: 2px solid var(--black);
 		border-radius: 0.5rem;
 		padding: 0;
 		cursor: pointer;
@@ -379,7 +379,7 @@
 		max-width: 90%;
 		max-height: 90%;
 		object-fit: contain;
-		border: 4px solid var(--white-1);
+		border: 4px solid var(--white);
 		border-radius: 0.5rem;
 		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 	}
@@ -388,8 +388,8 @@
 		position: absolute;
 		top: 10%;
 		right: 10%;
-		background: var(--white-1);
-		border: 2px solid var(--black-1);
+		background: var(--white);
+		border: 2px solid var(--black);
 		border-radius: 50%;
 		width: 3rem;
 		height: 3rem;
@@ -398,13 +398,13 @@
 		justify-content: center;
 		cursor: pointer;
 		transition: all 0.2s ease;
-		color: var(--black-1);
+		color: var(--black);
 	}
 
 	.close-overlay:hover {
 		background: var(--accent-main-1);
 		border-color: var(--accent-main-1);
-		color: var(--white-1);
+		color: var(--white);
 		transform: rotate(90deg);
 	}
 

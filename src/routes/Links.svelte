@@ -32,7 +32,7 @@
 		font-size: 3rem;
 		font-weight: 800;
 		margin: 0 0 1.5rem 0;
-		color: var(--black-1);
+		color: var(--black);
 		line-height: 1.2;
 	}
 
@@ -40,7 +40,7 @@
 		font-size: 2rem;
 		font-weight: 700;
 		margin: 2rem 0 1rem 0;
-		color: var(--black-1);
+		color: var(--black);
 		line-height: 1.3;
 	}
 
@@ -55,12 +55,12 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		border: 2px solid var(--black-1);
+		border: 2px solid var(--black);
 		border-radius: 0.5rem;
 		text-decoration: none;
 		padding: 2rem 1rem;
 		transition: all 0.2s ease;
-		box-shadow: 0 5px var(--black-1);
+		box-shadow: 0 5px var(--black);
 	}
 
 	.link:hover {

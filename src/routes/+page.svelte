@@ -18,14 +18,12 @@
 
 <div class="page">
 	<div>
-		<header>
-			<div>
-				<h1 class="welcome-text">
-					I'm <span class="grad-text">Ian Gillette</span>
-				</h1>
-				<p class="sub-heading-text">Problem Solver / Programmer / Designer</p>
-			</div>
-		</header>
+		<div class="welcome-container">
+			<h1 class="welcome-text">
+				I'm <span class="grad-text">Ian Gillette</span>
+			</h1>
+			<p class="sub-heading-text">Problem Solver / Programmer / Designer</p>
+		</div>
 		<ul class="welcome-list">
 			<li class="welcome-list-item">
 				<button
@@ -89,11 +87,11 @@
 		display: flex;
 		flex-direction: column;
 		place-content: center;
-		padding: 1rem 0;
-		min-height: calc(100vh - calc(2 * 1rem));
+		min-height: 100dvh;
+		background-color: var(--white);
 	}
 
-	header {
+	.welcome-container {
 		text-align: center;
 		margin-bottom: 4.5rem;
 	}
@@ -142,11 +140,11 @@
 		font-size: 1.5rem;
 		font-weight: 800;
 		padding: 1.5rem;
-		border: 2px solid var(--black-1);
+		border: 2px solid var(--black);
 		border-radius: 8px;
 		width: 600px;
 		background-color: transparent;
-		box-shadow: 0 5px var(--black-1);
+		box-shadow: 0 5px var(--black);
 		transition: all 0.2s ease;
 	}
 

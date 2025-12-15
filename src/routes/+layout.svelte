@@ -19,11 +19,9 @@
 		--font-2: 'IBM Plex Sans';
 
 		/* Colors */
-		--black-1: rgb(33 33 35);
-		--black-2: rgb(63 63 67);
+		--black: rgb(33 33 35);
 
-		--white-1: rgb(251 250 245);
-		--white-2: rgb(221 220 215);
+		--white: rgb(251 250 245);
 
 		--accent-main-1: #ff3c66;
 		--accent-main-2: #ff15b1;
@@ -32,8 +30,7 @@
 
 	:global(body) {
 		font-family: var(--font-1), sans-serif, serif;
-		min-height: 100vh;
 		margin: 0;
-		background-color: var(--white-1);
+		background-color: var(--white);
 	}
 </style>
