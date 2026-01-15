@@ -1,5 +1,4 @@
 <script lang="ts">
-	import monogram from "$lib/assets/brand/monogram.svg";
 	import type { Snippet } from "svelte";
 	import { goto } from "$app/navigation";
 	import { resolve } from "$app/paths";
@@ -143,11 +142,6 @@
 		box-shadow:
 			0 0 0 2px var(--white),
 			0 0 0 4px var(--accent);
-	}
-	.monogram {
-		height: 2rem;
-		width: 100%;
-		aspect-ratio: 1 / 1;
 	}
 
 	.pageTitle {

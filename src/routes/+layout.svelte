@@ -33,7 +33,6 @@
 
 	:global(body) {
 		font-family: var(--font-1), sans-serif, serif;
-		min-height: 100vh;
 		margin: 0;
 		background-color: var(--white);
 	}
