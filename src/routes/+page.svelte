@@ -1,188 +1,213 @@
 <script lang="ts">
-	import infoIcon from '$lib/assets/icons/info.svg';
-	import linkIcon from '$lib/assets/icons/link.svg';
-	import folderIcon from '$lib/assets/icons/folder.svg';
-	import About from './About.svelte';
-	import Work from './Work.svelte';
-	import Links from './Links.svelte';
-	import Modal from '$lib/components/Modal.svelte';
+	import infoIcon from "$lib/assets/icons/info.svg";
+	import linkIcon from "$lib/assets/icons/link.svg";
+	import folderIcon from "$lib/assets/icons/folder.svg";
 
-	type FloatingWindows = 'About' | 'Links' | 'Work' | undefined;
-
-	let floatingWindow: FloatingWindows = undefined;
-
-	function closeModal() {
-		floatingWindow = undefined;
+	interface InfoButton {
+		id: SectionId;
+		icon: string;
 	}
+
+	type SectionId = "about" | "links" | "work" | null;
+
+	const infoButtons: InfoButton[] = [
+		{
+			id: "about",
+			icon: infoIcon
+		},
+
+		{ id: "work", icon: folderIcon },
+		{ id: "links", icon: linkIcon }
+	];
 </script>
 
 <div class="page">
-	<div>
-		<header>
-			<div>
-				<h1 class="welcome-text">
-					I'm <span class="grad-text">Ian Gillette</span>
+	<div class="grid">
+		<div class="gridTop"></div>
+		<div class="gridColumnLeft"></div>
+		<div class="gridColumnRight"></div>
+		<div class="gridCenterCell">
+			<div class="welcomeText">
+				<h1 class="welcomeTitle">
+					I'm <span class="gradientText">Ian</span>
 				</h1>
-				<p class="sub-heading-text">Problem Solver / Programmer / Designer</p>
+				<p class="subText">programmer & designer</p>
 			</div>
-		</header>
-		<ul class="welcome-list">
-			<li class="welcome-list-item">
-				<button
-					class="welcome-list-button"
-					id="about-button"
-					onclick={() => {
-						floatingWindow = 'About';
-					}}
-				>
-					<div class="button-content">
-						<img src={infoIcon} alt="info icon" />
-						about
-					</div>
-				</button>
-			</li>
-			<li class="welcome-list-item">
-				<button
-					class="welcome-list-button"
-					id="links-button"
-					onclick={() => {
-						floatingWindow = 'Links';
-					}}
-				>
-					<div class="button-content">
-						<img src={linkIcon} alt="link icon" />
-						links
-					</div>
-				</button>
-			</li>
-			<li class="welcome-list-item">
-				<button
-					class="welcome-list-button"
-					id="work-button"
-					onclick={() => {
-						floatingWindow = 'Work';
-					}}
-				>
-					<div class="button-content">
-						<img src={folderIcon} alt="folder icon" />
-						work
-					</div>
-				</button>
-			</li>
-		</ul>
-		{#if floatingWindow !== undefined}
-			<Modal {closeModal}>
-				{#if floatingWindow === 'About'}
-					<About />
-				{:else if floatingWindow === 'Work'}
-					<Work />
-				{:else if floatingWindow === 'Links'}
-					<Links />
-				{/if}
-			</Modal>
-		{/if}
+			<div class="buttonStack">
+				{#each infoButtons as button (button.id + "Button")}
+					<button class="infoButton" id={button.id}>
+						<div class="buttonContent">
+							<img src={button.icon} alt="info icon" />
+							{button.id}
+						</div>
+					</button>
+				{/each}
+			</div>
+		</div>
+		<div class="gridBottomRow"></div>
 	</div>
+
+	<section class="infoSection" id="about"></section>
+	<section class="infoSection" id="work"></section>
+	<section class="infoSection" id="links"></section>
 </div>
 
 <style>
 	.page {
-		display: flex;
-		flex-direction: column;
-		place-content: center;
-		padding: 1rem 0;
-		min-height: calc(100vh - calc(2 * 1rem));
+		min-height: 100dvh;
+		width: 100%;
+		background-color: var(--white);
+		position: relative;
 	}
 
-	header {
-		text-align: center;
-		margin-bottom: 4.5rem;
+	/* subtle paper grid background */
+	.page::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		opacity: 0.18; /* tune */
+		background-image:
+			linear-gradient(to right, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
+			linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+		background-size: 24px 24px; /* grid size */
 	}
 
-	.welcome-text {
-		font-size: 3.5rem;
-		margin-bottom: 0.5rem;
-		margin-top: 0;
+	/* make content sit above the background grid */
+	.grid {
+		position: relative;
+		z-index: 1;
+
+		display: grid;
+		min-height: 100dvh;
+		width: 100%;
+
+		grid-template-columns: 4rem minmax(0, 1fr) 4rem;
+		grid-template-rows: 4rem 1fr;
 	}
 
-	.sub-heading-text {
+	/* top row rule */
+	.gridTop {
+		grid-column: 2 / 3;
+		grid-row: 1 / 2;
+		height: 4rem;
+
+		border-bottom: 2px solid var(--black);
+	}
+
+	/* left/right gutters */
+	.gridColumnLeft {
+		grid-column: 1 / 2;
+		grid-row: 1 / 3;
+
+		border-right: 2px solid var(--black);
+	}
+
+	.gridColumnRight {
+		grid-column: 3 / 4;
+		grid-row: 1 / 3;
+
+		border-left: 2px solid var(--black);
+	}
+
+	/* bottom rule */
+	.gridBottomRow {
+		grid-column: 1 / 4;
+		grid-row: 3 / 4;
+
+		border-top: 2px solid var(--black);
+	}
+
+	/* center content cell */
+	.gridCenterCell {
+		grid-column: 2 / 3;
+		grid-row: 2 / 3;
+
+		/* editorial whitespace */
+		padding: clamp(2rem, 4vw, 5rem);
+
+		/* center the content vertically without feeling “app-like” */
+		display: grid;
+		align-content: center;
+		gap: 1.75rem;
+	}
+
+	.welcomeText {
+		margin: 0;
+	}
+
+	.welcomeTitle {
+		font-size: clamp(2.2rem, 5vw, 3.25rem);
+		line-height: 1.05;
+		margin: 0 0 0.5rem 0;
+		letter-spacing: -0.02em;
+	}
+
+	.subText {
 		font-size: 1rem;
 		margin: 0;
+		opacity: 0.9;
 	}
 
-	.grad-text {
-		background: var(--accent-main);
-		background-clip: text;
-
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-
-		-moz-background-clip: text;
-		-moz-text-fill-color: transparent;
+	.buttonStack {
+		display: grid;
+		gap: 1.25rem;
+		justify-items: start;
 	}
 
-	.welcome-list {
-		display: flex;
-		flex-direction: column;
-		list-style: none;
-		padding: 0;
-		text-align: center;
-		margin: 0;
-	}
-
-	.welcome-list-item {
-		margin-bottom: 1.5rem;
-	}
-
-	.welcome-list-item:last-child {
-		margin-bottom: 0;
-	}
-
-	.welcome-list-button {
+	.infoButton {
 		cursor: pointer;
-		font-size: 1.5rem;
+		font-size: 1.25rem;
 		font-weight: 800;
-		padding: 1.5rem;
-		border: 2px solid var(--black-1);
-		border-radius: 8px;
-		width: 600px;
-		background-color: transparent;
-		box-shadow: 0 5px var(--black-1);
-		transition: all 0.2s ease;
-	}
 
-	.welcome-list-button:hover {
-		box-shadow: 0 10px var(--accent-main-1);
-		border-color: var(--accent-main-1);
+		padding: 1.25rem 1.5rem;
+		border: 2px solid var(--black);
+		border-radius: 0;
+
+		width: min(36rem, 100%);
+		background-color: var(--white);
+
 		transform: translateY(-5px);
+		box-shadow: 0 5px var(--black);
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease,
+			border-color 0.2s ease;
 	}
 
-	.welcome-list-button:active {
-		transition: all 0.08s ease;
-		box-shadow: 0 0px var(--accent-main-1);
-		border-color: var(--accent-main-1);
-		transform: translateY(5px);
+	.infoButton:hover {
+		transform: translateY(-10px);
+		box-shadow: 0 10px var(--accent);
+		border-color: var(--accent);
 	}
 
-	.button-content {
-		display: flex;
-		flex-direction: row;
-		place-content: center;
+	.infoButton:active {
+		transition:
+			transform 0.08s ease,
+			box-shadow 0.08s ease;
+		box-shadow: 0 0px var(--accent);
+		border-color: var(--accent);
+		transform: translateY(0);
 	}
 
-	.button-content img {
-		width: 2rem;
-		margin-right: 0.5rem;
+	.buttonContent {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
 	}
 
-	@media (max-width: calc(1200px + 1.5rem)) {
-		.page {
-			padding: 0 1.5rem;
+	.buttonContent img {
+		width: 1.75rem;
+	}
+
+	/* mobile */
+	@media (max-width: 656px) {
+		.grid {
+			grid-template-columns: 2.75rem minmax(0, 1fr) 2.75rem;
 		}
-	}
 
-	@media (max-width: 700px) {
-		.welcome-list-button {
-			width: 100%;
+		.gridCenterCell {
+			padding: 1.5rem;
 		}
 	}
 </style>

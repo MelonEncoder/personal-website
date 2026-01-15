@@ -1,11 +1,11 @@
 <script lang="ts">
-	import businessCard from '$lib/assets/digital-media/ian-business-card.jpg';
-	import queensGambitPoster from '$lib/assets/digital-media/the-queens-gambit-poster.png';
-	import magazineCover from '$lib/assets/digital-media/magazine-cover.jpg';
-	import mountainGraphic from '$lib/assets/digital-media/mountain.webp';
-	import whiteButtonScreenshot from '$lib/assets/white-button-screenshot.png';
-	import zoomInIcon from '$lib/assets/icons/zoom-in.svg';
-	import linkIcon from '$lib/assets/icons/link.svg';
+	import businessCard from "$lib/assets/digital-media/ian-business-card.jpg";
+	import queensGambitPoster from "$lib/assets/digital-media/the-queens-gambit-poster.png";
+	import magazineCover from "$lib/assets/digital-media/magazine-cover.jpg";
+	import mountainGraphic from "$lib/assets/digital-media/mountain.webp";
+	import whiteButtonScreenshot from "$lib/assets/white-button-screenshot.png";
+	import zoomInIcon from "$lib/assets/icons/zoom-in.svg";
+	import linkIcon from "$lib/assets/icons/link.svg";
 
 	let enlargedImage = $state<string | null>(null);
 
@@ -18,7 +18,7 @@
 	}
 
 	function handleImageKeydown(e: KeyboardEvent, src: string) {
-		if (e.key === 'Enter' || e.key === ' ') {
+		if (e.key === "Enter" || e.key === " ") {
 			e.preventDefault();
 			openImage(src);
 		}
@@ -32,10 +32,9 @@
 </script>
 
 <div class="work-content">
-	<h1 class="main-heading grad-text">My Work</h1>
 	<p class="intro-text">
-		Here is a collection of much of my work. From CLI tools to graphic designs to video games, I do
-		my best to stay well versed in many fields.
+		Here is a collection of much of my work. From CLI tools to graphic designs to video games, I
+		do my best to stay well versed in many fields.
 	</p>
 
 	<h2 class="section-heading">Programming Projects</h2>
@@ -48,8 +47,8 @@
 				</a>
 			</h3>
 			<p class="section-text">
-				This is a program that converts a .pdf file into a .mp4 file. You can set the FPS, duration,
-				resolution, and even animate the pdf.
+				This is a program that converts a .pdf file into a .mp4 file. You can set the FPS,
+				duration, resolution, and even animate the pdf.
 			</p>
 		</div>
 		<div class="programming-item">
@@ -71,8 +70,9 @@
 				</a>
 			</h3>
 			<p class="section-text">
-				I created this program to test out the Go programming language. Just describe the prefix you
-				want want to look for like "src=" and then all the respective images will downloaded.
+				I created this program to test out the Go programming language. Just describe the
+				prefix you want want to look for like "src=" and then all the respective images will
+				downloaded.
 			</p>
 		</div>
 	</div>
@@ -167,40 +167,21 @@
 <style>
 	.work-content {
 		font-family: var(--font-1), sans-serif;
-		color: var(--black-1);
-	}
-
-	.main-heading {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0 0 1.5rem 0;
-		color: var(--black-1);
-		line-height: 1.2;
+		color: var(--black);
 	}
 
 	.section-heading {
 		font-size: 2rem;
 		font-weight: 700;
 		margin: 2.5rem 0 1.25rem 0;
-		color: var(--black-1);
+		color: var(--black);
 		line-height: 1.3;
-	}
-
-	.grad-text {
-		background: var(--accent-main);
-		background-clip: text;
-
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-
-		-moz-background-clip: text;
-		-moz-text-fill-color: transparent;
 	}
 
 	.intro-text {
 		font-size: 1.125rem;
 		line-height: 1.7;
-		color: var(--black-1);
+		color: var(--black);
 		margin-bottom: 1.5rem;
 		font-weight: 400;
 	}
@@ -221,15 +202,15 @@
 	}
 
 	.programming-item {
-		border: 2px solid var(--black-1);
+		border: 2px solid var(--black);
 		border-radius: 0.5rem;
 		padding: 1.5rem;
 		transition: all 0.2s ease;
-		background-color: var(--white-1);
+		background-color: var(--white);
 	}
 
 	.programming-item:hover {
-		border-color: var(--accent-main-1);
+		border-color: var(--accent);
 		box-shadow: 0 5px 15px rgba(255, 60, 102, 0.2);
 		transform: translateY(-2px);
 	}
@@ -241,17 +222,17 @@
 		font-size: 1.25rem;
 		font-weight: 600;
 		margin: 0 0 0.75rem 0;
-		color: var(--black-1);
+		color: var(--black);
 	}
 
 	.project-title a {
-		color: var(--black-1);
+		color: var(--black);
 		text-decoration: none;
 		transition: color 0.2s ease;
 	}
 
 	.project-title a:hover {
-		color: var(--accent-main-1);
+		color: var(--accent);
 	}
 
 	/* Graphic Design Grid */
@@ -264,7 +245,7 @@
 
 	.image-button {
 		background: none;
-		border: 2px solid var(--black-1);
+		border: 2px solid var(--black);
 		border-radius: 0.5rem;
 		padding: 0;
 		cursor: pointer;
@@ -275,7 +256,7 @@
 	}
 
 	.image-button:hover {
-		border-color: var(--accent-main-1);
+		border-color: var(--accent);
 		box-shadow: 0 5px 15px rgba(255, 60, 102, 0.3);
 		transform: translateY(-2px);
 	}
@@ -314,15 +295,15 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
-		border: 2px solid var(--black-1);
+		border: 2px solid var(--black);
 		border-radius: 0.5rem;
 		padding: 1.5rem;
-		background-color: var(--white-1);
+		background-color: var(--white);
 	}
 
 	.game-image-button {
 		background: none;
-		border: 2px solid var(--black-1);
+		border: 2px solid var(--black);
 		border-radius: 0.5rem;
 		padding: 0;
 		cursor: pointer;
@@ -333,7 +314,7 @@
 	}
 
 	.game-image-button:hover {
-		border-color: var(--accent-main-1);
+		border-color: var(--accent);
 		box-shadow: 0 5px 15px rgba(255, 60, 102, 0.3);
 	}
 
@@ -379,7 +360,7 @@
 		max-width: 90%;
 		max-height: 90%;
 		object-fit: contain;
-		border: 4px solid var(--white-1);
+		border: 4px solid var(--white);
 		border-radius: 0.5rem;
 		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 	}
@@ -388,8 +369,8 @@
 		position: absolute;
 		top: 10%;
 		right: 10%;
-		background: var(--white-1);
-		border: 2px solid var(--black-1);
+		background: var(--white);
+		border: 2px solid var(--black);
 		border-radius: 50%;
 		width: 3rem;
 		height: 3rem;
@@ -398,22 +379,18 @@
 		justify-content: center;
 		cursor: pointer;
 		transition: all 0.2s ease;
-		color: var(--black-1);
+		color: var(--black);
 	}
 
 	.close-overlay:hover {
-		background: var(--accent-main-1);
-		border-color: var(--accent-main-1);
-		color: var(--white-1);
+		background: var(--accent);
+		border-color: var(--accent);
+		color: var(--white);
 		transform: rotate(90deg);
 	}
 
 	/* Responsive */
 	@media (max-width: 700px) {
-		.main-heading {
-			font-size: 2.25rem;
-		}
-
 		.section-heading {
 			font-size: 1.5rem;
 		}

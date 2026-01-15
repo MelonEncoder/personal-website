@@ -1,64 +1,153 @@
 <script lang="ts">
-	let { children, closeModal } = $props();
+	import type { Snippet } from "svelte";
+	import { fly, fade } from "svelte/transition";
+	import { cubicOut } from "svelte/easing";
 
-	function handleBackdropClick(e: MouseEvent) {
-		if (e.target === e.currentTarget) {
-			closeModal();
-		}
-	}
+	let {
+		children,
+		headerTitle,
+		closeModal
+	}: { children: Snippet; headerTitle: string; closeModal: () => void } = $props();
 
-	function handleKeydown(e: KeyboardEvent) {
-		if (e.key === 'Escape') {
-			closeModal();
-		}
-	}
+	/* -------- mobile detection -------- */
+	let isMobile = $state(false);
 
+	$effect(() => {
+		if (typeof window === "undefined") return;
+
+		const mq = window.matchMedia("(max-width: 700px)");
+		const update = () => (isMobile = mq.matches);
+
+		update();
+		mq.addEventListener("change", update);
+		return () => mq.removeEventListener("change", update);
+	});
+
+	/* -------- pointer-based dragging (desktop only) -------- */
 	let dragging = $state(false);
 	let x = $state(0);
 	let y = $state(0);
-	let offsetX = 0;
-	let offsetY = 0;
 
-	function dragStart(e: MouseEvent | TouchEvent) {
+	let pointerId: number | null = null;
+	let startX = 0;
+	let startY = 0;
+
+	// simple per-window z-index bump
+	let z = $state(10);
+
+	function bringToFront() {
+		// cheap “global” z counter shared via window — works fine for a small site
+		if (typeof window === "undefined") return;
+		const w = window as any;
+		w.__winZ = (w.__winZ ?? 1000) + 1;
+		z = w.__winZ;
+	}
+
+	function pointerDown(e: PointerEvent) {
+		bringToFront();
+
+		// Disable drag for mobile drawer
+		if (isMobile) return;
+
 		dragging = true;
-		const clientX = (e as MouseEvent).clientX || (e as TouchEvent).touches[0].clientX;
-		const clientY = (e as MouseEvent).clientY || (e as TouchEvent).touches[0].clientY;
-		offsetX = clientX - x;
-		offsetY = clientY - y;
+		pointerId = e.pointerId;
+
+		startX = e.clientX - x;
+		startY = e.clientY - y;
+
+		(e.currentTarget as HTMLElement).setPointerCapture(pointerId);
 	}
 
-	function drag(e: MouseEvent | TouchEvent) {
-		if (dragging) {
-			const clientX = (e as MouseEvent).clientX || (e as TouchEvent).touches[0].clientX;
-			const clientY = (e as MouseEvent).clientY || (e as TouchEvent).touches[0].clientY;
-			x = clientX - offsetX;
-			y = clientY - offsetY;
-		}
+	function pointerMove(e: PointerEvent) {
+		if (!dragging || e.pointerId !== pointerId) return;
+
+		x = e.clientX - startX;
+		y = e.clientY - startY;
 	}
 
-	function dragEnd() {
+	function pointerUp(e: PointerEvent) {
+		if (e.pointerId !== pointerId) return;
+
 		dragging = false;
+		pointerId = null;
+
+		(e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
 	}
+
+	// optional: set a pleasant staggered default position so new windows don't perfectly overlap
+	$effect(() => {
+		if (typeof window === "undefined") return;
+		// only once on mount-ish: if x,y still 0, nudge based on current z
+		if (x === 0 && y === 0 && !isMobile) {
+			const n = (z % 5) * 18; // tiny offset
+			x = -80 + n;
+			y = -60 + n;
+		}
+	});
 </script>
 
-<svelte:window onkeydown={handleKeydown} />
-<svelte:document onmousemove={drag} onmouseup={dragEnd} ontouchmove={drag} ontouchend={dragEnd} />
-
-<div class="modal-backdrop" onclick={handleBackdropClick} role="presentation">
-	<div
-		class="modal-window"
-		style:transform={`translate(${x}px, ${y}px)`}
-		role="dialog"
-		aria-modal="true"
-	>
+{#if isMobile}
+	<!-- MOBILE: drawer uses overlay/backdrop, but DOES NOT close on click -->
+	<div class="mobileOverlay" role="presentation" transition:fade={{ duration: 140 }}>
 		<div
-			class="modal-header"
+			class="modalWindow drawer"
+			role="dialog"
+			aria-modal="true"
+			style={`z-index:${z};`}
+			in:fly={{ y: 40, duration: 260, easing: cubicOut }}
+			out:fly={{ y: 40, duration: 220, easing: cubicOut }}
+			onpointerdown={bringToFront}
+		>
+			<header class="modalHeader mobileHeader">
+				<div class="headerInfo">
+					<h1 class="headerTitle gradientText">{headerTitle}</h1>
+				</div>
+
+				<button class="closeBtn" onclick={closeModal} aria-label="Close modal">
+					<svg
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<line x1="18" y1="6" x2="6" y2="18"></line>
+						<line x1="6" y1="6" x2="18" y2="18"></line>
+					</svg>
+				</button>
+			</header>
+
+			<div class="modalContent">
+				{@render children?.()}
+			</div>
+		</div>
+	</div>
+{:else}
+	<!-- DESKTOP: NO overlay, each modal is its own floating window -->
+	<div
+		class="modalWindow desktop"
+		role="dialog"
+		aria-modal="false"
+		style={`--dx:${x}px; --dy:${y}px; z-index:${z};`}
+		onpointerdown={bringToFront}
+	>
+		<header
+			class="modalHeader"
 			role="button"
 			tabindex="-1"
-			onmousedown={dragStart}
-			ontouchstart={dragStart}
+			onpointerdown={pointerDown}
+			onpointermove={pointerMove}
+			onpointerup={pointerUp}
+			onpointercancel={pointerUp}
 		>
-			<button class="close-button" onclick={closeModal} aria-label="Close modal">
+			<div class="headerInfo">
+				<h1 class="headerTitle gradientText">{headerTitle}</h1>
+			</div>
+
+			<button class="closeBtn" onclick={closeModal} aria-label="Close modal">
 				<svg
 					width="24"
 					height="24"
@@ -73,54 +162,74 @@
 					<line x1="6" y1="6" x2="18" y2="18"></line>
 				</svg>
 			</button>
-		</div>
-		<div class="modal-content">
+		</header>
+
+		<div class="modalContent">
 			{@render children?.()}
 		</div>
 	</div>
-</div>
+{/if}
 
 <style>
-	.modal-backdrop {
+	/* ---------- MOBILE overlay (visual only; does NOT close on click) ---------- */
+	.mobileOverlay {
 		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-color: rgba(100, 100, 100, 0.05);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		z-index: 1000;
-		backdrop-filter: blur(3px);
+		inset: 0;
+		width: 100dvw;
+		height: 100dvh;
+		z-index: 9999;
+		background: rgba(0, 0, 0, 0.22);
+		display: grid;
+		place-items: end center;
+		pointer-events: none; /* allow interacting only with the drawer */
 	}
 
-	.modal-window {
-		position: relative;
-		background-color: var(--white-1);
-		border: 2px solid var(--black-1);
-		border-radius: 1rem;
+	/* ---------- shared window styles ---------- */
+	.modalWindow {
+		background-color: var(--white);
+		border: 2px solid var(--black);
 		box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.25);
-		max-width: 90vw;
-		max-height: 85vh;
-		width: 600px;
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
+		will-change: transform;
+		pointer-events: auto; /* re-enable interaction */
 	}
 
-	.modal-header {
-		border-bottom: 2px solid var(--black-1);
-		padding: 0.75rem 1rem;
+	.modalHeader {
 		display: flex;
-		justify-content: flex-end;
+		border-bottom: 2px solid var(--black);
+		padding: 1rem 1.5rem;
+		justify-content: space-between;
 		align-items: center;
-		cursor: move;
 		user-select: none;
-		background-color: var(--black-1);
+		background-color: var(--black);
 	}
 
-	.close-button {
+	.headerInfo {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.headerTitle {
+		font-size: 2.35rem;
+		font-weight: 800;
+		margin: 0;
+		line-height: 1.2;
+		text-align: left;
+		text-transform: capitalize;
+	}
+
+	.gradientText {
+		background: var(--gradient);
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		-moz-background-clip: text;
+		-moz-text-fill-color: transparent;
+	}
+
+	.closeBtn {
 		background: transparent;
 		border: none;
 		cursor: pointer;
@@ -128,29 +237,55 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: var(--white-1);
+		color: var(--white);
 		border-radius: 4px;
 		transition: all 0.2s;
 	}
 
-	.close-button:hover {
-		background-color: var(--accent-main-1);
+	.closeBtn:hover {
+		background-color: var(--accent);
 	}
 
-	.modal-content {
+	.modalContent {
 		padding: 2rem;
-		overflow-y: auto;
+		overflow: auto;
 		flex: 1;
 	}
 
-	@media (max-width: 700px) {
-		.modal-window {
-			width: 95vw;
-			max-height: 90vh;
-		}
+	/* ---------- DESKTOP: floating window, draggable ---------- */
+	.modalWindow.desktop {
+		position: fixed;
+		left: 50%;
+		top: 50%;
+		transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)));
+		border-radius: 1rem;
 
-		.modal-content {
-			padding: 1.5rem;
-		}
+		width: min(640px, calc(100dvw - 3rem));
+		max-height: calc(100dvh - 3rem);
+	}
+
+	.modalWindow.desktop .modalHeader {
+		cursor: move;
+		touch-action: none; /* important for pointer dragging */
+	}
+
+	/* ---------- MOBILE: drawer ---------- */
+	.modalWindow.drawer {
+		width: 100dvw;
+		max-height: 92dvh;
+
+		border-left: none;
+		border-right: none;
+		border-bottom: none;
+
+		border-radius: 1.25rem 1.25rem 0 0;
+	}
+
+	.modalWindow.drawer .modalContent {
+		padding: 1.5rem;
+	}
+
+	.modalHeader.mobileHeader {
+		cursor: default;
 	}
 </style>
