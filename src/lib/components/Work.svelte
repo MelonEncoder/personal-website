@@ -6,7 +6,6 @@
 	import whiteButtonScreenshot from "$lib/assets/white-button-screenshot.png";
 	import zoomInIcon from "$lib/assets/icons/zoom-in.svg";
 	import linkIcon from "$lib/assets/icons/link.svg";
-	import PaperLayout from "$lib/components/PaperLayout.svelte";
 
 	let enlargedImage = $state<string | null>(null);
 
@@ -32,7 +31,7 @@
 	}
 </script>
 
-<PaperLayout title="work">
+<div class="content">
 	<div class="work-content">
 		<p class="intro-text">
 			Here is a collection of much of my work. From CLI tools to graphic designs to video
@@ -145,6 +144,7 @@
 			</div>
 		</div>
 	</div>
+
 	{#if enlargedImage}
 		<div class="image-overlay" onclick={handleBackdropClick} role="presentation">
 			<button class="close-overlay" onclick={closeImage} aria-label="Close enlarged image">
@@ -165,9 +165,15 @@
 			<img src={enlargedImage} alt="Enlarged view" class="enlarged-image" />
 		</div>
 	{/if}
-</PaperLayout>
+</div>
 
 <style>
+	.content {
+		color: var(--black);
+		background-color: var(--white);
+		padding: 1rem;
+	}
+
 	.work-content {
 		font-family: var(--font-1), sans-serif;
 		color: var(--black);

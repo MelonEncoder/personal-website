@@ -20,13 +20,11 @@
 
 		/* Colors */
 		--black: rgb(33 33 35);
-		--black-2: rgb(63 63 67);
 
 		--white: rgb(251 250 245);
-		--white-2: rgb(221 220 215);
 
-		--accent: #ff3c66;
-		--accent-2: #ff15b1;
+		/*--accent: #ff3c66;*/
+		--accent: rgb(250, 73, 109);
 
 		--gradient: linear-gradient(45deg, var(--accent), var(--accent-2));
 	}

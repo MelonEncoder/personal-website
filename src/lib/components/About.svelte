@@ -1,7 +1,4 @@
 <script lang="ts">
-	import monogram from "$lib/assets/brand/monogram.svg";
-	import PaperLayout from "$lib/components/PaperLayout.svelte";
-
 	import githubLogo from "$lib/assets/icons/logo-github.svg";
 	import linkedinLogo from "$lib/assets/icons/logo-linkedin.svg";
 	const developmentItems = [
@@ -17,67 +14,55 @@
 		"Expo"
 	];
 	const softwareItems = ["Affinity", "Blender", "Figma", "Godot"];
-
-	let year = new Date().getFullYear().toString();
 </script>
 
-<PaperLayout title="about">
-	<div class="aboutContent">
-		<p class="introText">
-			Hello! My name is Ian Gillette and I'm currently studying Computer Science. I enjoy
-			programming, game design, creative projects, and learning new things.
-		</p>
-		<h2 class="sectionHeading">Development</h2>
-		<ul class="toolList">
-			{#each developmentItems as item (item)}
-				<li class="toolItem" id={item}>{item}</li>
-			{/each}
-		</ul>
-		<h2 class="sectionHeading">Tools</h2>
-		<ul class="toolList">
-			{#each softwareItems as item (item)}
-				<li class="toolItem" id={item}>{item}</li>
-			{/each}
-		</ul>
-		<h2 class="sectionHeading">Language Fluency</h2>
-		<p class="sectionText">
-			I am actively learning
-			<span class="highlight">Japanese</span> at the moment and plan on learning Spanish in the
-			future.
-		</p>
-		<ul class="languageList">
-			<li>Japanese/日本語 (Elementary Level)</li>
-			<li>Spanish/Español (Elementary Level)</li>
-		</ul>
-		<h2 class="sectionHeading">Links</h2>
-		<div class="links-content">
-			<div class="links">
-				<a class="link" id="github" href="https://github.com/MelonEncoder" rel="external">
-					<img src={githubLogo} alt="github logo" />
-					GitHub
-				</a>
-				<a
-					class="link"
-					id="linkedin"
-					href="https://linkedin.com/in/iangillette"
-					rel="external"
-				>
-					<img src={linkedinLogo} alt="linkedin logo" />
-					LinkedIn
-				</a>
-			</div>
+<div class="content">
+	<h1 class="pageTitle">ABOUT</h1>
+	<p class="introText">
+		Hello! My name is Ian Gillette and I'm currently studying Computer Science. I enjoy
+		programming, game design, creative projects, and learning new things.
+	</p>
+	<h2 class="sectionHeading">Development</h2>
+	<ul class="toolList">
+		{#each developmentItems as item (item)}
+			<li class="toolItem" id={item}>{item}</li>
+		{/each}
+	</ul>
+	<h2 class="sectionHeading">Tools</h2>
+	<ul class="toolList">
+		{#each softwareItems as item (item)}
+			<li class="toolItem" id={item}>{item}</li>
+		{/each}
+	</ul>
+	<h2 class="sectionHeading">Language Fluency</h2>
+	<p class="sectionText">
+		I am actively learning
+		<span class="highlight">Japanese</span> at the moment and plan on learning Spanish in the future.
+	</p>
+	<ul class="languageList">
+		<li>Japanese/日本語 (Elementary Level)</li>
+		<li>Spanish/Español (Elementary Level)</li>
+	</ul>
+	<h2 class="sectionHeading">Links</h2>
+	<div class="links-content">
+		<div class="links">
+			<a class="link" id="github" href="https://github.com/MelonEncoder" rel="external">
+				<img src={githubLogo} alt="github logo" />
+				GitHub
+			</a>
+			<a class="link" id="linkedin" href="https://linkedin.com/in/iangillette" rel="external">
+				<img src={linkedinLogo} alt="linkedin logo" />
+				LinkedIn
+			</a>
 		</div>
-		<footer>
-			<img id="monogram" src={monogram} alt="monogram" width="75px" />
-			<p>Copyright &copy; {year} Ian Gillette</p>
-		</footer>
 	</div>
-</PaperLayout>
+</div>
 
 <style>
-	.aboutContent {
-		font-family: var(--font-1), sans-serif;
+	.content {
 		color: var(--black);
+		background-color: var(--white);
+		padding: 1rem;
 	}
 
 	.sectionHeading {
@@ -95,7 +80,12 @@
 		margin-bottom: 1.5rem;
 		font-weight: 400;
 	}
-
+	.pageTitle {
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		font-size: 0.95rem;
+	}
 	.sectionText {
 		font-size: 1rem;
 		line-height: 1.7;
@@ -198,24 +188,7 @@
 		.links {
 			grid-template-columns: minmax(1rem, 1fr);
 		}
-	}
-	footer {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		margin-top: 2.5rem;
-		padding-top: 2rem;
-		border-top: 2px solid var(--black);
-	}
 
-	footer p {
-		margin-top: 0.75rem;
-		font-size: 0.875rem;
-		color: var(--black-2);
-		font-weight: 400;
-	}
-
-	@media (max-width: 700px) {
 		.sectionHeading {
 			font-size: 1.5rem;
 		}
