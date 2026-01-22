@@ -32,38 +32,34 @@
 		<div class="gridRight"></div>
 		<div class="gridBottom"></div>
 
-		<!-- <header class="gridHeader">
-			<button class="backBtn" type="button" onclick={() => goto(resolve("/"))}>
-				<img src="" />
-				<span>Back</span>
-			</button>
-		</header> -->
-
 		<div class="gridSidebar">
-			<div class="welcomeText">
-				<h1 class="welcomeTitle">
-					I'm <span class="colorText">Ian</span>
-				</h1>
-				<p class="subText">programmer & designer</p>
-			</div>
+			<section class="sidebarContent">
+				<div class="welcomeText">
+					<h1 class="welcomeTitle">
+						I'm <span class="colorText">Ian</span>
+					</h1>
+					<p class="subText">programmer & designer</p>
+				</div>
 
-			<div class="buttonStack">
-				{#each buttons as button (button.id)}
-					<button
-						type="button"
-						class="infoButton"
-						onclick={() =>
-							activeWindow === button.id
-								? setActiveWindow(null)
-								: setActiveWindow(button.id)}
-					>
-						<div class="buttonContent">
-							<img src={button.icon} alt="" />
-							{button.id}
-						</div>
-					</button>
-				{/each}
-			</div>
+				<div class="buttonStack">
+					{#each buttons as button (button.id)}
+						<button
+							type="button"
+							class="contentButton"
+							aria-pressed={activeWindow === button.id}
+							onclick={() =>
+								activeWindow === button.id
+									? setActiveWindow(null)
+									: setActiveWindow(button.id)}
+						>
+							<div class="buttonContent">
+								<img src={button.icon} alt="" />
+								{button.id}
+							</div>
+						</button>
+					{/each}
+				</div>
+			</section>
 		</div>
 
 		<div class="brandContainer">
@@ -71,12 +67,14 @@
 			<p>&copy; {year} Ian Gillette</p>
 		</div>
 
-		<div class="gridCellCenter">
-			{#if activeWindow === "about"}
-				<About />
-			{:else if activeWindow === "work"}
-				<Work />
-			{/if}
+		<div class="gridCenterCell">
+			<section class="centerContent">
+				{#if activeWindow === "about"}
+					<About />
+				{:else if activeWindow === "work"}
+					<Work />
+				{/if}
+			</section>
 		</div>
 	</div>
 </div>
@@ -97,7 +95,7 @@
 		height: 100dvh; /* lock to screen */
 		width: 100%;
 		grid-template-columns: auto minmax(0, 1fr) 4rem;
-		grid-template-rows: 4rem 1fr 4rem;
+		grid-template-rows: 4rem minmax(0, 1fr) 4rem;
 	}
 
 	.gridTop {
@@ -107,6 +105,7 @@
 		grid-template-columns: 4rem auto 4rem;
 		border-bottom: 2px solid var(--black);
 	}
+
 	.gridLeft {
 		grid-column: 1 / 2;
 		grid-row: 1 / 4;
@@ -128,30 +127,50 @@
 		border-top: 2px solid var(--black);
 	}
 
-	.gridCellCenter {
+	.gridCenterCell {
 		grid-column: 2 / 3;
 		grid-row: 2 / 3;
 
-		padding: clamp(2rem, 4vw, 5rem);
+		box-sizing: border-box;
+		height: 100%;
+		width: 100%;
+		overflow: hidden;
 
-		border: 10px solid var(--black);
+		background-color: var(--black);
+		padding: 0;
+	}
+
+	.centerContent {
+		box-sizing: border-box;
 		overflow: auto;
+		overscroll-behavior: contain;
+		height: 100%;
+		width: 100%;
 		background-color: rgb(210, 242, 219);
+		border: 10px solid var(--black);
+		padding: clamp(1.25rem, 2.5vw, 3rem);
 
-		display: grid;
-		align-content: start;
-		gap: 1.75rem;
+		-webkit-overflow-scrolling: touch;
 	}
 
 	.gridSidebar {
 		grid-column: 1 / 2;
 		grid-row: 2 / 3;
-		padding: 1rem;
+		height: 100%;
+		width: 400px;
+	}
+
+	.sidebarContent {
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
-		height: 100%;
-		width: 400px;
+		padding: 1rem;
+	}
+
+	.gridSidebar,
+	.gridCenterCell {
+		min-width: 0;
+		min-height: 0;
 	}
 
 	.brandContainer {
@@ -199,17 +218,18 @@
 		justify-items: start;
 	}
 
-	.infoButton {
+	.contentButton {
 		cursor: pointer;
 		font-size: 1.25rem;
 		font-weight: 800;
 		color: var(--black);
-		padding: 1.25rem 1.5rem;
-		width: min(36rem, 100%);
+
+		padding: 1.1rem 1.25rem;
+		width: clamp(10rem, 18vw, 14rem);
 
 		background-color: var(--white);
-
 		border: 2px solid var(--black);
+
 		box-shadow: 0 4px 0 4px var(--black);
 		transform: translateY(-4px);
 		transition:
@@ -218,14 +238,19 @@
 			border-color 0.15s ease;
 	}
 
-	.infoButton:hover {
+	.contentButton[aria-pressed="true"] {
+		border-color: var(--accent);
+		box-shadow: 0 4px 0 4px var(--accent);
+	}
+
+	.contentButton:hover {
 		transform: translateY(-12px);
 		box-shadow: 0 10px var(--accent);
 		border-color: var(--accent);
 		box-shadow: 0 12px 0 4px var(--accent);
 	}
 
-	.infoButton:active {
+	.contentButton:active {
 		transition:
 			transform 0.042s ease,
 			box-shadow 0.042s ease;
@@ -246,18 +271,72 @@
 
 	@media (max-width: 1200px) {
 		.grid {
-			grid-template-columns: 1.5rem minmax(0, 1fr) 1.5rem;
-			grid-template-rows: 4rem 1fr auto;
+			grid-template-columns: 1rem minmax(0, 1fr) 1rem;
+			grid-template-rows: 3.5rem minmax(0, 1fr) auto;
 		}
-		.gridCellCenter {
-			padding: 1.5rem;
-		}
+
 		.gridSidebar {
 			grid-column: 2 / 3;
 			grid-row: 3 / 4;
+			width: 100%;
 		}
+
+		.sidebarContent {
+			padding: 0.75rem;
+			gap: 0.75rem;
+		}
+
+		.welcomeTitle {
+			font-size: 1.8rem;
+			margin: 0 0 0.25rem 0;
+		}
+
+		.subText {
+			font-size: 0.95rem;
+		}
+
+		.buttonStack {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 0.75rem;
+			justify-items: stretch;
+		}
+
+		.contentButton {
+			width: 100%;
+			font-size: 1.05rem;
+			padding: 0.95rem 0.9rem;
+
+			transform: translateY(-2px);
+			box-shadow: 0 3px 0 3px var(--black);
+		}
+
+		.contentButton:hover {
+			transform: translateY(-4px);
+			box-shadow: 0 6px 0 3px var(--accent);
+		}
+
+		.buttonContent {
+			justify-content: center;
+			width: 100%;
+		}
+
+		.buttonContent img {
+			width: 1.4rem;
+		}
+
+		.centerContent {
+			padding: 1rem;
+		}
+
 		.brandContainer {
 			grid-row: 1 / 2;
+		}
+	}
+
+	@media (max-width: 520px) {
+		.buttonStack {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>
