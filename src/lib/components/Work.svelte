@@ -170,8 +170,6 @@
 <style>
 	.content {
 		color: var(--black);
-		background-color: var(--white);
-		padding: 1rem;
 	}
 
 	.work-content {

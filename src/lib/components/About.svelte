@@ -17,7 +17,6 @@
 </script>
 
 <div class="content">
-	<h1 class="pageTitle">ABOUT</h1>
 	<p class="introText">
 		Hello! My name is Ian Gillette and I'm currently studying Computer Science. I enjoy
 		programming, game design, creative projects, and learning new things.
@@ -61,10 +60,8 @@
 <style>
 	.content {
 		color: var(--black);
-		background-color: var(--white);
-		padding: 1rem;
+		/*background-color: var(--white);*/
 	}
-
 	.sectionHeading {
 		font-size: 2rem;
 		font-weight: 700;
@@ -80,12 +77,7 @@
 		margin-bottom: 1.5rem;
 		font-weight: 400;
 	}
-	.pageTitle {
-		font-weight: 800;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		font-size: 0.95rem;
-	}
+
 	.sectionText {
 		font-size: 1rem;
 		line-height: 1.7;
@@ -132,6 +124,7 @@
 	.toolItem {
 		font-size: 1rem;
 		border: 2px solid var(--black);
+		background-color: var(--white);
 		border-radius: 0.25rem;
 		padding: 0.4rem 0.5rem;
 		margin-right: 0.5rem;

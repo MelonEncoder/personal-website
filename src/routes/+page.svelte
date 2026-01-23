@@ -4,6 +4,7 @@
 	import monogram from "$lib/assets/brand/monogram.svg";
 	import About from "$lib/components/About.svelte";
 	import Work from "$lib/components/Work.svelte";
+	import Welcome from "$lib/components/Welcome.svelte";
 
 	type WindowId = "about" | "work";
 
@@ -34,13 +35,6 @@
 
 		<div class="gridSidebar">
 			<section class="sidebarContent">
-				<div class="welcomeText">
-					<h1 class="welcomeTitle">
-						I'm <span class="colorText">Ian</span>
-					</h1>
-					<p class="subText">programmer & designer</p>
-				</div>
-
 				<div class="buttonStack">
 					{#each buttons as button (button.id)}
 						<button
@@ -69,10 +63,15 @@
 
 		<div class="gridCenterCell">
 			<section class="centerContent">
-				{#if activeWindow === "about"}
-					<About />
-				{:else if activeWindow === "work"}
-					<Work />
+				{#if activeWindow !== null}
+					<h1 class="contentTitle">{activeWindow?.toUpperCase()}</h1>
+					{#if activeWindow === "about"}
+						<About />
+					{:else if activeWindow === "work"}
+						<Work />
+					{/if}
+				{:else}
+					<Welcome />
 				{/if}
 			</section>
 		</div>
@@ -140,6 +139,13 @@
 		padding: 0;
 	}
 
+	.contentTitle {
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		font-size: 2.1rem;
+	}
+
 	.centerContent {
 		box-sizing: border-box;
 		overflow: auto;
@@ -193,23 +199,6 @@
 	.brandContainer .monogram {
 		width: 1.75rem;
 		aspect-ratio: 1 / 1;
-	}
-
-	.welcomeTitle {
-		font-size: clamp(2.2rem, 5vw, 3.25rem);
-		line-height: 1.05;
-		margin: 0 0 0.5rem 0;
-		letter-spacing: -0.02em;
-	}
-
-	.subText {
-		font-size: 1rem;
-		margin: 0;
-		opacity: 0.9;
-	}
-
-	.colorText {
-		color: var(--accent);
 	}
 
 	.buttonStack {
@@ -269,9 +258,10 @@
 		width: 1.75rem;
 	}
 
+	/* Tablet */
 	@media (max-width: 1200px) {
 		.grid {
-			grid-template-columns: 1rem minmax(0, 1fr) 1rem;
+			grid-template-columns: 1.5rem minmax(0, 1fr) 1.5rem;
 			grid-template-rows: 3.5rem minmax(0, 1fr) auto;
 		}
 
@@ -284,15 +274,6 @@
 		.sidebarContent {
 			padding: 0.75rem;
 			gap: 0.75rem;
-		}
-
-		.welcomeTitle {
-			font-size: 1.8rem;
-			margin: 0 0 0.25rem 0;
-		}
-
-		.subText {
-			font-size: 0.95rem;
 		}
 
 		.buttonStack {
@@ -334,7 +315,12 @@
 		}
 	}
 
+	/* Phone */
 	@media (max-width: 520px) {
+		.grid {
+			grid-template-columns: 1rem minmax(0, 1fr) 1rem;
+			grid-template-rows: 3rem minmax(0, 1fr) auto;
+		}
 		.buttonStack {
 			grid-template-columns: 1fr;
 		}
