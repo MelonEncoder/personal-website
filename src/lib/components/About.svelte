@@ -14,7 +14,14 @@
 		"React Native",
 		"Expo"
 	];
-	const softwareItems = ["Affinity", "Blender", "Figma", "Godot"];
+	const softwareItems = [
+		"Affinity",
+		"Blender",
+		"Figma",
+		"Godot Engine",
+		"Illustrator",
+		"Photoshop"
+	];
 	const links: { href: string; icon: string }[] = [
 		{ href: "https://github.com/MelonEncoder", icon: githubLogo },
 		{ href: "https://www.linkedin.com/in/iangillette", icon: linkedinLogo }
@@ -51,7 +58,7 @@
 	<div class="linksContent">
 		<div class="links">
 			{#each links as link, i (i)}
-				<a class="link" id="github" href={link.href} about="_blank" rel="external">
+				<a class="link" id="github" href={link.href} target="_blank" rel="external">
 					<img src={link.icon} alt="github logo" />
 				</a>
 			{/each}
