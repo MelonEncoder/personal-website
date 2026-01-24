@@ -39,7 +39,9 @@
 					{#each buttons as button (button.id)}
 						<button
 							type="button"
-							class="contentButton"
+							class="contentButton gb-btn gb-btn--icon {activeWindow === button.id
+								? 'is-active'
+								: ''}"
 							aria-pressed={activeWindow === button.id}
 							onclick={() =>
 								activeWindow === button.id
@@ -48,7 +50,7 @@
 						>
 							<div class="buttonContent">
 								<img src={button.icon} alt="" />
-								{button.id}
+								{button.id.toUpperCase()}
 							</div>
 						</button>
 					{/each}
@@ -163,7 +165,6 @@
 		grid-column: 1 / 2;
 		grid-row: 2 / 3;
 		height: 100%;
-		width: 400px;
 	}
 
 	.sidebarContent {
@@ -181,7 +182,7 @@
 
 	.brandContainer {
 		grid-column: 2 / 3;
-		grid-row: 3 / 4;
+		grid-row: 1 / 2;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
@@ -214,7 +215,7 @@
 		color: var(--black);
 
 		padding: 1.1rem 1.25rem;
-		width: clamp(10rem, 18vw, 14rem);
+		width: clamp(18rem, 18vw, 30rem);
 
 		background-color: var(--white);
 		border: 2px solid var(--black);
@@ -309,14 +310,10 @@
 		.centerContent {
 			padding: 1rem;
 		}
-
-		.brandContainer {
-			grid-row: 1 / 2;
-		}
 	}
 
 	/* Phone */
-	@media (max-width: 520px) {
+	@media (max-width: 600px) {
 		.grid {
 			grid-template-columns: 1rem minmax(0, 1fr) 1rem;
 			grid-template-rows: 3rem minmax(0, 1fr) auto;

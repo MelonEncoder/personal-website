@@ -5,9 +5,67 @@
 	import mountainGraphic from "$lib/assets/digital-media/mountain.webp";
 	import whiteButtonScreenshot from "$lib/assets/white-button-screenshot.png";
 	import zoomInIcon from "$lib/assets/icons/zoom-in.svg";
-	import linkIcon from "$lib/assets/icons/link.svg";
+	import arrowOut from "$lib/assets/icons/arrow-outward.svg";
+
+	interface ProgrammingProject {
+		title: string;
+		description: string;
+		url: string;
+	}
+
+	interface GameProject {
+		title: string;
+		description: string;
+		url: string;
+		image: string;
+	}
+
+	interface ArtProject {
+		title: string;
+		image: string;
+	}
 
 	let enlargedImage = $state<string | null>(null);
+
+	const programmingProjects: ProgrammingProject[] = [
+		{
+			title: "PDF to Video",
+			description:
+				"This is a program that converts a .pdf file into a .mp4 file. You can set the FPS, duration, resolution, and even animate the pdf.",
+			url: "https://github.com/MelonEncoder/pdf-to-video"
+		},
+		{
+			title: "Personal Website (this site)",
+			description: "Made using Svelte with the intention to showcase myself and my work.",
+			url: "https://github.com/MelonEncoder/personal-website"
+		},
+		{
+			title: "HTML Image Parser",
+			description:
+				'I created this program to test out the Go programming language. Just describe the prefix you want want to look for like "src=" and then all the respective images will downloaded.',
+			url: "https://github.com/MelonEncoder/img-downloader"
+		}
+	];
+
+	const gamingProjects: GameProject[] = [
+		{
+			title: "White Button",
+			description:
+				"White Button was created during a week long game jam where the theme was 1-bit color palette. Your goal is to click all the buttons before the lava reaches you.",
+			url: "https://karpoonz.itch.io/white-button",
+			image: whiteButtonScreenshot
+		}
+	];
+
+	const artProjects: ArtProject[] = [
+		{
+			title: "Business Card",
+			image: businessCard
+		},
+		{ title: "Mountain Climbing Vector Art", image: mountainGraphic },
+		{ title: "Magazine Cover", image: magazineCover },
+		{ title: "Queen's Gambit Poster", image: queensGambitPoster }
+	];
 
 	function openImage(src: string) {
 		enlargedImage = src;
@@ -32,139 +90,101 @@
 </script>
 
 <div class="content">
-	<div class="work-content">
-		<p class="intro-text">
+	<div class="workContent">
+		<p class="introText">
 			Here is a collection of much of my work. From CLI tools to graphic designs to video
 			games, I do my best to stay well versed in many fields.
 		</p>
 
-		<h2 class="section-heading">Programming Projects</h2>
-		<div class="programming-list">
-			<div class="programming-item">
-				<h3 class="project-title">
-					<a href="https://github.com/MelonEncoder/pdf-to-video" rel="external">
-						PDF to Video CLI tool
-						<img src={linkIcon} alt="link icon" />
-					</a>
-				</h3>
-				<p class="section-text">
-					This is a program that converts a .pdf file into a .mp4 file. You can set the
-					FPS, duration, resolution, and even animate the pdf.
-				</p>
-			</div>
-			<div class="programming-item">
-				<h3 class="project-title">
-					<a href="https://github.com/MelonEncoder/personal-website" rel="external">
-						Personal Website (the one you are on)
-						<img src={linkIcon} alt="link icon" />
-					</a>
-				</h3>
-				<p class="section-text">
-					Made using Svelte with the intention to showcase myself and my work.
-				</p>
-			</div>
-			<div class="programming-item">
-				<h3 class="project-title">
-					<a href="https://github.com/MelonEncoder/img-downloader" rel="external">
-						HTML Image Parser
-						<img src={linkIcon} alt="link icon" />
-					</a>
-				</h3>
-				<p class="section-text">
-					I created this program to test out the Go programming language. Just describe
-					the prefix you want want to look for like "src=" and then all the respective
-					images will downloaded.
-				</p>
-			</div>
-		</div>
+		<section class="projectSection" id="programmingProjects">
+			<h2 class="sectionHeading">Programming Projects</h2>
+			<ul class="programmingList">
+				{#each programmingProjects as project, i (i)}
+					<li class="projectItem">
+						<h3 class="title">
+							<a class="" href={project.url} rel="external">
+								{project.title}
+							</a>
+							<img src={arrowOut} alt="link icon" />
+						</h3>
+						<p class="sectionText">
+							{project.description}
+						</p>
+					</li>
+				{/each}
+			</ul>
+		</section>
 
-		<h2 class="section-heading">Graphic Design</h2>
-		<div class="graphics-grid">
-			<button
-				class="image-button"
-				onclick={() => openImage(businessCard)}
-				onkeydown={(e) => handleImageKeydown(e, businessCard)}
-				aria-label="View business card design"
-			>
-				<img src={businessCard} alt="ian's business card" />
-				<img src={zoomInIcon} alt="" class="zoom-icon" />
-			</button>
-			<button
-				class="image-button"
-				onclick={() => openImage(mountainGraphic)}
-				onkeydown={(e) => handleImageKeydown(e, mountainGraphic)}
-				aria-label="View mountain graphic"
-			>
-				<img src={mountainGraphic} alt="mountain graphic design" />
-				<img src={zoomInIcon} alt="" class="zoom-icon" />
-			</button>
-			<button
-				class="image-button"
-				onclick={() => openImage(magazineCover)}
-				onkeydown={(e) => handleImageKeydown(e, magazineCover)}
-				aria-label="View magazine cover"
-			>
-				<img src={magazineCover} alt="magazine cover design" />
-				<img src={zoomInIcon} alt="" class="zoom-icon" />
-			</button>
-			<button
-				class="image-button"
-				onclick={() => openImage(queensGambitPoster)}
-				onkeydown={(e) => handleImageKeydown(e, queensGambitPoster)}
-				aria-label="View Queen's Gambit poster"
-			>
-				<img src={queensGambitPoster} alt="the queen's gambit poster" />
-				<img src={zoomInIcon} alt="" class="zoom-icon" />
-			</button>
-		</div>
+		<section class="projectSection" id="videogameProjects">
+			<h2 class="sectionHeading">Video Games</h2>
+			{#each gamingProjects as game, i (i)}
+				<div class="gameItem">
+					<button
+						class="gameImageBtn"
+						onclick={() => openImage(whiteButtonScreenshot)}
+						onkeydown={(e) => handleImageKeydown(e, whiteButtonScreenshot)}
+						aria-label="View White Button game screenshot"
+					>
+						<img src={game.image} alt="white button video game screenshot" />
+						<img src={zoomInIcon} alt="" class="zoom-icon" />
+					</button>
+					<div class="gameInfo">
+						<h3 class="title">
+							<a href={game.url} rel="external">
+								{game.title}
+							</a>
+							<img src={arrowOut} alt="link icon" />
+						</h3>
+						<p class="sectionText">
+							{game.description}
+						</p>
+					</div>
+				</div>
+			{/each}
+		</section>
 
-		<h2 class="section-heading">Video Games</h2>
-		<div class="game-item">
-			<button
-				class="game-image-button"
-				onclick={() => openImage(whiteButtonScreenshot)}
-				onkeydown={(e) => handleImageKeydown(e, whiteButtonScreenshot)}
-				aria-label="View White Button game screenshot"
-			>
-				<img src={whiteButtonScreenshot} alt="white button video game screenshot" />
-				<img src={zoomInIcon} alt="" class="zoom-icon" />
-			</button>
-			<div class="game-info">
-				<h3 class="project-title">
-					<a href="https://karpoonz.itch.io/white-button" rel="external">
-						White Button
-						<img src={linkIcon} alt="link icon" />
-					</a>
-				</h3>
-				<p class="section-text">
-					White Button was created during a week long game jam where the theme was 1-bit
-					color palette. Your goal is to click all the buttons before the lava reaches
-					you.
-				</p>
+		<section class="projectSection" id="artProjects">
+			<h2 class="sectionHeading">Graphic Design</h2>
+			<div class="artGrid">
+				{#each artProjects as art, i (i)}
+					<button
+						class="artImageBtn"
+						onclick={() => openImage(art.image)}
+						onkeydown={(e) => handleImageKeydown(e, art.image)}
+						aria-label="view artwork"
+					>
+						<img src={art.image} alt={art.title} />
+						<img src={zoomInIcon} alt="" class="zoom-icon" />
+					</button>
+				{/each}
 			</div>
-		</div>
-	</div>
+		</section>
 
-	{#if enlargedImage}
-		<div class="image-overlay" onclick={handleBackdropClick} role="presentation">
-			<button class="close-overlay" onclick={closeImage} aria-label="Close enlarged image">
-				<svg
-					width="32"
-					height="32"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
+		{#if enlargedImage}
+			<div class="image-overlay" onclick={handleBackdropClick} role="presentation">
+				<button
+					class="close-overlay"
+					onclick={closeImage}
+					aria-label="Close enlarged image"
 				>
-					<line x1="18" y1="6" x2="6" y2="18"></line>
-					<line x1="6" y1="6" x2="18" y2="18"></line>
-				</svg>
-			</button>
-			<img src={enlargedImage} alt="Enlarged view" class="enlarged-image" />
-		</div>
-	{/if}
+					<svg
+						width="32"
+						height="32"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<line x1="18" y1="6" x2="6" y2="18"></line>
+						<line x1="6" y1="6" x2="18" y2="18"></line>
+					</svg>
+				</button>
+				<img src={enlargedImage} alt="Enlarged view" class="enlarged-image" />
+			</div>
+		{/if}
+	</div>
 </div>
 
 <style>
@@ -172,12 +192,12 @@
 		color: var(--black);
 	}
 
-	.work-content {
+	.workContent {
 		font-family: var(--font-1), sans-serif;
 		color: var(--black);
 	}
 
-	.section-heading {
+	.sectionHeading {
 		font-size: 2rem;
 		font-weight: 700;
 		margin: 2.5rem 0 1.25rem 0;
@@ -185,7 +205,7 @@
 		line-height: 1.3;
 	}
 
-	.intro-text {
+	.introText {
 		font-size: 1.125rem;
 		line-height: 1.7;
 		color: var(--black);
@@ -193,7 +213,7 @@
 		font-weight: 400;
 	}
 
-	.section-text {
+	.sectionText {
 		font-size: 1rem;
 		line-height: 1.7;
 		color: var(--black-2);
@@ -201,59 +221,58 @@
 		font-weight: 400;
 	}
 
-	/* Programming Projects */
-	.programming-list {
-		display: flex;
-		flex-direction: column;
-		gap: 1.25rem;
-	}
-
-	.programming-item {
-		border: 2px solid var(--black);
-		border-radius: 0.5rem;
-		padding: 1.5rem;
-		transition: all 0.2s ease;
-		background-color: var(--white);
-	}
-
-	.programming-item:hover {
-		border-color: var(--accent);
-		box-shadow: 0 5px 15px rgba(255, 60, 102, 0.2);
-		transform: translateY(-2px);
-	}
-
-	.project-title {
+	.title {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+		align-content: center;
+		gap: 0.35rem;
 		font-size: 1.25rem;
 		font-weight: 600;
 		margin: 0 0 0.75rem 0;
 		color: var(--black);
 	}
 
-	.project-title a {
+	.title a {
 		color: var(--black);
 		text-decoration: none;
-		transition: color 0.2s ease;
+		transition: color 0.1s ease;
 	}
 
-	.project-title a:hover {
+	.title a:hover {
 		color: var(--accent);
 	}
 
+	/* Programming Projects */
+	.programmingList {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.projectItem {
+		border: 2px solid var(--black);
+		border-radius: var(--radius-md);
+		padding: 1.5rem;
+		transition: all 0.2s ease;
+		background-color: var(--white);
+	}
+
 	/* Graphic Design Grid */
-	.graphics-grid {
+	.artGrid {
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(4, 1fr);
 		gap: 1.5rem;
 		margin-bottom: 1rem;
 	}
 
-	.image-button {
+	.artImageBtn {
 		background: none;
 		border: 2px solid var(--black);
-		border-radius: 0.5rem;
+		border-radius: var(--radius-md);
 		padding: 0;
 		cursor: pointer;
 		overflow: hidden;
@@ -262,21 +281,20 @@
 		position: relative;
 	}
 
-	.image-button:hover {
+	.artImageBtn:hover {
 		border-color: var(--accent);
 		box-shadow: 0 5px 15px rgba(255, 60, 102, 0.3);
-		transform: translateY(-2px);
 	}
 
-	.image-button:hover .zoom-icon {
+	.artImageBtn:hover .zoom-icon {
 		opacity: 1;
 	}
 
-	.image-button:hover img:first-child {
+	.artImageBtn:hover img:first-child {
 		filter: brightness(0.7);
 	}
 
-	.image-button img:first-child {
+	.artImageBtn img:first-child {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
@@ -298,7 +316,7 @@
 	}
 
 	/* Video Games Section */
-	.game-item {
+	.gameItem {
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
@@ -308,10 +326,10 @@
 		background-color: var(--white);
 	}
 
-	.game-image-button {
+	.gameImageBtn {
 		background: none;
 		border: 2px solid var(--black);
-		border-radius: 0.5rem;
+		border-radius: var(--radius-md);
 		padding: 0;
 		cursor: pointer;
 		overflow: hidden;
@@ -320,20 +338,20 @@
 		position: relative;
 	}
 
-	.game-image-button:hover {
+	.gameImageBtn:hover {
 		border-color: var(--accent);
 		box-shadow: 0 5px 15px rgba(255, 60, 102, 0.3);
 	}
 
-	.game-image-button:hover .zoom-icon {
+	.gameImageBtn:hover .zoom-icon {
 		opacity: 1;
 	}
 
-	.game-image-button:hover img:first-child {
+	.gameImageBtn:hover img:first-child {
 		filter: brightness(0.7);
 	}
 
-	.game-image-button img:first-child {
+	.gameImageBtn img:first-child {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
@@ -341,7 +359,7 @@
 		transition: filter 0.2s ease;
 	}
 
-	.game-info {
+	.gameInfo {
 		display: flex;
 		flex-direction: column;
 		gap: 0.75rem;
@@ -354,12 +372,11 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background-color: rgba(0, 0, 0, 0.9);
+		background-color: rgba(0, 0, 0, 0.88);
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		z-index: 2000;
-		padding: 2rem;
 		backdrop-filter: blur(8px);
 	}
 
@@ -396,18 +413,19 @@
 		transform: rotate(90deg);
 	}
 
-	/* Responsive */
-	@media (max-width: 700px) {
-		.section-heading {
+	@media (max-width: 1200px) {
+		.artGrid {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.sectionHeading {
 			font-size: 1.5rem;
 		}
 
-		.intro-text {
+		.introText {
 			font-size: 1rem;
-		}
-
-		.graphics-grid {
-			grid-template-columns: 1fr;
 		}
 
 		.image-overlay {

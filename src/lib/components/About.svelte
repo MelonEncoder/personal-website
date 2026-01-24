@@ -1,6 +1,7 @@
 <script lang="ts">
 	import githubLogo from "$lib/assets/icons/logo-github.svg";
 	import linkedinLogo from "$lib/assets/icons/logo-linkedin.svg";
+
 	const developmentItems = [
 		"C",
 		"C++",
@@ -14,6 +15,10 @@
 		"Expo"
 	];
 	const softwareItems = ["Affinity", "Blender", "Figma", "Godot"];
+	const links: { href: string; icon: string }[] = [
+		{ href: "https://github.com/MelonEncoder", icon: githubLogo },
+		{ href: "https://www.linkedin.com/in/iangillette", icon: linkedinLogo }
+	];
 </script>
 
 <div class="content">
@@ -33,7 +38,7 @@
 			<li class="toolItem" id={item}>{item}</li>
 		{/each}
 	</ul>
-	<h2 class="sectionHeading">Language Fluency</h2>
+	<h2 class="sectionHeading">Fluency</h2>
 	<p class="sectionText">
 		I am actively learning
 		<span class="highlight">Japanese</span> at the moment and plan on learning Spanish in the future.
@@ -43,16 +48,13 @@
 		<li>Spanish/Español (Elementary Level)</li>
 	</ul>
 	<h2 class="sectionHeading">Links</h2>
-	<div class="links-content">
+	<div class="linksContent">
 		<div class="links">
-			<a class="link" id="github" href="https://github.com/MelonEncoder" rel="external">
-				<img src={githubLogo} alt="github logo" />
-				GitHub
-			</a>
-			<a class="link" id="linkedin" href="https://linkedin.com/in/iangillette" rel="external">
-				<img src={linkedinLogo} alt="linkedin logo" />
-				LinkedIn
-			</a>
+			{#each links as link, i (i)}
+				<a class="link" id="github" href={link.href} about="_blank" rel="external">
+					<img src={link.icon} alt="github logo" />
+				</a>
+			{/each}
 		</div>
 	</div>
 </div>
@@ -60,7 +62,6 @@
 <style>
 	.content {
 		color: var(--black);
-		/*background-color: var(--white);*/
 	}
 	.sectionHeading {
 		font-size: 2rem;
@@ -125,7 +126,7 @@
 		font-size: 1rem;
 		border: 2px solid var(--black);
 		background-color: var(--white);
-		border-radius: 0.25rem;
+		border-radius: var(--radius-sm);
 		padding: 0.4rem 0.5rem;
 		margin-right: 0.5rem;
 		margin-bottom: 0.5rem;
@@ -133,19 +134,22 @@
 
 	.links {
 		display: flex;
-		gap: 1.5rem;
-		width: 50%;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 1rem;
 	}
 
 	.link {
 		display: flex;
-		flex-direction: column;
-		width: 100%;
+		flex-direction: row;
 		align-items: center;
-		justify-content: center;
+		justify-content: space-between;
+		align-items: center;
 		border: 2px solid var(--black);
-		padding: 2rem 1rem;
+		border-radius: var(--radius-lg);
+		padding: 1rem;
 		background-color: var(--white);
+
+		width: fit-content;
 
 		font-size: 1rem;
 		font-weight: 700;
@@ -153,15 +157,11 @@
 		line-height: 1;
 		text-decoration: none;
 
-		transform: translateY(-5px);
-		box-shadow: 0 5px var(--black);
 		transition: all 0.2s ease;
 	}
 
 	.link:hover {
-		transform: translateY(-10px);
-		box-shadow: 0 10px var(--accent);
-		border-color: var(--accent);
+		background-color: lightgray;
 	}
 
 	.link:active {
@@ -174,12 +174,11 @@
 	.link > img {
 		width: 4rem;
 		aspect-ratio: 1 / 1;
-		margin-bottom: 0.5rem;
 	}
 
 	@media (max-width: 700px) {
 		.links {
-			grid-template-columns: minmax(1rem, 1fr);
+			grid-template-columns: 1fr 1fr;
 		}
 
 		.sectionHeading {

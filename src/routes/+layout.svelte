@@ -20,13 +20,14 @@
 
 		/* Colors */
 		--black: rgb(33 33 35);
-
 		--white: rgb(251 250 245);
-
-		/*--accent: #ff3c66;*/
 		--accent: rgb(250, 73, 109);
-
+		--backlight: rgb(210, 242, 219);
 		--gradient: linear-gradient(45deg, var(--accent), var(--accent-2));
+
+		--radius-sm: 4px;
+		--radius-md: 8px;
+		--radius-lg: 16px;
 	}
 
 	:global(body) {
