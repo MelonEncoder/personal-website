@@ -86,17 +86,17 @@
 		width: 100%;
 		background-color: var(--white);
 		position: relative;
-		overflow: hidden; /* keep the page "one screen" */
+		overflow: hidden;
 	}
 
 	.grid {
-		position: relative;
-		z-index: 1;
 		display: grid;
-		height: 100dvh; /* lock to screen */
-		width: 100%;
 		grid-template-columns: auto minmax(0, 1fr) 4rem;
 		grid-template-rows: 4rem minmax(0, 1fr) 4rem;
+		position: relative;
+		z-index: 1;
+		height: 100dvh;
+		width: 100%;
 	}
 
 	.gridTop {
@@ -278,7 +278,6 @@
 		}
 
 		.buttonStack {
-			display: grid;
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 			gap: 0.75rem;
 			justify-items: stretch;
@@ -315,9 +314,30 @@
 	/* Phone */
 	@media (max-width: 600px) {
 		.grid {
-			grid-template-columns: 1rem minmax(0, 1fr) 1rem;
+			grid-template-columns: minmax(0, 1fr);
 			grid-template-rows: 3rem minmax(0, 1fr) auto;
 		}
+
+		.gridTop,
+		.gridLeft,
+		.gridRight,
+		.gridBottom {
+			visibility: hidden;
+			grid-column: 1 / 2;
+		}
+
+		.gridCenterCell {
+			grid-column: 1 / 2;
+		}
+
+		.gridSidebar {
+			grid-column: 1 / 2;
+		}
+
+		.brandContainer {
+			grid-column: 1 / 2;
+		}
+
 		.buttonStack {
 			grid-template-columns: 1fr;
 		}
