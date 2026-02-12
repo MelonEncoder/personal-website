@@ -205,6 +205,13 @@
 		color: var(--black);
 	}
 
+	.contentTitle {
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		font-size: 2.1rem;
+	}
+
 	.workContent {
 		font-family: var(--font-1), sans-serif;
 		color: var(--black);

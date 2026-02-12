@@ -70,6 +70,14 @@
 	.content {
 		color: var(--black);
 	}
+
+	.contentTitle {
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		font-size: 2.1rem;
+	}
+
 	.sectionHeading {
 		font-size: 2rem;
 		font-weight: 700;
