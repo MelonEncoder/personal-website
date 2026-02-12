@@ -9,14 +9,17 @@
 	interface RouteTreeNode {
 		label: string;
 		depth: number;
-		type: "folder" | "file";
-		url?: string;
+		type: "root" | "folder" | "file";
+		url?: Parameters<typeof resolve>[0];
 	}
 
 	const treeNodes: RouteTreeNode[] = [
-		{ label: "Home", depth: 0, type: "folder", url: "/" },
-		{ label: "About", depth: 1, type: "file", url: "/about" },
-		{ label: "Work", depth: 1, type: "file", url: "/work" }
+		{ label: "Home", depth: 0, type: "root", url: "/" },
+		{ label: "About", depth: 1, type: "folder", url: "/about" },
+		{ label: "Work", depth: 1, type: "folder", url: "/work" },
+		{ label: "Programming", depth: 2, type: "file", url: "/work/programming" },
+		{ label: "Games", depth: 2, type: "file", url: "/work/games" },
+		{ label: "Design", depth: 2, type: "file", url: "/work/design" }
 	];
 
 	let { children } = $props();
@@ -27,8 +30,12 @@
 		menuVisible = false;
 	}
 
-	function isActive(url: string) {
-		return url === "/" ? page.url.pathname === "/" : page.url.pathname.startsWith(url);
+	function normalizePath(path: string) {
+		return path !== "/" && path.endsWith("/") ? path.slice(0, -1) : path;
+	}
+
+	function isActive(url: Parameters<typeof resolve>[0]) {
+		return normalizePath(page.url.pathname) === normalizePath(url);
 	}
 </script>
 
@@ -82,24 +89,15 @@
 					{#each treeNodes as node, i (i)}
 						{#if node.url}
 							<a
-								class="treeRow treeRow--{node.type} {isActive(node.url)
-									? 'is-active'
-									: ''}"
+								class="treeRow {node.type} {isActive(node.url) ? 'is-active' : ''}"
 								href={resolve(node.url)}
 								style="--depth: {node.depth};"
 								onclick={closeMenu}
 							>
-								{node.type === "folder" ? "" : "└"}
-								{node.label}
+								<div class="treeText">
+									{node.label}
+								</div>
 							</a>
-						{:else}
-							<div
-								class="treeRow treeRow--{node.type}"
-								style="--depth: {node.depth};"
-							>
-								{node.type === "folder" ? "▾" : "└"}
-								{node.label}
-							</div>
 						{/if}
 					{/each}
 				</nav>
@@ -123,13 +121,21 @@
 		/* Colors */
 		--black: rgb(33 33 35);
 		--white: rgb(251 250 245);
+		--primary: rgb(236 228 230);
+		--menuButton: rgb(252, 201, 238);
 		--accent: rgb(250, 73, 109);
+		--accent-2: color-mix(in srgb, var(--accent), white 70%);
 		--backlight: rgb(210, 242, 219);
+		--backlight-2: rgb(235, 246, 255);
 		--gradient: linear-gradient(45deg, var(--accent), var(--accent-2));
 
+		/* Radius */
 		--radius-sm: 4px;
 		--radius-md: 8px;
 		--radius-lg: 16px;
+
+		/* Constraints */
+		--content-max-width: 1500px;
 	}
 
 	:global(body) {
@@ -206,7 +212,7 @@
 		box-sizing: border-box;
 		height: 100%;
 		width: 100%;
-		background-color: rgb(210, 242, 219);
+		background-color: var(--backlight);
 		position: relative;
 	}
 
@@ -226,7 +232,7 @@
 		bottom: 0;
 		display: flex;
 		flex-direction: column;
-		background-color: rgb(235, 246, 255);
+		background-color: var(--backlight-2);
 		border-right: 2px solid var(--black);
 		width: min(21rem, 40vw);
 		min-width: 15rem;
@@ -263,18 +269,30 @@
 		font-family: "IBM Plex Sans", monospace;
 		font-size: 0.95rem;
 		line-height: 1.35;
-		padding: 0.45rem 0.9rem;
-		padding-left: calc(0.9rem + (var(--depth) * 0.95rem));
 		color: var(--black);
 		white-space: nowrap;
 	}
 
-	.treeRow--folder {
+	.treeRow.root {
 		font-weight: 700;
 	}
 
-	.treeRow--file {
+	.treeRow.folder {
+		font-weight: 700;
+	}
+
+	.treeRow.file {
 		font-weight: 500;
+	}
+
+	.treeText {
+		margin-left: calc(0.9rem + (var(--depth) * 0.95rem));
+		padding: 0.4rem 0;
+		padding-left: 0.5rem;
+	}
+
+	.treeRow.file .treeText {
+		border-left: 2px solid black;
 	}
 
 	a.treeRow {
@@ -282,11 +300,11 @@
 	}
 
 	a.treeRow:hover {
-		background-color: color-mix(in srgb, var(--accent), white 82%);
+		background-color: var(--accent-2);
 	}
 
 	a.treeRow.is-active {
-		background-color: color-mix(in srgb, var(--accent), white 72%);
+		background-color: color-mix(in srgb, var(--accent-2), var(--accent) 42%);
 		color: color-mix(in srgb, var(--accent), black 28%);
 		font-weight: 700;
 	}
@@ -353,7 +371,7 @@
 		padding: 1.1rem 1.25rem;
 		width: clamp(18rem, 18vw, 30rem);
 
-		background-color: var(--white);
+		background-color: var(--menuButton);
 		border: 2px solid var(--black);
 
 		box-shadow: 0 4px 0 4px var(--black);

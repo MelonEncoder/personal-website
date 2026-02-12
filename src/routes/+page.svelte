@@ -21,6 +21,7 @@
 		justify-content: center;
 		height: 100%;
 		gap: 2rem;
+		font-family: var(--font-1), sans-serif;
 	}
 
 	.monogram {
@@ -48,44 +49,29 @@
 	}
 
 	.desktopButton {
-		font-family: "Chicago", "Geneva", "Courier New", monospace;
-		font-size: 0.85rem;
+		font-family: var(--font-1), sans-serif;
+		font-size: 0.95rem;
+		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
-		padding: 0.65rem 1.6rem 0.6rem;
-		background: linear-gradient(
-			180deg,
-			color-mix(in srgb, var(--backlight), white 25%) 0%,
-			color-mix(in srgb, var(--backlight), var(--accent) 18%) 100%
-		);
+		padding: 0.75rem 1.4rem;
+		background: var(--primary);
 		color: var(--black);
 		border: 2px solid var(--black);
-		border-right-color: color-mix(in srgb, var(--accent), black 18%);
-		border-bottom-color: color-mix(in srgb, var(--accent), black 18%);
-		box-shadow:
-			inset 2px 2px 0 color-mix(in srgb, var(--white), white 40%),
-			inset -2px -2px 0 color-mix(in srgb, var(--accent), black 22%),
-			3px 3px 0 var(--black),
-			0 0 0 2px color-mix(in srgb, var(--accent), white 25%);
+		box-shadow: 0 4px 0 0 var(--black);
 		cursor: pointer;
-		image-rendering: pixelated;
 		transition:
-			transform 90ms steps(2, end),
-			box-shadow 90ms steps(2, end),
-			background 90ms steps(2, end);
+			transform 0.12s ease,
+			box-shadow 0.12s ease,
+			border-color 0.12s ease,
+			background-color 0.12s ease;
 	}
 
 	.desktopButton:hover {
-		background: linear-gradient(
-			180deg,
-			color-mix(in srgb, var(--backlight), white 12%) 0%,
-			color-mix(in srgb, var(--accent), var(--backlight) 40%) 100%
-		);
-		box-shadow:
-			inset 2px 2px 0 color-mix(in srgb, var(--white), white 40%),
-			inset -2px -2px 0 color-mix(in srgb, var(--accent), black 22%),
-			3px 3px 0 var(--black),
-			0 0 0 2px var(--accent);
+		transform: translateY(-2px);
+		background: color-mix(in srgb, var(--primary), var(--accent) 10%);
+		border-color: var(--accent);
+		box-shadow: 0 6px 0 0 var(--accent);
 	}
 
 	.desktopButton:focus-visible {
@@ -94,16 +80,8 @@
 	}
 
 	.desktopButton:active {
-		transform: translate(2px, 2px);
-		background: linear-gradient(
-			180deg,
-			color-mix(in srgb, var(--accent), var(--backlight) 40%) 0%,
-			color-mix(in srgb, var(--accent), black 8%) 100%
-		);
-		box-shadow:
-			inset -2px -2px 0 color-mix(in srgb, var(--white), white 30%),
-			inset 2px 2px 0 color-mix(in srgb, var(--accent), black 32%),
-			1px 1px 0 var(--black);
+		transform: translateY(0);
+		box-shadow: 0 2px 0 0 var(--accent);
 	}
 
 	/* Tablet */
