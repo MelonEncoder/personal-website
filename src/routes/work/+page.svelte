@@ -32,7 +32,7 @@
 
 <div class="content">
 	<div class="workContent">
-		<h1 class="title">My Work</h1>
+		<h1 class="title">MY WORK</h1>
 
 		<ul class="fileGrid" aria-label="Work directory files">
 			{#each workRoutes as route, i (i)}
@@ -42,8 +42,7 @@
 							<span class="fileFold"></span>
 							<span class="fileExt">.{route.extension}</span>
 						</div>
-						<h2>{route.label}</h2>
-						<p>{route.description}</p>
+						<h2 class="label">{route.label}</h2>
 					</a>
 				</li>
 			{/each}
@@ -57,15 +56,18 @@
 	}
 
 	.workContent {
-		font-family: var(--font-1), sans-serif;
+		font-family: var(--font-body), sans-serif;
 		color: var(--black);
 	}
 
 	.title {
-		font-size: 2rem;
+		font-family: var(--font-title), monospace;
+		font-size: var(--fs-4xl);
 		line-height: 1.2;
 		margin: 0.65rem 0 0.75rem;
 		margin-bottom: 1.5rem;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
 	}
 
 	.fileGrid {
@@ -83,16 +85,13 @@
 		gap: 0.75rem;
 		padding: 1.15rem;
 		border: 2px solid var(--black);
+		border-radius: var(--radius-sm);
 		background: var(--primary);
 		text-decoration: none;
 		color: var(--black);
 		box-shadow: 0 4px 0 0 var(--black);
 		transform: translateY(0);
-		transition:
-			transform 0.12s ease,
-			box-shadow 0.12s ease,
-			border-color 0.12s ease,
-			background 0.12s ease;
+		transition: 0.12s ease;
 	}
 
 	.fileCard:hover {
@@ -138,22 +137,15 @@
 		position: absolute;
 		left: 0.35rem;
 		bottom: 0.35rem;
-		font-family: "Press Start 2P", monospace;
-		font-size: 0.48rem;
+		font-family: var(--font-title), monospace;
+		font-size: var(--fs-2xs);
 		letter-spacing: 0.03em;
 	}
 
 	.fileCard h2 {
-		font-size: 1.05rem;
+		font-size: var(--fs-xl);
 		margin: 0;
 		line-height: 1.3;
-	}
-
-	.fileCard p {
-		font-size: 0.94rem;
-		line-height: 1.5;
-		margin: 0;
-		color: color-mix(in srgb, var(--black), white 14%);
 	}
 
 	@media (max-width: 1200px) {
@@ -168,7 +160,7 @@
 		}
 
 		.title {
-			font-size: 1.6rem;
+			font-size: var(--fs-3xl);
 		}
 	}
 </style>

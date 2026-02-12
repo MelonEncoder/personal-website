@@ -65,20 +65,23 @@
 
 <style>
 	.designContent {
-		font-family: var(--font-1), sans-serif;
+		font-family: var(--font-body), sans-serif;
 		color: var(--black);
 	}
 
 	.sectionHeading {
-		font-size: 2rem;
+		font-family: var(--font-title), monospace;
+		font-size: var(--fs-4xl);
 		font-weight: 700;
 		margin: 0 0 1.25rem 0;
 		color: var(--black);
 		line-height: 1.3;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
 	}
 
 	.introText {
-		font-size: 1.125rem;
+		font-size: var(--fs-lg);
 		line-height: 1.7;
 		color: var(--black);
 		margin: 0 0 1.5rem 0;
@@ -106,7 +109,6 @@
 		width: 100%;
 		border-bottom: 2px solid var(--black);
 		overflow: hidden;
-		aspect-ratio: 1 / auto;
 		background: color-mix(in srgb, var(--black), white 92%);
 	}
 
@@ -125,14 +127,14 @@
 	}
 
 	.title {
-		font-size: 1.25rem;
+		font-size: var(--fs-xl);
 		font-weight: 600;
 		margin: 0;
 		color: var(--black);
 	}
 
 	.sectionText {
-		font-size: 1rem;
+		font-size: var(--fs-base);
 		line-height: 1.7;
 		color: color-mix(in srgb, var(--black), white 12%);
 		margin: 0;
@@ -151,11 +153,11 @@
 		}
 
 		.sectionHeading {
-			font-size: 1.5rem;
+			font-size: var(--fs-2xl);
 		}
 
 		.introText {
-			font-size: 1rem;
+			font-size: var(--fs-base);
 		}
 	}
 </style>

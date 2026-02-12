@@ -115,8 +115,9 @@
 	@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 	:root {
 		/* Fonts */
-		--font-1: "Inter";
-		--font-2: "IBM Plex Sans";
+		--font-title: "Press Start 2P";
+		--font-body: "Inter";
+		--font-mono: "IBM Plex Sans";
 
 		/* Colors */
 		--black: rgb(33 33 35);
@@ -129,6 +130,20 @@
 		--backlight-2: rgb(235, 246, 255);
 		--gradient: linear-gradient(45deg, var(--accent), var(--accent-2));
 
+		/* Font Sizes */
+		--fs-2xs: 0.52rem;
+		--fs-xs: 0.6rem;
+		--fs-sm: 0.8rem;
+		--fs-md: 0.875rem;
+		--fs-base: 1rem;
+		--fs-lg: 1.125rem;
+		--fs-xl: 1.25rem;
+		--fs-2xl: 1.5rem;
+		--fs-3xl: 1.6rem;
+		--fs-4xl: 2rem;
+		--fs-display-sm: clamp(1.1rem, 3.7vw, 2.1rem);
+		--fs-display-md: clamp(1.5rem, 8vw, 3rem);
+
 		/* Radius */
 		--radius-sm: 4px;
 		--radius-md: 8px;
@@ -139,7 +154,7 @@
 	}
 
 	:global(body) {
-		font-family: var(--font-1), sans-serif, serif;
+		font-family: var(--font-body), sans-serif, serif;
 		margin: 0;
 		background-color: var(--white);
 	}
@@ -201,6 +216,7 @@
 		overflow: hidden;
 
 		background-color: var(--black);
+
 		padding: 0;
 
 		border: 10px solid var(--black);
@@ -213,7 +229,50 @@
 		height: 100%;
 		width: 100%;
 		background-color: var(--backlight);
+		/*background:
+			radial-gradient(
+				circle at 15% 20%,
+				color-mix(in srgb, var(--accent), white 75%) 0%,
+				transparent 40%
+			),
+			radial-gradient(
+				circle at 85% 80%,
+				color-mix(in srgb, var(--backlight), black 5%) 0%,
+				transparent 40%
+			),
+			linear-gradient(
+				160deg,
+				color-mix(in srgb, var(--backlight-2), white 35%) 0%,
+				var(--backlight) 100%
+			);*/
 		position: relative;
+	}
+
+	.ambientGlow {
+		position: absolute;
+		inset: 0;
+		background-image: linear-gradient(
+			to right,
+			transparent 0,
+			transparent calc(100% - 1px),
+			rgba(33, 33, 35, 0.08) calc(100% - 1px)
+		);
+		background-size: 28px 28px;
+		opacity: 0.5;
+		pointer-events: none;
+	}
+
+	.scanlines {
+		position: absolute;
+		inset: 0;
+		background: repeating-linear-gradient(
+			to bottom,
+			rgba(33, 33, 35, 0.02) 0,
+			rgba(33, 33, 35, 0.02) 2px,
+			transparent 2px,
+			transparent 4px
+		);
+		pointer-events: none;
 	}
 
 	.content {
@@ -253,8 +312,8 @@
 	}
 
 	.treeTitle {
-		font-family: var(--font-2), sans-serif;
-		font-size: 0.8rem;
+		font-family: var(--font-mono), sans-serif;
+		font-size: var(--fs-sm);
 		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
@@ -266,8 +325,8 @@
 
 	.treeRow {
 		--depth: 0;
-		font-family: "IBM Plex Sans", monospace;
-		font-size: 0.95rem;
+		font-family: var(--font-mono), monospace;
+		font-size: var(--fs-base);
 		line-height: 1.35;
 		color: var(--black);
 		white-space: nowrap;
@@ -351,7 +410,7 @@
 	}
 
 	.brandContainer p {
-		font-size: 0.875rem;
+		font-size: var(--fs-md);
 		margin: 0;
 		color: var(--black);
 		font-weight: 400;
@@ -364,7 +423,7 @@
 
 	.menuButton {
 		cursor: pointer;
-		font-size: 1.25rem;
+		font-size: var(--fs-xl);
 		font-weight: 800;
 		color: var(--black);
 
@@ -433,7 +492,7 @@
 
 		.menuButton {
 			width: 100%;
-			font-size: 1.05rem;
+			font-size: var(--fs-base);
 			padding: 0.95rem 0.9rem;
 
 			transform: translateY(-2px);

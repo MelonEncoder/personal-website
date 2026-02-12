@@ -19,7 +19,8 @@
 		"Svelte",
 		"Git",
 		"React Native",
-		"Expo"
+		"Expo",
+		"NEXT.js"
 	];
 
 	const softwareItems = [
@@ -98,23 +99,28 @@
 <style>
 	.content {
 		color: var(--black);
-		font-family: var(--font-1), sans-serif;
+		font-family: var(--font-body), sans-serif;
 	}
 
 	.title {
-		font-family: "Press Start 2P";
+		font-family: var(--font-title), monospace;
+		font-size: var(--fs-display-sm);
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		margin: 0 0 1rem 0;
 	}
 
 	.sectionHeading {
-		font-size: 2rem;
+		font-size: var(--fs-4xl);
 		font-weight: 700;
 		margin: 2rem 0 1rem 0;
 		color: var(--black);
 		line-height: 1.3;
+		letter-spacing: 0.02em;
 	}
 
 	.sectionText {
-		font-size: 1rem;
+		font-size: var(--fs-base);
 		line-height: 1.7;
 		color: var(--black);
 		margin-bottom: 1rem;
@@ -135,7 +141,7 @@
 		flex-direction: column;
 		gap: 0.55rem;
 		line-height: 1.5;
-		font-size: 1rem;
+		font-size: var(--fs-base);
 		padding: 0.95rem;
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
@@ -155,8 +161,8 @@
 		margin: 0;
 		width: fit-content;
 		padding: 0.15rem 0.35rem;
-		font-size: 0.58rem;
-		font-family: "Press Start 2P", monospace;
+		font-size: var(--fs-2xs);
+		font-family: var(--font-title), monospace;
 		letter-spacing: 0.03em;
 		text-transform: uppercase;
 		background: color-mix(in srgb, var(--primary), white 35%);
@@ -166,7 +172,7 @@
 
 	.languageName {
 		margin: 0;
-		font-size: 1.35rem;
+		font-size: var(--fs-xl);
 		line-height: 1.1;
 	}
 
@@ -184,12 +190,12 @@
 		margin: 0;
 		padding-top: 0.35rem;
 		border-top: 1px dashed color-mix(in srgb, var(--black), white 60%);
-		font-size: 0.95rem;
+		font-size: var(--fs-base);
 	}
 
 	.languageMeta span {
-		font-family: "Press Start 2P", monospace;
-		font-size: 0.52rem;
+		font-family: var(--font-title), monospace;
+		font-size: var(--fs-2xs);
 		letter-spacing: 0.03em;
 		text-transform: uppercase;
 		color: color-mix(in srgb, var(--black), white 35%);
@@ -204,7 +210,7 @@
 	}
 
 	.toolItem {
-		font-size: 1rem;
+		font-size: var(--fs-base);
 		border: 2px solid var(--black);
 		background-color: var(--primary);
 		border-radius: var(--radius-sm);
@@ -221,7 +227,7 @@
 	.toolItem:hover {
 		border-color: var(--accent);
 		background-color: color-mix(in srgb, var(--primary), var(--accent) 10%);
-		box-shadow: 0 4px 0 0 var(--accent);
+		box-shadow: 0 3px 0 0 var(--accent);
 	}
 
 	.links {
@@ -241,7 +247,7 @@
 		box-shadow: 0 4px 0 0 var(--black);
 		transform: translateY(0);
 
-		font-size: 1rem;
+		font-size: var(--fs-base);
 		font-weight: 700;
 		color: var(--black);
 		line-height: 1;
@@ -282,11 +288,7 @@
 		}
 
 		.sectionHeading {
-			font-size: 1.5rem;
-		}
-
-		.introText {
-			font-size: 1rem;
+			font-size: var(--fs-2xl);
 		}
 	}
 </style>

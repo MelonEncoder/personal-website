@@ -21,13 +21,13 @@
 		justify-content: center;
 		gap: 0.75rem;
 		height: 100%;
-		font-family: var(--font-1), sans-serif;
+		font-family: var(--font-body), sans-serif;
 		color: var(--black);
 	}
 
 	.pathText {
-		font-family: "Press Start 2P", monospace;
-		font-size: 0.6rem;
+		font-family: var(--font-title), monospace;
+		font-size: var(--fs-xs);
 		margin: 0;
 		letter-spacing: 0.05em;
 		color: color-mix(in srgb, var(--black), white 30%);
@@ -35,13 +35,14 @@
 
 	h1 {
 		margin: 0;
-		font-size: 2rem;
+		font-size: var(--fs-4xl);
+		text-transform: uppercase;
 		line-height: 1.2;
 	}
 
 	p {
 		margin: 0;
-		font-size: 1rem;
+		font-size: var(--fs-base);
 		line-height: 1.6;
 	}
 

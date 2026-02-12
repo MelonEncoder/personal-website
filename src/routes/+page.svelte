@@ -1,62 +1,258 @@
-<script>
+<script lang="ts">
+	import { onMount } from "svelte";
+	import { resolve } from "$app/paths";
+
 	import monogram from "$lib/assets/brand/monogram.svg";
+
+	interface PreviewCard {
+		label: string;
+		ext: string;
+		threshold: number;
+	}
+
+	const INTRO_SEEN_KEY = "ian-portfolio-intro-seen";
+
+	const previewCards: PreviewCard[] = [
+		{ label: "Programming", ext: ".dev", threshold: 82 },
+		{ label: "Games", ext: ".rom", threshold: 58 },
+		{ label: "Design", ext: ".art", threshold: 34 }
+	];
+
+	let progress = 0;
+	let ready = false;
+	let seenIntro = false;
+	let rafId = 0;
+
+	function easeOutCubic(t: number) {
+		return 1 - Math.pow(1 - t, 3);
+	}
+
+	function completeIntro() {
+		if (ready) return;
+		progress = 100;
+		ready = true;
+		localStorage.setItem(INTRO_SEEN_KEY, "1");
+	}
+
+	function startSequence(durationMs: number) {
+		cancelAnimationFrame(rafId);
+		ready = false;
+		progress = 0;
+		const start = performance.now();
+
+		const tick = (now: number) => {
+			const elapsed = now - start;
+			const t = Math.min(elapsed / durationMs, 1);
+			progress = easeOutCubic(t) * 100;
+
+			if (t < 1) {
+				rafId = requestAnimationFrame(tick);
+				return;
+			}
+
+			completeIntro();
+		};
+
+		rafId = requestAnimationFrame(tick);
+	}
+
+	function skipIntro() {
+		cancelAnimationFrame(rafId);
+		completeIntro();
+	}
+
+	onMount(() => {
+		seenIntro = localStorage.getItem(INTRO_SEEN_KEY) === "1";
+		startSequence(seenIntro ? 900 : 2400);
+
+		return () => cancelAnimationFrame(rafId);
+	});
 </script>
 
-<div class="content">
-	<img class="monogram" src={monogram} alt="monogram" />
-	<div class="welcomeText">
-		<h1 class="welcomeTitle">
-			<span class="colorText">Ian</span>
-		</h1>
-		<p class="subText">software developer</p>
-	</div>
-	<button class="desktopButton">Broken</button>
+<div class="homeContent">
+	<section class="bootPanel">
+		<header class="heroHeader">
+			<img class="monogram" src={monogram} alt="Ian logo" />
+			<div>
+				<p class="label">Portfolio Bootloader</p>
+				<h1>
+					IAN
+					<span class="cursor" aria-hidden="true">_</span>
+				</h1>
+			</div>
+		</header>
+
+		<div
+			class="progressTrack"
+			role="progressbar"
+			aria-valuemin="0"
+			aria-valuemax="100"
+			aria-valuenow={Math.round(progress)}
+		>
+			<div class="progressFill" style={`width: ${progress}%;`}></div>
+		</div>
+		<div class="progressMeta">
+			<span>{Math.round(progress)}%</span>
+			<span>{ready ? "System ready" : "Boot sequence running"}</span>
+		</div>
+
+		<div class="previewGrid">
+			{#each previewCards as card, i (i)}
+				<div class="previewCard {progress >= card.threshold ? 'is-loaded' : ''}">
+					<p class="cardLabel">{card.label}</p>
+					<p class="cardExt">{card.ext}</p>
+				</div>
+			{/each}
+		</div>
+
+		<div class="actions">
+			{#if !ready}
+				<button type="button" class="actionButton ghost" onclick={skipIntro}
+					>Skip Intro</button
+				>
+			{/if}
+			{#if ready}
+				<a class="actionButton ghost" href={resolve("/about")}>About Me</a>
+				<a class="actionButton primary" href={resolve("/work")}>My Work</a>
+			{/if}
+		</div>
+	</section>
 </div>
 
 <style>
-	.content {
+	.homeContent {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+	}
+
+	.bootPanel {
 		display: flex;
 		flex-direction: column;
-		place-items: center;
-		justify-content: center;
-		height: 100%;
-		gap: 2rem;
-		font-family: var(--font-1), sans-serif;
+		gap: 1rem;
+		width: min(880px, 100%);
+		padding: clamp(1rem, 2.5vw, 1.8rem);
+		background: color-mix(in srgb, var(--white), var(--backlight-2) 35%);
+		border: 2px solid var(--black);
+	}
+
+	.heroHeader {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
 	}
 
 	.monogram {
-		width: clamp(96px, 10vw, 130px);
-		aspect-ratio: 1 / 1;
+		width: clamp(62px, 10vw, 92px);
+		height: auto;
 	}
 
-	.welcomeTitle {
-		font-size: clamp(1.5rem, 8vw, 3rem);
-		line-height: 1.05;
-		margin: 0 0 0.5rem 0;
-		letter-spacing: -0.02em;
-		text-align: center;
-	}
-
-	.subText {
-		font-size: 1rem;
+	.label {
 		margin: 0;
-		opacity: 0.9;
-		text-align: center;
-	}
-
-	.colorText {
-		color: var(--accent);
-	}
-
-	.desktopButton {
-		font-family: var(--font-1), sans-serif;
-		font-size: 0.95rem;
-		font-weight: 700;
+		font-family: var(--font-mono), monospace;
+		font-size: var(--fs-sm);
+		letter-spacing: 0.1em;
 		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		padding: 0.75rem 1.4rem;
-		background: var(--primary);
-		color: var(--black);
+		color: color-mix(in srgb, var(--black), white 35%);
+	}
+
+	h1 {
+		margin: 0.2rem 0 0;
+		font-family: var(--font-title), monospace;
+		font-size: var(--fs-display-sm);
+		line-height: 1.35;
+		text-transform: uppercase;
+	}
+
+	.cursor {
+		display: inline-block;
+		color: var(--accent);
+		animation: blink 0.9s steps(1) infinite;
+	}
+
+	.progressTrack {
+		height: 0.9rem;
+		border: 2px solid var(--black);
+		background: color-mix(in srgb, var(--white), var(--backlight-2) 45%);
+		overflow: hidden;
+	}
+
+	.progressFill {
+		height: 100%;
+		background: linear-gradient(
+			90deg,
+			var(--accent),
+			color-mix(in srgb, var(--accent), white 55%)
+		);
+		transition: width 0.09s linear;
+	}
+
+	.progressMeta {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		font-family: var(--font-mono), monospace;
+		font-size: var(--fs-md);
+	}
+
+	.previewGrid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.7rem;
+	}
+
+	.previewCard {
+		padding: 0.8rem;
+		border: 2px solid color-mix(in srgb, var(--black), white 35%);
+		background: color-mix(in srgb, var(--white), var(--backlight) 70%);
+		opacity: 0.65;
+		transition:
+			opacity 0.2s ease,
+			border-color 0.2s ease,
+			transform 0.2s ease;
+	}
+
+	.previewCard.is-loaded {
+		opacity: 1;
+		border-color: var(--accent);
+		transform: translateY(-2px);
+	}
+
+	.cardLabel {
+		margin: 0;
+		font-weight: 700;
+		font-size: var(--fs-base);
+		text-transform: uppercase;
+	}
+
+	.cardExt {
+		margin: 0.22rem 0 0;
+		font-family: var(--font-title), monospace;
+		font-size: var(--fs-2xs);
+		letter-spacing: 0.04em;
+		color: color-mix(in srgb, var(--black), white 28%);
+	}
+
+	.actions {
+		display: flex;
+		gap: 0.75rem;
+		justify-content: flex-end;
+		align-items: center;
+		min-height: 2.9rem;
+	}
+
+	.actionButton {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.62rem 1rem;
+		font-family: var(--font-mono), sans-serif;
+		font-size: var(--fs-md);
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		text-decoration: none;
 		border: 2px solid var(--black);
 		box-shadow: 0 4px 0 0 var(--black);
 		cursor: pointer;
@@ -64,34 +260,55 @@
 			transform 0.12s ease,
 			box-shadow 0.12s ease,
 			border-color 0.12s ease,
-			background-color 0.12s ease;
+			background-color 0.12s ease,
+			color 0.12s ease;
 	}
 
-	.desktopButton:hover {
+	.actionButton.primary {
+		background: var(--accent);
+		color: var(--white);
+	}
+
+	.actionButton.ghost {
+		background: var(--primary);
+		color: var(--black);
+	}
+
+	.actionButton:hover {
 		transform: translateY(-2px);
-		background: color-mix(in srgb, var(--primary), var(--accent) 10%);
 		border-color: var(--accent);
 		box-shadow: 0 6px 0 0 var(--accent);
 	}
 
-	.desktopButton:focus-visible {
-		outline: 2px dashed var(--accent);
-		outline-offset: 4px;
-	}
-
-	.desktopButton:active {
+	.actionButton:active {
 		transform: translateY(0);
 		box-shadow: 0 2px 0 0 var(--accent);
 	}
 
-	/* Tablet */
-	@media (max-width: 1200px) {
-		.welcomeTitle {
-			margin: 0 0 0.25rem 0;
+	@keyframes blink {
+		0%,
+		50% {
+			opacity: 1;
 		}
 
-		.subText {
-			font-size: 0.95rem;
+		50.01%,
+		100% {
+			opacity: 0;
+		}
+	}
+
+	@media (max-width: 760px) {
+		.previewGrid {
+			grid-template-columns: 1fr;
+		}
+
+		.actions {
+			justify-content: stretch;
+			flex-wrap: wrap;
+		}
+
+		.actionButton {
+			flex: 1 1 100%;
 		}
 	}
 </style>
