@@ -151,12 +151,6 @@
 		transition: 0.12s ease;
 	}
 
-	.languageCard:hover {
-		border-color: var(--accent);
-		background: color-mix(in srgb, var(--primary), var(--accent) 10%);
-		box-shadow: 0 4px 0 0 var(--accent);
-	}
-
 	.languageTag {
 		margin: 0;
 		width: fit-content;
@@ -194,7 +188,7 @@
 	}
 
 	.languageMeta span {
-		font-family: var(--font-title), monospace;
+		font-family: var(--font-body), monospace;
 		font-size: var(--fs-body);
 		letter-spacing: 0.03em;
 		text-transform: uppercase;
@@ -222,12 +216,6 @@
 		transform: translateY(0);
 
 		transition: 0.12s ease;
-	}
-
-	.toolItem:hover {
-		border-color: var(--accent);
-		background-color: color-mix(in srgb, var(--primary), var(--accent) 10%);
-		box-shadow: 0 3px 0 0 var(--accent);
 	}
 
 	.links {
