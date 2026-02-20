@@ -145,7 +145,7 @@
 		padding: 0.95rem;
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
-		background: var(--primary);
+		background: var(--white);
 		box-shadow: 0 4px 0 0 var(--black);
 		transform: translateY(0);
 		transition: 0.12s ease;
@@ -199,14 +199,17 @@
 
 	.toolItem {
 		font-size: var(--fs-body);
+		font-weight: 700;
+		letter-spacing: 0.02em;
+		line-height: 1.2;
 		border: 2px solid var(--black);
-		background-color: var(--primary);
+		background: color-mix(in srgb, var(--backlight-3), white 30%);
 		border-radius: var(--radius-sm);
-		padding: 0.4rem 0.55rem;
+		padding: 0.28rem 0.55rem;
 		margin-right: 0.5rem;
 		margin-bottom: 0.5rem;
 
-		box-shadow: 0 3px 0 0 var(--black);
+		box-shadow: 0 2px 0 0 var(--black);
 		transform: translateY(0);
 
 		transition: 0.12s ease;
@@ -225,7 +228,7 @@
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
 		padding: 1rem;
-		background-color: var(--primary);
+		background-color: var(--white);
 		box-shadow: 0 4px 0 0 var(--black);
 		transform: translateY(0);
 
@@ -239,10 +242,9 @@
 	}
 
 	.link:hover {
-		transform: translateY(-2px);
-		background-color: color-mix(in srgb, var(--primary), var(--accent) 10%);
+		background-color: color-mix(in srgb, var(--white), var(--accent) 10%);
 		border-color: var(--accent);
-		box-shadow: 0 6px 0 0 var(--accent);
+		box-shadow: 0 4px 0 0 var(--accent);
 	}
 
 	.link:active {

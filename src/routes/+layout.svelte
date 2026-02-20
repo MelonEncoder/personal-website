@@ -121,13 +121,13 @@
 
 		/* Colors */
 		--black: rgb(33 33 35);
-		--white: rgb(251 250 245);
-		--primary: rgb(236 228 230);
-		--menuButton: rgb(252, 201, 238);
+		--white: rgb(248 248 248);
+		--off-white: rgb(236 228 230);
 		--accent: rgb(250, 73, 109);
 		--accent-2: color-mix(in srgb, var(--accent), white 70%);
 		--backlight: rgb(210, 242, 219);
 		--backlight-2: rgb(235, 246, 255);
+		--backlight-3: rgb(252, 201, 238);
 		--gradient: linear-gradient(45deg, var(--accent), var(--accent-2));
 
 		/* Font Sizes */
@@ -155,7 +155,7 @@
 	.page {
 		min-height: 100dvh;
 		width: 100%;
-		background-color: var(--white);
+		background-color: var(--off-white);
 		position: relative;
 		overflow: hidden;
 	}

@@ -5,7 +5,7 @@
 		label: string;
 		description: string;
 		url: Parameters<typeof resolve>[0];
-		extension: string;
+		folderLabel: string;
 	}
 
 	const workRoutes: WorkRoute[] = [
@@ -13,19 +13,19 @@
 			label: "Programming Projects",
 			description: "Code projects, tools, and experiments.",
 			url: "/work/programming",
-			extension: "dev"
+			folderLabel: ".DEV"
 		},
 		{
 			label: "Video Games",
 			description: "Jam games and playable prototypes.",
 			url: "/work/games",
-			extension: "rom"
+			folderLabel: ".ROM"
 		},
 		{
 			label: "Graphic Design",
 			description: "Posters, layout, and visual design work.",
 			url: "/work/design",
-			extension: "art"
+			folderLabel: ".DSN"
 		}
 	];
 </script>
@@ -37,12 +37,13 @@
 		<ul class="fileGrid" aria-label="Work directory files">
 			{#each workRoutes as route, i (i)}
 				<li>
-					<a class="fileCard" href={resolve(route.url)}>
-						<div class="fileIcon" aria-hidden="true">
-							<span class="fileFold"></span>
-							<span class="fileExt">.{route.extension}</span>
+					<a class="fileLink" href={resolve(route.url)}>
+						<div class="folderButton" aria-hidden="true">
+							<div class="folderTab">{route.folderLabel}</div>
+							<div class="folderBody">
+								<span class="folderTitle">{route.label}</span>
+							</div>
 						</div>
-						<h2 class="label">{route.label}</h2>
 					</a>
 				</li>
 			{/each}
@@ -79,73 +80,80 @@
 		margin: 0;
 	}
 
-	.fileCard {
-		display: flex;
-		flex-direction: column;
-		gap: 0.75rem;
-		padding: 1.15rem;
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-		background: var(--primary);
+	.fileLink {
 		text-decoration: none;
 		color: var(--black);
-		box-shadow: 0 4px 0 0 var(--black);
-		transform: translateY(0);
-		transition: 0.12s ease;
 	}
 
-	.fileCard:hover {
-		transform: translateY(-4px);
-		border-color: var(--accent);
-		box-shadow: 0 8px 0 0 var(--accent);
-		background: color-mix(in srgb, var(--primary), var(--accent) 10%);
-	}
-
-	.fileCard:active {
-		transform: translateY(0);
-		box-shadow: 0 2px 0 0 var(--accent);
-	}
-
-	.fileCard:focus-visible {
+	.fileLink:focus-visible {
 		outline: 2px dashed var(--accent);
 		outline-offset: 4px;
 	}
 
-	.fileIcon {
-		position: relative;
-		width: 3.15rem;
-		height: 3.9rem;
-		background-color: var(--white);
+	.folderButton {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 2rem 1fr;
+		box-sizing: border-box;
+	}
+
+	.folderTab {
+		display: flex;
+		box-sizing: border-box;
+		align-items: center;
+		justify-content: start;
+		padding: 0 1rem;
 		border: 2px solid var(--black);
-		box-shadow:
-			inset 2px 2px 0 color-mix(in srgb, var(--white), white 40%),
-			inset -2px -2px 0 color-mix(in srgb, var(--backlight), black 12%);
-	}
-
-	.fileFold {
-		position: absolute;
-		top: -2px;
-		right: -2px;
-		width: 1rem;
-		height: 1rem;
-		background: color-mix(in srgb, var(--accent), white 52%);
-		border-left: 2px solid var(--black);
-		border-bottom: 2px solid var(--black);
-	}
-
-	.fileExt {
-		position: absolute;
-		left: 0.35rem;
-		bottom: 0.35rem;
-		font-family: var(--font-title), monospace;
+		border-bottom: 0;
+		width: fit-content;
+		border-top-left-radius: var(--radius-sm);
+		border-top-right-radius: var(--radius-sm);
+		background: color-mix(in srgb, var(--backlight-3), white 30%);
+		font-family: var(--font-mono), monospace;
 		font-size: var(--fs-body);
-		letter-spacing: 0.03em;
+		font-weight: 700;
+		color: var(--black);
+		transition: 0.12s ease;
 	}
 
-	.fileCard h2 {
+	.folderBody {
+		display: flex;
+		box-sizing: border-box;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		aspect-ratio: 2 / 1;
+		border: 2px solid var(--black);
+		border-radius: var(--radius-sm);
+		border-top-left-radius: 0;
+		background: color-mix(in srgb, var(--backlight-3), white 55%);
+		box-shadow: 0 4px 0 0 var(--black);
+		transition: 0.12s ease;
+	}
+
+	.folderTitle {
+		font-family: var(--font-mono), monospace;
 		font-size: var(--fs-h3);
-		margin: 0;
-		line-height: 1.3;
+		font-weight: 700;
+		letter-spacing: 0.02em;
+		color: var(--black);
+	}
+
+	.fileLink:hover .folderTab {
+		border-color: var(--accent);
+		background: color-mix(in srgb, var(--backlight-3), var(--accent) 14%);
+	}
+
+	.fileLink:hover .folderBody {
+		border-color: var(--accent);
+		background: color-mix(in srgb, var(--backlight-3), var(--accent) 14%);
+		box-shadow: 0 4px 0 0 var(--accent);
+	}
+
+	.fileLink:active .folderTab,
+	.fileLink:active .folderBody {
+		transform: translateY(4px);
+		box-shadow: 0 0 0 0 var(--accent);
 	}
 
 	@media (max-width: 1200px) {

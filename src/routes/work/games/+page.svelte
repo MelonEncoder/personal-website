@@ -110,7 +110,7 @@
 		flex-direction: column;
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
-		background-color: var(--primary);
+		background-color: var(--white);
 		overflow: hidden;
 		box-shadow: 0 4px 0 0 var(--black);
 	}

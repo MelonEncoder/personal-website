@@ -205,19 +205,20 @@
 	}
 
 	.actionButton.ghost {
-		background: var(--primary);
+		background: var(--white);
 		color: var(--black);
 	}
 
 	.actionButton:hover {
 		border-color: var(--accent);
 		box-shadow: 0 4px 0 0 var(--accent);
+		background-color: color-mix(in srgb, var(--accent), white 50%);
 	}
 
 	.actionButton:active {
-		transform: translateY(4px);
 		border-color: var(--accent);
-		box-shadow: 0 0px 0 0 var(--accent);
+		transform: translateY(4px);
+		box-shadow: 0 0 0 0 var(--accent);
 	}
 
 	@keyframes blink {
