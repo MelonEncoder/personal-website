@@ -13,6 +13,7 @@
 		"C",
 		"C++",
 		"Javascript",
+		"Typescript",
 		"HTML/CSS",
 		"Go",
 		"Gdscript",
@@ -20,7 +21,8 @@
 		"Git",
 		"React Native",
 		"Expo",
-		"NEXT.js"
+		"NEXT.js",
+		"OpenCV"
 	];
 
 	const softwareItems = [

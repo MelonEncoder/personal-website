@@ -3,23 +3,35 @@
 	import { resolve } from "$app/paths";
 
 	import favicon from "$lib/assets/brand/favicon.svg";
-	import folderIcon from "$lib/assets/icons/folder.svg";
 	import monogram from "$lib/assets/brand/monogram.svg";
+	import folderIcon from "$lib/assets/icons/folder.svg";
+	import codeFileIcon from "$lib/assets/icons/code.svg";
+	import gameFileIcon from "$lib/assets/icons/joystick.svg";
+	import designFileIcon from "$lib/assets/icons/image.svg";
+	import aboutFileIcon from "$lib/assets/icons/info.svg";
+	import menuIcon from "$lib/assets/icons/menu.svg";
 
 	interface RouteTreeNode {
 		label: string;
 		depth: number;
 		type: "root" | "folder" | "file";
 		url?: Parameters<typeof resolve>[0];
+		icon?: string;
 	}
 
 	const treeNodes: RouteTreeNode[] = [
-		{ label: "Home", depth: 0, type: "root", url: "/" },
-		{ label: "About", depth: 1, type: "folder", url: "/about" },
-		{ label: "Work", depth: 1, type: "folder", url: "/work" },
-		{ label: "Programming", depth: 2, type: "file", url: "/work/programming" },
-		{ label: "Games", depth: 2, type: "file", url: "/work/games" },
-		{ label: "Design", depth: 2, type: "file", url: "/work/design" }
+		{ label: "HOME", depth: 0, type: "root", url: "/" },
+		{ label: "about", depth: 1, type: "file", url: "/about", icon: aboutFileIcon },
+		{ label: "WORK", depth: 1, type: "folder", url: "/work" },
+		{
+			label: "programming",
+			depth: 2,
+			type: "file",
+			url: "/work/programming",
+			icon: codeFileIcon
+		},
+		{ label: "games", depth: 2, type: "file", url: "/work/games", icon: gameFileIcon },
+		{ label: "design", depth: 2, type: "file", url: "/work/design", icon: designFileIcon }
 	];
 
 	let { children } = $props();
@@ -79,7 +91,13 @@
 								onclick={closeMenu}
 							>
 								<div class="treeText">
-									{node.label}
+									<img
+										class="treeIcon"
+										src={node.type === "file" ? node.icon : folderIcon}
+										alt=""
+										aria-hidden="true"
+									/>
+									<span>{node.label}</span>
 								</div>
 							</a>
 						{/if}
@@ -96,7 +114,7 @@
 						onclick={() => (menuVisible = !menuVisible)}
 					>
 						<div class="buttonContent">
-							<img src={folderIcon} alt="folder-icon" />
+							<img src={menuIcon} alt="folder-icon" />
 							Menu
 						</div>
 					</button>
@@ -294,11 +312,21 @@
 
 	.treeText {
 		margin-left: calc(0.9rem + (var(--depth) * 0.95rem));
+		display: flex;
+		align-items: center;
+		gap: 0.45rem;
 		padding: 0.4rem 0;
 		padding-left: 0.5rem;
 	}
 
-	.treeRow.file .treeText {
+	.treeIcon {
+		width: 1rem;
+		height: 1rem;
+		flex: 0 0 auto;
+	}
+
+	.treeRow.file .treeText,
+	.treeRow.folder .treeText {
 		border-left: 2px solid black;
 	}
 
@@ -312,7 +340,7 @@
 
 	a.treeRow.isActive {
 		background-color: color-mix(in srgb, var(--accent-2), var(--accent) 42%);
-		color: color-mix(in srgb, var(--accent), black 28%);
+		/*color: color-mix(in srgb, var(--accent), black 28%);*/
 		font-weight: 700;
 	}
 
