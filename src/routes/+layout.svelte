@@ -50,8 +50,11 @@
 		<div class="gridRight"></div>
 		<div class="gridBottom"></div>
 
-		<div class="brandContainer">
+		<div class="monogramContainer">
 			<img class="monogram" src={monogram} alt="monogram" width="75px" />
+		</div>
+
+		<div class="copyrightContainer">
 			<p>&copy; {year} Ian Gillette</p>
 		</div>
 
@@ -110,7 +113,7 @@
 	@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 	@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap");
 	@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
-	:root {
+	:global(:root) {
 		/* Fonts */
 		--font-title: "Press Start 2P";
 		--font-body: "Inter";
@@ -247,9 +250,7 @@
 		transform: translateX(-102%);
 		box-shadow: 0 0 0 transparent;
 		z-index: 4;
-		transition:
-			transform 0.2s ease,
-			box-shadow 0.2s ease;
+		transition: 0.2s ease;
 	}
 
 	.fileTreeMenu.is-open {
@@ -351,7 +352,7 @@
 	}
 
 	.menuButton:hover {
-		background-color: var(--accent);
+		background-color: var(--accent-2);
 	}
 
 	.buttonContent {
@@ -367,26 +368,34 @@
 		width: 1.75rem;
 	}
 
-	.brandContainer {
+	.monogramContainer {
 		grid-column: 2 / 3;
 		grid-row: 1 / 2;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		gap: 0.75rem;
 		justify-content: center;
 	}
 
-	.brandContainer p {
+	.monogramContainer .monogram {
+		width: 2.25rem;
+		aspect-ratio: 1 / 1;
+	}
+
+	.copyrightContainer {
+		grid-column: 2 / 3;
+		grid-row: 3 / 4;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.copyrightContainer p {
 		font-size: var(--fs-body);
 		margin: 0;
 		color: var(--black);
 		font-weight: 400;
-	}
-
-	.brandContainer .monogram {
-		width: 1.75rem;
-		aspect-ratio: 1 / 1;
 	}
 
 	/* Tablet */
@@ -420,7 +429,11 @@
 			grid-column: 1 / 2;
 		}
 
-		.brandContainer {
+		.monogramContainer {
+			grid-column: 1 / 2;
+		}
+
+		.copyrightContainer {
 			grid-column: 1 / 2;
 		}
 

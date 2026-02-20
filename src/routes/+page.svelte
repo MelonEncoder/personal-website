@@ -174,44 +174,6 @@
 		font-size: var(--fs-body);
 	}
 
-	.previewGrid {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 0.7rem;
-	}
-
-	.previewCard {
-		padding: 0.8rem;
-		border: 2px solid color-mix(in srgb, var(--black), white 35%);
-		background: color-mix(in srgb, var(--white), var(--backlight) 70%);
-		opacity: 0.65;
-		transition:
-			opacity 0.2s ease,
-			border-color 0.2s ease,
-			transform 0.2s ease;
-	}
-
-	.previewCard.is-loaded {
-		opacity: 1;
-		border-color: var(--accent);
-		transform: translateY(-2px);
-	}
-
-	.cardLabel {
-		margin: 0;
-		font-weight: 700;
-		font-size: var(--fs-body);
-		text-transform: uppercase;
-	}
-
-	.cardExt {
-		margin: 0.22rem 0 0;
-		font-family: var(--font-title), monospace;
-		font-size: var(--fs-body);
-		letter-spacing: 0.04em;
-		color: color-mix(in srgb, var(--black), white 28%);
-	}
-
 	.actions {
 		display: flex;
 		gap: 0.75rem;
@@ -234,12 +196,7 @@
 		border: 2px solid var(--black);
 		box-shadow: 0 4px 0 0 var(--black);
 		cursor: pointer;
-		transition:
-			transform 0.12s ease,
-			box-shadow 0.12s ease,
-			border-color 0.12s ease,
-			background-color 0.12s ease,
-			color 0.12s ease;
+		transition: 0.12s ease;
 	}
 
 	.actionButton.primary {
@@ -253,14 +210,14 @@
 	}
 
 	.actionButton:hover {
-		transform: translateY(-2px);
 		border-color: var(--accent);
-		box-shadow: 0 6px 0 0 var(--accent);
+		box-shadow: 0 4px 0 0 var(--accent);
 	}
 
 	.actionButton:active {
-		transform: translateY(0);
-		box-shadow: 0 2px 0 0 var(--accent);
+		transform: translateY(4px);
+		border-color: var(--accent);
+		box-shadow: 0 0px 0 0 var(--accent);
 	}
 
 	@keyframes blink {
@@ -276,10 +233,6 @@
 	}
 
 	@media (max-width: 760px) {
-		.previewGrid {
-			grid-template-columns: 1fr;
-		}
-
 		.actions {
 			justify-content: stretch;
 			flex-wrap: wrap;
