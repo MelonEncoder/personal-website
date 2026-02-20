@@ -37,13 +37,13 @@
 			name: "Japanese",
 			nativeName: "日本語",
 			fluency: "Elementary",
-			focus: "Current focus"
+			focus: "Actively Learning"
 		},
 		{
 			name: "Spanish",
 			nativeName: "Español",
 			fluency: "Elementary",
-			focus: "Next priority"
+			focus: "Next Focus"
 		}
 	];
 
@@ -75,9 +75,9 @@
 	<ul class="languageList">
 		{#each languages as language (language.name)}
 			<li class="languageCard">
-				<p class="languageTag">{language.focus}</p>
-				<h3 class="languageName">{language.name}</h3>
+				<p class="languageName">{language.name}</p>
 				<div class="languageMeta">
+					<p><span>Status</span>{language.focus}</p>
 					<p><span>Fluency</span>{language.fluency}</p>
 					<p><span>Native Name</span>{language.nativeName}</p>
 				</div>
@@ -151,7 +151,7 @@
 		transition: 0.12s ease;
 	}
 
-	.languageTag {
+	.languageName {
 		margin: 0;
 		width: fit-content;
 		padding: 0.15rem 0.35rem;
@@ -162,12 +162,6 @@
 		background: color-mix(in srgb, var(--primary), white 35%);
 		border: 1px solid var(--black);
 		color: color-mix(in srgb, var(--accent), black 10%);
-	}
-
-	.languageName {
-		margin: 0;
-		font-size: var(--fs-h3);
-		line-height: 1.1;
 	}
 
 	.languageMeta {

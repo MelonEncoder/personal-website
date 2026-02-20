@@ -1,8 +1,12 @@
 <script lang="ts">
-	import businessCard from "$lib/assets/digital-media/ian-business-card.jpg";
-	import queensGambitPoster from "$lib/assets/digital-media/the-queens-gambit-poster.png";
-	import magazineCover from "$lib/assets/digital-media/magazine-cover.jpg";
+	import businessCard from "$lib/assets/digital-media/ian-business-card.webp";
+	import queensGambitPoster from "$lib/assets/digital-media/the-queens-gambit-poster.webp";
+	import magazineCover from "$lib/assets/digital-media/magazine-cover.webp";
 	import mountainGraphic from "$lib/assets/digital-media/mountain.webp";
+	import robotPatZ from "$lib/assets/digital-media/robot.webp";
+	import teaParty from "$lib/assets/digital-media/tea-party.webp";
+	import flatSpace from "$lib/assets/digital-media/flat-space.webp";
+	import jibiRamen from "$lib/assets/digital-media/jibi-ramen.webp";
 
 	interface ArtProject {
 		title?: string;
@@ -12,27 +16,49 @@
 
 	const artProjects: ArtProject[] = [
 		{
-			title: "Magazine Cover",
+			title: "National Geographic Magazine Cover",
 			description:
-				"Editorial-style cover composition with layered photography and strong hierarchy.",
+				"Magazine cover utilizing layered photography and different typography hierarchies.",
 			image: magazineCover
 		},
 		{
-			title: "Business Card",
-			description: "Print-ready business card exploring compact branding and layout balance.",
-			image: businessCard
-		},
-		{
-			title: "Queen's Gambit Poster",
+			title: "The Queen's Gambit Movie Poster",
 			description:
-				"Poster concept inspired by the show's iconic chess motifs and dramatic contrast.",
+				"Movie poster inspired by the The Queen's Gambit that explores the contrast between the themes of chess master and substance abuse.",
 			image: queensGambitPoster
 		},
 		{
-			title: "Mountain Climbing Vector Art",
-			description:
-				"Flat vector illustration emphasizing shape language and environmental depth.",
+			title: "Personal Business Card",
+			description: "Print-ready, vertically oriented business card.",
+			image: businessCard
+		},
+
+		{
+			title: "Blackout Mountain",
+			description: "Created this artwork to put on my climbing bag.",
 			image: mountainGraphic
+		},
+		{
+			title: "Flat Space",
+			description: "Flat-illustration study focused on a space theme.",
+			image: flatSpace
+		},
+		{
+			title: "Tea Party",
+			description:
+				"A royal figure bathing in red tea, celebrating their success. Created duing a competition and selected as the winner.",
+			image: teaParty
+		},
+
+		{
+			title: "Robot Squared",
+			description: "Concept art for a colorful, boxy robot.",
+			image: robotPatZ
+		},
+		{
+			title: "Jibi Ramen Branding",
+			description: "Created the branding for a fake business named Jibi Ramen.",
+			image: jibiRamen
 		}
 	];
 </script>
@@ -41,7 +67,7 @@
 	<section class="projectSection" id="artProjects">
 		<h1 class="sectionHeading">Graphic Design</h1>
 		<p class="introText">Here are some of my graphic design works.</p>
-		<div class="artGrid">
+		<div class="artContainer">
 			{#each artProjects as art, i (i)}
 				<article class="artItem">
 					<div class="artImageFrame">
@@ -88,21 +114,24 @@
 		font-weight: 400;
 	}
 
-	.artGrid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 1.5rem;
-		margin-bottom: 1rem;
+	.artContainer {
+		column-count: 3;
+		column-gap: 1.5rem;
 	}
 
 	.artItem {
-		display: flex;
+		display: inline-flex;
+		width: 100%;
 		flex-direction: column;
+		margin: 0 0 1.5rem;
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
 		background-color: var(--primary);
 		overflow: hidden;
 		box-shadow: 0 4px 0 0 var(--black);
+		break-inside: avoid;
+		-webkit-column-break-inside: avoid;
+		page-break-inside: avoid;
 	}
 
 	.artImageFrame {
@@ -142,14 +171,14 @@
 	}
 
 	@media (max-width: 1200px) {
-		.artGrid {
-			grid-template-columns: repeat(2, 1fr);
+		.artContainer {
+			column-count: 2;
 		}
 	}
 
 	@media (max-width: 600px) {
-		.artGrid {
-			grid-template-columns: repeat(1, 1fr);
+		.artContainer {
+			column-count: 1;
 		}
 
 		.sectionHeading {

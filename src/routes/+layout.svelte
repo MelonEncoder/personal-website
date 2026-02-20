@@ -230,6 +230,7 @@
 		overflow: auto;
 		overscroll-behavior: contain;
 		width: 100%;
+		height: 100%;
 		-webkit-overflow-scrolling: touch;
 	}
 
