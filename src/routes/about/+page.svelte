@@ -248,7 +248,8 @@
 	}
 
 	.link:active {
-		box-shadow: 0 2px 0 0 var(--accent);
+		transform: translateY(4px);
+		box-shadow: 0 0px 0 0 var(--accent);
 	}
 
 	.link > img {

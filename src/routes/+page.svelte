@@ -113,6 +113,7 @@
 		padding: clamp(1rem, 2.5vw, 1.8rem);
 		background: color-mix(in srgb, var(--white), var(--backlight-2) 35%);
 		border: 2px solid var(--black);
+		border-radius: var(--radius-sm);
 	}
 
 	.heroHeader {
@@ -194,6 +195,7 @@
 		text-transform: uppercase;
 		text-decoration: none;
 		border: 2px solid var(--black);
+		border-radius: var(--radius-sm);
 		box-shadow: 0 4px 0 0 var(--black);
 		cursor: pointer;
 		transition: 0.12s ease;
@@ -213,6 +215,7 @@
 		border-color: var(--accent);
 		box-shadow: 0 4px 0 0 var(--accent);
 		background-color: color-mix(in srgb, var(--accent), white 50%);
+		color: var(--black);
 	}
 
 	.actionButton:active {

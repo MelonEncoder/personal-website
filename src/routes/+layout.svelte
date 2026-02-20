@@ -138,9 +138,9 @@
 		--fs-body: 1rem;
 
 		/* Radius */
-		--radius-sm: 4px;
-		--radius-md: 8px;
-		--radius-lg: 16px;
+		--radius-sm: 0.25rem;
+		--radius-md: 0.5rem;
+		--radius-lg: 1rem;
 
 		/* Constraints */
 		--content-max-width: 1500px;
