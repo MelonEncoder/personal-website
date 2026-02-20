@@ -104,14 +104,14 @@
 
 	.title {
 		font-family: var(--font-title), monospace;
-		font-size: var(--fs-display-sm);
+		font-size: var(--fs-title);
 		text-transform: uppercase;
 		letter-spacing: 0.02em;
 		margin: 0 0 1rem 0;
 	}
 
 	.sectionHeading {
-		font-size: var(--fs-4xl);
+		font-size: var(--fs-h2);
 		font-weight: 700;
 		margin: 2rem 0 1rem 0;
 		color: var(--black);
@@ -120,7 +120,7 @@
 	}
 
 	.sectionText {
-		font-size: var(--fs-base);
+		font-size: var(--fs-body);
 		line-height: 1.7;
 		color: var(--black);
 		margin-bottom: 1rem;
@@ -141,7 +141,7 @@
 		flex-direction: column;
 		gap: 0.55rem;
 		line-height: 1.5;
-		font-size: var(--fs-base);
+		font-size: var(--fs-body);
 		padding: 0.95rem;
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
@@ -161,7 +161,7 @@
 		margin: 0;
 		width: fit-content;
 		padding: 0.15rem 0.35rem;
-		font-size: var(--fs-2xs);
+		font-size: var(--fs-body);
 		font-family: var(--font-title), monospace;
 		letter-spacing: 0.03em;
 		text-transform: uppercase;
@@ -172,7 +172,7 @@
 
 	.languageName {
 		margin: 0;
-		font-size: var(--fs-xl);
+		font-size: var(--fs-h3);
 		line-height: 1.1;
 	}
 
@@ -190,12 +190,12 @@
 		margin: 0;
 		padding-top: 0.35rem;
 		border-top: 1px dashed color-mix(in srgb, var(--black), white 60%);
-		font-size: var(--fs-base);
+		font-size: var(--fs-body);
 	}
 
 	.languageMeta span {
 		font-family: var(--font-title), monospace;
-		font-size: var(--fs-2xs);
+		font-size: var(--fs-body);
 		letter-spacing: 0.03em;
 		text-transform: uppercase;
 		color: color-mix(in srgb, var(--black), white 35%);
@@ -210,7 +210,7 @@
 	}
 
 	.toolItem {
-		font-size: var(--fs-base);
+		font-size: var(--fs-body);
 		border: 2px solid var(--black);
 		background-color: var(--primary);
 		border-radius: var(--radius-sm);
@@ -247,7 +247,7 @@
 		box-shadow: 0 4px 0 0 var(--black);
 		transform: translateY(0);
 
-		font-size: var(--fs-base);
+		font-size: var(--fs-body);
 		font-weight: 700;
 		color: var(--black);
 		line-height: 1;
@@ -288,7 +288,7 @@
 		}
 
 		.sectionHeading {
-			font-size: var(--fs-2xl);
+			font-size: var(--fs-h1);
 		}
 	}
 </style>

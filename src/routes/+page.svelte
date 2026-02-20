@@ -4,19 +4,7 @@
 
 	import monogram from "$lib/assets/brand/monogram.svg";
 
-	interface PreviewCard {
-		label: string;
-		ext: string;
-		threshold: number;
-	}
-
 	const INTRO_SEEN_KEY = "ian-portfolio-intro-seen";
-
-	const previewCards: PreviewCard[] = [
-		{ label: "Programming", ext: ".dev", threshold: 82 },
-		{ label: "Games", ext: ".rom", threshold: 58 },
-		{ label: "Design", ext: ".art", threshold: 34 }
-	];
 
 	let progress = 0;
 	let ready = false;
@@ -81,7 +69,10 @@
 				</h1>
 			</div>
 		</header>
-
+		<div class="progressMeta">
+			<span>{ready ? "System ready" : "Loading . . ."}</span>
+			<span>{Math.round(progress)}%</span>
+		</div>
 		<div
 			class="progressTrack"
 			role="progressbar"
@@ -90,19 +81,6 @@
 			aria-valuenow={Math.round(progress)}
 		>
 			<div class="progressFill" style={`width: ${progress}%;`}></div>
-		</div>
-		<div class="progressMeta">
-			<span>{Math.round(progress)}%</span>
-			<span>{ready ? "System ready" : "Boot sequence running"}</span>
-		</div>
-
-		<div class="previewGrid">
-			{#each previewCards as card, i (i)}
-				<div class="previewCard {progress >= card.threshold ? 'is-loaded' : ''}">
-					<p class="cardLabel">{card.label}</p>
-					<p class="cardExt">{card.ext}</p>
-				</div>
-			{/each}
 		</div>
 
 		<div class="actions">
@@ -151,7 +129,7 @@
 	.label {
 		margin: 0;
 		font-family: var(--font-mono), monospace;
-		font-size: var(--fs-sm);
+		font-size: var(--fs-body);
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
 		color: color-mix(in srgb, var(--black), white 35%);
@@ -160,7 +138,7 @@
 	h1 {
 		margin: 0.2rem 0 0;
 		font-family: var(--font-title), monospace;
-		font-size: var(--fs-display-sm);
+		font-size: var(--fs-title);
 		line-height: 1.35;
 		text-transform: uppercase;
 	}
@@ -193,7 +171,7 @@
 		justify-content: space-between;
 		gap: 1rem;
 		font-family: var(--font-mono), monospace;
-		font-size: var(--fs-md);
+		font-size: var(--fs-body);
 	}
 
 	.previewGrid {
@@ -222,14 +200,14 @@
 	.cardLabel {
 		margin: 0;
 		font-weight: 700;
-		font-size: var(--fs-base);
+		font-size: var(--fs-body);
 		text-transform: uppercase;
 	}
 
 	.cardExt {
 		margin: 0.22rem 0 0;
 		font-family: var(--font-title), monospace;
-		font-size: var(--fs-2xs);
+		font-size: var(--fs-body);
 		letter-spacing: 0.04em;
 		color: color-mix(in srgb, var(--black), white 28%);
 	}
@@ -248,7 +226,7 @@
 		justify-content: center;
 		padding: 0.62rem 1rem;
 		font-family: var(--font-mono), sans-serif;
-		font-size: var(--fs-md);
+		font-size: var(--fs-body);
 		font-weight: 700;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;

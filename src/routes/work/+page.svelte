@@ -62,7 +62,7 @@
 
 	.title {
 		font-family: var(--font-title), monospace;
-		font-size: var(--fs-4xl);
+		font-size: var(--fs-h2);
 		line-height: 1.2;
 		margin: 0.65rem 0 0.75rem;
 		margin-bottom: 1.5rem;
@@ -138,12 +138,12 @@
 		left: 0.35rem;
 		bottom: 0.35rem;
 		font-family: var(--font-title), monospace;
-		font-size: var(--fs-2xs);
+		font-size: var(--fs-body);
 		letter-spacing: 0.03em;
 	}
 
 	.fileCard h2 {
-		font-size: var(--fs-xl);
+		font-size: var(--fs-h3);
 		margin: 0;
 		line-height: 1.3;
 	}
@@ -160,7 +160,7 @@
 		}
 
 		.title {
-			font-size: var(--fs-3xl);
+			font-size: var(--fs-h1);
 		}
 	}
 </style>

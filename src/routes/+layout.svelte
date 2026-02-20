@@ -55,24 +55,6 @@
 			<p>&copy; {year} Ian Gillette</p>
 		</div>
 
-		<div class="gridMenuButton">
-			<section class="menuButtonContainer">
-				<button
-					type="button"
-					class="menuButton gb-btn gb-btn--icon {menuVisible ? 'is-active' : ''}"
-					aria-pressed={menuVisible}
-					aria-expanded={menuVisible}
-					aria-controls="routeTreeMenu"
-					onclick={() => (menuVisible = !menuVisible)}
-				>
-					<div class="buttonContent">
-						<img src={folderIcon} alt="" />
-						Menu
-					</div>
-				</button>
-			</section>
-		</div>
-
 		<div class="gridCenterCell">
 			<section class="contentContainer">
 				{#if menuVisible}
@@ -83,13 +65,12 @@
 						onclick={closeMenu}
 					></button>
 				{/if}
-
 				<nav id="routeTreeMenu" class="fileTreeMenu {menuVisible ? 'is-open' : ''}">
 					<div class="treeTitle">File Explorer</div>
 					{#each treeNodes as node, i (i)}
 						{#if node.url}
 							<a
-								class="treeRow {node.type} {isActive(node.url) ? 'is-active' : ''}"
+								class="treeRow {node.type} {isActive(node.url) ? 'isActive' : ''}"
 								href={resolve(node.url)}
 								style="--depth: {node.depth};"
 								onclick={closeMenu}
@@ -101,6 +82,22 @@
 						{/if}
 					{/each}
 				</nav>
+				<header class="menuBar">
+					<button
+						type="button"
+						class="menuButton"
+						class:isActive={menuVisible}
+						aria-pressed={menuVisible}
+						aria-expanded={menuVisible}
+						aria-controls="routeTreeMenu"
+						onclick={() => (menuVisible = !menuVisible)}
+					>
+						<div class="buttonContent">
+							<img src={folderIcon} alt="folder-icon" />
+							Menu
+						</div>
+					</button>
+				</header>
 				<div class="content">
 					{@render children?.()}
 				</div>
@@ -131,18 +128,11 @@
 		--gradient: linear-gradient(45deg, var(--accent), var(--accent-2));
 
 		/* Font Sizes */
-		--fs-2xs: 0.52rem;
-		--fs-xs: 0.6rem;
-		--fs-sm: 0.8rem;
-		--fs-md: 0.875rem;
-		--fs-base: 1rem;
-		--fs-lg: 1.125rem;
-		--fs-xl: 1.25rem;
-		--fs-2xl: 1.5rem;
-		--fs-3xl: 1.6rem;
-		--fs-4xl: 2rem;
-		--fs-display-sm: clamp(1.1rem, 3.7vw, 2.1rem);
-		--fs-display-md: clamp(1.5rem, 8vw, 3rem);
+		--fs-title: clamp(2rem, 4vw, 2.6rem);
+		--fs-h1: clamp(1.5rem, 2.2vw, 1.75rem);
+		--fs-h2: clamp(1.7rem, 3vw, 2rem);
+		--fs-h3: clamp(1.15rem, 1.6vw, 1.3rem);
+		--fs-body: 1rem;
 
 		/* Radius */
 		--radius-sm: 4px;
@@ -170,7 +160,7 @@
 	.grid {
 		display: grid;
 		grid-template-columns: 4rem minmax(0, 1fr) 4rem;
-		grid-template-rows: 4rem minmax(0, 1fr) auto;
+		grid-template-rows: 4rem minmax(0, 1fr) 4rem;
 		position: relative;
 		z-index: 1;
 		height: 100dvh;
@@ -213,66 +203,22 @@
 		box-sizing: border-box;
 		height: 100%;
 		width: 100%;
+		min-width: 0;
+		min-height: 0;
 		overflow: hidden;
-
 		background-color: var(--black);
-
 		padding: 0;
-
 		border: 10px solid var(--black);
 	}
 
 	.contentContainer {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		box-sizing: border-box;
 		height: 100%;
 		width: 100%;
 		background-color: var(--backlight);
-		/*background:
-			radial-gradient(
-				circle at 15% 20%,
-				color-mix(in srgb, var(--accent), white 75%) 0%,
-				transparent 40%
-			),
-			radial-gradient(
-				circle at 85% 80%,
-				color-mix(in srgb, var(--backlight), black 5%) 0%,
-				transparent 40%
-			),
-			linear-gradient(
-				160deg,
-				color-mix(in srgb, var(--backlight-2), white 35%) 0%,
-				var(--backlight) 100%
-			);*/
-		position: relative;
-	}
-
-	.ambientGlow {
-		position: absolute;
-		inset: 0;
-		background-image: linear-gradient(
-			to right,
-			transparent 0,
-			transparent calc(100% - 1px),
-			rgba(33, 33, 35, 0.08) calc(100% - 1px)
-		);
-		background-size: 28px 28px;
-		opacity: 0.5;
-		pointer-events: none;
-	}
-
-	.scanlines {
-		position: absolute;
-		inset: 0;
-		background: repeating-linear-gradient(
-			to bottom,
-			rgba(33, 33, 35, 0.02) 0,
-			rgba(33, 33, 35, 0.02) 2px,
-			transparent 2px,
-			transparent 4px
-		);
-		pointer-events: none;
+		position: sticky;
 	}
 
 	.content {
@@ -313,7 +259,7 @@
 
 	.treeTitle {
 		font-family: var(--font-mono), sans-serif;
-		font-size: var(--fs-sm);
+		font-size: var(--fs-body);
 		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
@@ -326,7 +272,7 @@
 	.treeRow {
 		--depth: 0;
 		font-family: var(--font-mono), monospace;
-		font-size: var(--fs-base);
+		font-size: var(--fs-body);
 		line-height: 1.35;
 		color: var(--black);
 		white-space: nowrap;
@@ -362,10 +308,16 @@
 		background-color: var(--accent-2);
 	}
 
-	a.treeRow.is-active {
+	a.treeRow.isActive {
 		background-color: color-mix(in srgb, var(--accent-2), var(--accent) 42%);
 		color: color-mix(in srgb, var(--accent), black 28%);
 		font-weight: 700;
+	}
+
+	.menuBar {
+		display: flex;
+		background-color: var(--backlight-2);
+		border-bottom: 2px solid var(--black);
 	}
 
 	.menuBackdrop {
@@ -377,26 +329,42 @@
 		padding: 0;
 		background-color: rgba(0, 0, 0, 0.26);
 	}
-
-	.gridMenuButton {
-		grid-column: 2 / 3;
-		grid-row: 3 / 4;
-		height: 100%;
-	}
-
 	.menuButtonContainer {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		justify-content: center;
 		align-items: center;
 		gap: 1.5rem;
 		padding: 1rem;
 	}
 
-	.gridMenu,
-	.gridCenterCell {
-		min-width: 0;
-		min-height: 0;
+	.menuButton {
+		cursor: pointer;
+		font-size: var(--fs-h3);
+		font-weight: 700;
+		color: var(--black);
+		background-color: transparent;
+		padding: 0 0.25rem;
+		transition: 0.15s ease;
+		height: fit-content;
+		border: none;
+	}
+
+	.menuButton:hover {
+		background-color: var(--accent);
+	}
+
+	.buttonContent {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 0.5rem;
+		height: 100%;
+		padding: 0.25rem;
+	}
+
+	.buttonContent img {
+		width: 1.75rem;
 	}
 
 	.brandContainer {
@@ -410,7 +378,7 @@
 	}
 
 	.brandContainer p {
-		font-size: var(--fs-md);
+		font-size: var(--fs-body);
 		margin: 0;
 		color: var(--black);
 		font-weight: 400;
@@ -421,96 +389,11 @@
 		aspect-ratio: 1 / 1;
 	}
 
-	.menuButton {
-		cursor: pointer;
-		font-size: var(--fs-xl);
-		font-weight: 800;
-		color: var(--black);
-
-		padding: 1.1rem 1.25rem;
-		width: clamp(18rem, 18vw, 30rem);
-
-		background-color: var(--menuButton);
-		border: 2px solid var(--black);
-
-		box-shadow: 0 4px 0 4px var(--black);
-		transform: translateY(-4px);
-		transition:
-			transform 0.15s ease,
-			box-shadow 0.15s ease,
-			border-color 0.15s ease;
-	}
-
-	.menuButton[aria-pressed="true"] {
-		border-color: var(--accent);
-		box-shadow: 0 4px 0 4px var(--accent);
-	}
-
-	.menuButton:hover {
-		transform: translateY(-12px);
-		box-shadow: 0 10px var(--accent);
-		border-color: var(--accent);
-		box-shadow: 0 12px 0 4px var(--accent);
-	}
-
-	.menuButton:active {
-		transition:
-			transform 0.042s ease,
-			box-shadow 0.042s ease;
-		box-shadow: 0 0 var(--accent);
-		border-color: var(--accent);
-		transform: translateY(0);
-	}
-
-	.buttonContent {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.buttonContent img {
-		width: 1.75rem;
-	}
-
 	/* Tablet */
 	@media (max-width: 1200px) {
 		.grid {
 			grid-template-columns: 1.5rem minmax(0, 1fr) 1.5rem;
-			grid-template-rows: 3.5rem minmax(0, 1fr) auto;
-		}
-
-		.gridMenuButton {
-			grid-column: 2 / 3;
-			grid-row: 3 / 4;
-			width: 100%;
-		}
-
-		.menuButtonContainer {
-			padding: 0.75rem;
-			gap: 0.75rem;
-		}
-
-		.menuButton {
-			width: 100%;
-			font-size: var(--fs-base);
-			padding: 0.95rem 0.9rem;
-
-			transform: translateY(-2px);
-			box-shadow: 0 3px 0 3px var(--black);
-		}
-
-		.menuButton:hover {
-			transform: translateY(-4px);
-			box-shadow: 0 6px 0 3px var(--accent);
-		}
-
-		.buttonContent {
-			justify-content: center;
-			width: 100%;
-		}
-
-		.buttonContent img {
-			width: 1.4rem;
+			grid-template-rows: 3.5rem minmax(0, 1fr) 3.5rem;
 		}
 
 		.centerContent {
@@ -522,7 +405,7 @@
 	@media (max-width: 600px) {
 		.grid {
 			grid-template-columns: minmax(0, 1fr);
-			grid-template-rows: 3rem minmax(0, 1fr) auto;
+			grid-template-rows: 3rem minmax(0, 1fr) 3rem;
 		}
 
 		.gridTop,
@@ -534,10 +417,6 @@
 		}
 
 		.gridCenterCell {
-			grid-column: 1 / 2;
-		}
-
-		.gridMenuButton {
 			grid-column: 1 / 2;
 		}
 

@@ -67,7 +67,7 @@
 
 	.sectionHeading {
 		font-family: var(--font-title), monospace;
-		font-size: var(--fs-4xl);
+		font-size: var(--fs-h2);
 		font-weight: 700;
 		margin: 0 0 1.25rem 0;
 		color: var(--black);
@@ -77,7 +77,7 @@
 	}
 
 	.introText {
-		font-size: var(--fs-lg);
+		font-size: var(--fs-body);
 		line-height: 1.7;
 		color: var(--black);
 		margin: 0 0 1.5rem 0;
@@ -85,7 +85,7 @@
 	}
 
 	.sectionText {
-		font-size: var(--fs-base);
+		font-size: var(--fs-body);
 		line-height: 1.7;
 		color: color-mix(in srgb, var(--black), white 12%);
 		margin: 0;
@@ -97,7 +97,7 @@
 		flex-direction: row;
 		align-items: center;
 		gap: 0.35rem;
-		font-size: var(--fs-xl);
+		font-size: var(--fs-h3);
 		font-weight: 600;
 		margin: 0 0 0.75rem 0;
 		text-decoration: none;
@@ -154,11 +154,11 @@
 			grid-template-columns: repeat(1, 1fr);
 		}
 		.sectionHeading {
-			font-size: var(--fs-2xl);
+			font-size: var(--fs-h1);
 		}
 
 		.introText {
-			font-size: var(--fs-base);
+			font-size: var(--fs-body);
 		}
 	}
 </style>

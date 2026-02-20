@@ -27,7 +27,7 @@
 
 	.pathText {
 		font-family: var(--font-title), monospace;
-		font-size: var(--fs-xs);
+		font-size: var(--fs-body);
 		margin: 0;
 		letter-spacing: 0.05em;
 		color: color-mix(in srgb, var(--black), white 30%);
@@ -35,14 +35,14 @@
 
 	h1 {
 		margin: 0;
-		font-size: var(--fs-4xl);
+		font-size: var(--fs-h2);
 		text-transform: uppercase;
 		line-height: 1.2;
 	}
 
 	p {
 		margin: 0;
-		font-size: var(--fs-base);
+		font-size: var(--fs-body);
 		line-height: 1.6;
 	}
 
