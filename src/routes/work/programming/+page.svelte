@@ -152,9 +152,6 @@
 	.projectItem {
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
-		box-shadow: 0 4px 0 0 var(--black);
-		transform: translateY(0);
-		transition: 0.12s ease;
 		background-color: var(--white);
 	}
 
@@ -190,7 +187,6 @@
 		font-weight: 700;
 		letter-spacing: 0.02em;
 		line-height: 1.2;
-		box-shadow: 0 2px 0 0 var(--black);
 	}
 
 	@media (max-width: 1200px) {

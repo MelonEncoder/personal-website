@@ -130,11 +130,11 @@
 	}
 
 	.languageList {
+		grid-template-columns: repeat(4, auto);
 		margin: 1rem 0 1.5rem 0;
 		padding: 0;
 		list-style: none;
 		display: grid;
-		grid-template-columns: repeat(4, minmax(0, 1fr));
 		gap: 0.8rem;
 	}
 
@@ -148,9 +148,6 @@
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
 		background: var(--white);
-		box-shadow: 0 4px 0 0 var(--black);
-		transform: translateY(0);
-		transition: 0.12s ease;
 	}
 
 	.languageName {
@@ -210,11 +207,6 @@
 		padding: 0.28rem 0.55rem;
 		margin-right: 0.5rem;
 		margin-bottom: 0.5rem;
-
-		box-shadow: 0 2px 0 0 var(--black);
-		transform: translateY(0);
-
-		transition: 0.12s ease;
 	}
 
 	.links {
@@ -261,7 +253,7 @@
 
 	@media (max-width: 1200px) {
 		.languageList {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: repeat(3, auto);
 		}
 	}
 

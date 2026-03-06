@@ -112,7 +112,6 @@
 		border-radius: var(--radius-sm);
 		background-color: var(--white);
 		overflow: hidden;
-		box-shadow: 0 4px 0 0 var(--black);
 	}
 
 	.gameImageFrame {
