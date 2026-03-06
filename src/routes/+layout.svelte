@@ -5,7 +5,7 @@
 	import favicon from "$lib/assets/brand/favicon.svg";
 	import monogram from "$lib/assets/brand/monogram.svg";
 	import folderIcon from "$lib/assets/icons/folder.svg";
-	import codeFileIcon from "$lib/assets/icons/code.svg";
+	import codeFileIcon from "$lib/assets/icons/code-xml.svg";
 	import gameFileIcon from "$lib/assets/icons/joystick.svg";
 	import designFileIcon from "$lib/assets/icons/image.svg";
 	import aboutFileIcon from "$lib/assets/icons/info.svg";

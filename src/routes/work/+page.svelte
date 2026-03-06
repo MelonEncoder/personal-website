@@ -1,10 +1,15 @@
 <script lang="ts">
 	import { resolve } from "$app/paths";
+	import joystickIcon from "$lib/assets/icons/joystick.svg";
+	import codeIcon from "$lib/assets/icons/code-xml.svg";
+	import imageIcon from "$lib/assets/icons/image.svg";
 
 	interface WorkRoute {
 		label: string;
 		description: string;
 		url: Parameters<typeof resolve>[0];
+		folderIcon: string;
+		folderAlt: string;
 		folderLabel: string;
 	}
 
@@ -13,18 +18,24 @@
 			label: "Programming Projects",
 			description: "Code projects, tools, and experiments.",
 			url: "/work/programming",
+			folderIcon: codeIcon,
+			folderAlt: "Code Icon",
 			folderLabel: ".DEV"
 		},
 		{
 			label: "Video Games",
 			description: "Jam games and playable prototypes.",
 			url: "/work/games",
+			folderIcon: joystickIcon,
+			folderAlt: "Game Icon",
 			folderLabel: ".ROM"
 		},
 		{
 			label: "Graphic Design",
 			description: "Posters, layout, and visual design work.",
 			url: "/work/design",
+			folderIcon: imageIcon,
+			folderAlt: "Graphic Icon",
 			folderLabel: ".DSN"
 		}
 	];
@@ -41,6 +52,11 @@
 						<div class="folderButton" aria-hidden="true">
 							<div class="folderTab">{route.folderLabel}</div>
 							<div class="folderBody">
+								<img
+									class="folderIcon"
+									src={route.folderIcon}
+									alt={route.folderAlt}
+								/>
 								<span class="folderTitle">{route.label}</span>
 							</div>
 						</div>
@@ -118,6 +134,8 @@
 
 	.folderBody {
 		display: flex;
+		flex-direction: column;
+		gap: 1rem;
 		box-sizing: border-box;
 		align-items: center;
 		justify-content: center;
@@ -129,6 +147,10 @@
 		background: color-mix(in srgb, var(--backlight-3), white 55%);
 		box-shadow: 0 4px 0 0 var(--black);
 		transition: 0.12s ease;
+	}
+
+	.folderIcon {
+		width: 2rem;
 	}
 
 	.folderTitle {
