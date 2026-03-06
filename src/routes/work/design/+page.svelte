@@ -71,7 +71,12 @@
 			{#each artProjects as art, i (i)}
 				<article class="artItem">
 					<div class="artImageFrame">
-						<img src={art.image} alt={art.title ?? "Design project"} />
+						<img
+							src={art.image}
+							alt={art.title ?? "Design project"}
+							loading="lazy"
+							decoding="async"
+						/>
 					</div>
 					{#if art.title || art.description}
 						<div class="artInfo">

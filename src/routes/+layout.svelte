@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from "svelte";
+	import { afterNavigate } from "$app/navigation";
 	import { page } from "$app/state";
 	import { resolve } from "$app/paths";
 
@@ -10,6 +12,7 @@
 	import designFileIcon from "$lib/assets/icons/image.svg";
 	import aboutFileIcon from "$lib/assets/icons/info.svg";
 	import menuIcon from "$lib/assets/icons/menu.svg";
+	import { workMediaSources } from "$lib/work-media";
 
 	interface RouteTreeNode {
 		label: string;
@@ -37,6 +40,8 @@
 	let { children } = $props();
 	let year = new Date().getFullYear().toString();
 	let menuVisible: boolean = $state(false);
+	let contentElement: HTMLDivElement | undefined;
+	const WORK_MEDIA_PRELOADED_KEY = "ig-work-media-preloaded-v1";
 
 	function closeMenu() {
 		menuVisible = false;
@@ -49,6 +54,30 @@
 	function isActive(url: Parameters<typeof resolve>[0]) {
 		return normalizePath(page.url.pathname) === normalizePath(url);
 	}
+
+	// Scrolls new route content to top of scroll container.
+	afterNavigate(({ to }) => {
+		if (!contentElement || !to || to.url.hash) return;
+		contentElement.scrollTo({ top: 0, left: 0, behavior: "auto" });
+	});
+
+	function preloadWorkMedia() {
+		for (const src of workMediaSources) {
+			const image = new Image();
+			image.src = src;
+		}
+	}
+
+	onMount(() => {
+		// Preloads in media found on site before user navigates to the work pages.
+		if (localStorage.getItem(WORK_MEDIA_PRELOADED_KEY) === "1") return;
+		const timer = window.setTimeout(() => {
+			preloadWorkMedia();
+			localStorage.setItem(WORK_MEDIA_PRELOADED_KEY, "1");
+		}, 300);
+
+		return () => window.clearTimeout(timer);
+	});
 </script>
 
 <svelte:head>
@@ -119,7 +148,7 @@
 						</div>
 					</button>
 				</header>
-				<div class="content">
+				<div class="content" bind:this={contentElement}>
 					{@render children?.()}
 				</div>
 			</section>
