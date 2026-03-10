@@ -214,7 +214,7 @@
 	.actionButton:hover {
 		border-color: var(--accent);
 		box-shadow: 0 4px 0 0 var(--accent);
-		background-color: color-mix(in srgb, var(--accent), white 50%);
+		background-color: color-mix(in srgb, var(--accent), white 65%);
 		color: var(--black);
 	}
 

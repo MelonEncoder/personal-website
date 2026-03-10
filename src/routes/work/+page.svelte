@@ -118,7 +118,7 @@
 		box-sizing: border-box;
 		align-items: center;
 		justify-content: start;
-		padding: 0 1rem;
+		padding: 0 1.5rem;
 		border: 2px solid var(--black);
 		border-bottom: 0;
 		width: fit-content;
@@ -163,12 +163,12 @@
 
 	.fileLink:hover .folderTab {
 		border-color: var(--accent);
-		background: color-mix(in srgb, var(--backlight-3), var(--accent) 14%);
+		background-color: color-mix(in srgb, var(--accent), white 50%);
 	}
 
 	.fileLink:hover .folderBody {
 		border-color: var(--accent);
-		background: color-mix(in srgb, var(--backlight-3), var(--accent) 14%);
+		background-color: color-mix(in srgb, var(--accent), white 65%);
 		box-shadow: 0 4px 0 0 var(--accent);
 	}
 
