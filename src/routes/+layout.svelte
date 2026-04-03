@@ -24,17 +24,23 @@
 
 	const treeNodes: RouteTreeNode[] = [
 		{ label: "HOME", depth: 0, type: "root", url: "/" },
-		{ label: "about", depth: 1, type: "file", url: "/about", icon: aboutFileIcon },
+		{ label: "About", depth: 1, type: "file", url: "/about", icon: aboutFileIcon },
 		{ label: "WORK", depth: 1, type: "folder", url: "/work" },
 		{
-			label: "programming",
+			label: "Programming",
 			depth: 2,
 			type: "file",
 			url: "/work/programming",
 			icon: codeFileIcon
 		},
-		{ label: "games", depth: 2, type: "file", url: "/work/games", icon: gameFileIcon },
-		{ label: "design", depth: 2, type: "file", url: "/work/design", icon: designFileIcon }
+		{ label: "Video Games", depth: 2, type: "file", url: "/work/games", icon: gameFileIcon },
+		{
+			label: "Graphic Design",
+			depth: 2,
+			type: "file",
+			url: "/work/design",
+			icon: designFileIcon
+		}
 	];
 
 	let { children } = $props();
@@ -328,15 +334,15 @@
 	}
 
 	.treeRow.root {
-		font-weight: 700;
+		font-weight: normal;
 	}
 
 	.treeRow.folder {
-		font-weight: 700;
+		font-weight: normal;
 	}
 
 	.treeRow.file {
-		font-weight: 500;
+		font-weight: normal;
 	}
 
 	.treeText {
@@ -356,7 +362,7 @@
 
 	.treeRow.file .treeText,
 	.treeRow.folder .treeText {
-		border-left: 2px solid black;
+		border-left: 1px solid black;
 	}
 
 	a.treeRow {
@@ -369,7 +375,6 @@
 
 	a.treeRow.isActive {
 		background-color: color-mix(in srgb, var(--accent-2), var(--accent) 42%);
-		/*color: color-mix(in srgb, var(--accent), black 28%);*/
 		font-weight: 700;
 	}
 
