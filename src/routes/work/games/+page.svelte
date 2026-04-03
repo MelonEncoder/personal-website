@@ -116,7 +116,7 @@
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
 		background: var(--backlight-2);
-		font-size: var(--fs-body);
+		font-size: var(--fs-body-sm);
 		font-weight: 700;
 		letter-spacing: 0.02em;
 		line-height: 1.2;

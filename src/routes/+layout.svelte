@@ -189,6 +189,7 @@
 		--fs-h2: clamp(1.7rem, 3vw, 2rem);
 		--fs-h3: clamp(1.15rem, 1.6vw, 1.3rem);
 		--fs-body: 1rem;
+		--fs-body-sm: 0.825rem;
 
 		/* Radius */
 		--radius-sm: 0.25rem;

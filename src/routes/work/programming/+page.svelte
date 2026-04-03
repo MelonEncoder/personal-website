@@ -199,7 +199,7 @@
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
 		background: color-mix(in srgb, var(--backlight-3), white 30%);
-		font-size: var(--fs-body);
+		font-size: var(--fs-body-sm);
 		font-weight: bold;
 		letter-spacing: 0.02em;
 		line-height: 1.2;
@@ -218,7 +218,7 @@
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
 		background: var(--backlight-2);
-		font-size: var(--fs-body);
+		font-size: var(--fs-body-sm);
 		font-weight: bold;
 		letter-spacing: 0.02em;
 		line-height: 1.2;
@@ -228,7 +228,7 @@
 		padding: 0.28rem 0.55rem;
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
-		font-size: var(--fs-body);
+		font-size: var(--fs-body-sm);
 		font-weight: bold;
 		letter-spacing: 0.02em;
 		line-height: 1.2;
