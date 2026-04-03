@@ -1,5 +1,6 @@
 <script lang="ts">
-	import whiteButtonScreenshot from "$lib/assets/white-button-screenshot.png";
+	import whiteButtonScreenshot from "$lib/assets/video-games/white-button-screenshot.png";
+	import blackedOutScreenshot from "$lib/assets/video-games/blacked-out.png";
 	import arrowOut from "$lib/assets/icons/arrow-outward.svg";
 
 	interface GameProject {
@@ -7,6 +8,7 @@
 		description: string;
 		url: string;
 		image: string;
+		releaseDate: string;
 	}
 
 	const gamingProjects: GameProject[] = [
@@ -15,7 +17,16 @@
 			description:
 				"White Button was created during a week long game jam where the theme was 1-bit color palette. Your goal is to click all the buttons before the lava reaches you.",
 			url: "https://karpoonz.itch.io/white-button",
-			image: whiteButtonScreenshot
+			image: whiteButtonScreenshot,
+			releaseDate: "2025"
+		},
+		{
+			title: "Blacked Out",
+			description:
+				"Someone knocked you out and trapped you inside of a pitch black room. Your goal is to escape by using a flashlight and keys you find lying around in the environment.",
+			url: "https://karpoonz.itch.io/blacked-out",
+			image: blackedOutScreenshot,
+			releaseDate: "2024"
 		}
 	];
 </script>
@@ -38,6 +49,7 @@
 							<img src={arrowOut} alt="link icon" />
 						</h2>
 						<p class="sectionText">{game.description}</p>
+						<span class="metaReleaseDate">Release Date: {game.releaseDate}</span>
 					</div>
 				</div>
 			{/each}
@@ -99,6 +111,19 @@
 		color: var(--accent);
 	}
 
+	.metaReleaseDate {
+		padding: 0.28rem 0.55rem;
+		border: 2px solid var(--black);
+		border-radius: var(--radius-sm);
+		background: var(--backlight-2);
+		font-size: var(--fs-body);
+		font-weight: 700;
+		letter-spacing: 0.02em;
+		line-height: 1.2;
+		align-self: flex-start;
+		margin-top: auto;
+	}
+
 	.gameGrid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
@@ -132,8 +157,9 @@
 	.gameInfo {
 		display: flex;
 		flex-direction: column;
+		flex: 1;
 		padding: 1.5rem;
-		gap: 0.75rem;
+		gap: 0.5rem;
 	}
 
 	@media (max-width: 1200px) {

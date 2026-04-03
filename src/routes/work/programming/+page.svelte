@@ -2,45 +2,57 @@
 	import arrowOut from "$lib/assets/icons/arrow-outward.svg";
 
 	interface ProgrammingProject {
-		title?: string;
-		description?: string;
+		title: string;
+		description: string;
 		url: string;
 		tech: string[];
+		startDate: string;
+		active: boolean;
 	}
 
 	const programmingProjects: ProgrammingProject[] = [
+		{
+			title: "Personal Website (this site)",
+			description: "Made using Svelte with the intention to showcase myself and my work.",
+			url: "https://github.com/MelonEncoder/personal-website",
+			tech: ["Svelte", "TypeScript", "HTML/CSS"],
+			startDate: "2024",
+			active: true
+		},
 		{
 			title: "PDF to Video",
 			description:
 				"This is a program that converts a .pdf file into a .mp4 file. You can set the FPS, duration, resolution, and even animate the pdf.",
 			url: "https://github.com/MelonEncoder/pdf-to-video",
-			tech: ["C++", "Meson", "OpenCV", "Poppler"]
-		},
-		{
-			title: "Personal Website (this site)",
-			description: "Made using Svelte with the intention to showcase myself and my work.",
-			url: "https://github.com/MelonEncoder/personal-website",
-			tech: ["Svelte", "TypeScript", "HTML/CSS"]
+			tech: ["C++", "Meson", "OpenCV", "Poppler"],
+			startDate: "2023",
+			active: false
 		},
 		{
 			title: "HTML Image Parser",
 			description:
 				'I created this program to test out the Go programming language. Just describe the prefix you want to look for like "src=" and then all the respective images will downloaded.',
 			url: "https://github.com/MelonEncoder/img-downloader",
-			tech: ["Go"]
+			tech: ["Go"],
+			startDate: "2023",
+			active: false
 		},
 		{
 			title: "Linux Wallpaper Switcher",
 			description:
 				"A lightweight wallpaper switcher for Linux that rotates images from a folder with simple keyboard controls.",
 			url: "https://github.com/MelonEncoder/simple-wallpaper-switcher",
-			tech: ["C++", "SFML"]
+			tech: ["C++", "SFML"],
+			startDate: "2023",
+			active: false
 		},
 		{
 			title: "PONG",
 			description: "Recreated the classic game of Pong with a little twist.",
 			url: "https://github.com/MelonEncoder/pong",
-			tech: ["C", "RayLib"]
+			tech: ["C", "RayLib"],
+			startDate: "2023",
+			active: false
 		}
 	];
 </script>
@@ -53,22 +65,24 @@
 			{#each programmingProjects as project, i (i)}
 				<li class="projectItem">
 					<div class="projectInfo">
-						{#if project.title}
-							<h2 class="title">
-								<a
-									class="projectLink"
-									href={project.url}
-									rel="external noreferrer"
-									target="_blank"
-								>
-									{project.title}
-								</a>
-								<img src={arrowOut} alt="link icon" />
-							</h2>
-						{/if}
-						{#if project.description}
-							<p class="sectionText">{project.description}</p>
-						{/if}
+						<h2 class="title">
+							<a
+								class="projectLink"
+								href={project.url}
+								rel="external noreferrer"
+								target="_blank"
+							>
+								{project.title}
+							</a>
+							<img src={arrowOut} alt="link icon" />
+						</h2>
+						<p class="sectionText">{project.description}</p>
+						<div class="projectMeta">
+							<span class="metaDate">Started {project.startDate}</span>
+							<span class="statusBadge" class:active={project.active}>
+								{project.active ? "Active" : "Inactive"}
+							</span>
+						</div>
 						{#if project.tech.length}
 							<div class="techSection">
 								<ul class="techList" aria-label="Technologies used">
@@ -125,7 +139,7 @@
 		gap: 0.35rem;
 		font-size: var(--fs-h3);
 		font-weight: 600;
-		margin: 0 0 0.75rem 0;
+		margin: 0;
 		text-decoration: none;
 		color: var(--black);
 	}
@@ -150,6 +164,8 @@
 	}
 
 	.projectItem {
+		display: flex;
+		flex-direction: column;
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
 		background-color: var(--white);
@@ -158,14 +174,14 @@
 	.projectInfo {
 		display: flex;
 		flex-direction: column;
+		flex: 1;
 		padding: 1.5rem;
-		gap: 0.75rem;
+		gap: 0.5rem;
 	}
 
 	.techSection {
 		display: flex;
 		flex-direction: column;
-		margin-top: 0.25rem;
 	}
 
 	.techList {
@@ -184,9 +200,43 @@
 		border-radius: var(--radius-sm);
 		background: color-mix(in srgb, var(--backlight-3), white 30%);
 		font-size: var(--fs-body);
-		font-weight: 700;
+		font-weight: bold;
 		letter-spacing: 0.02em;
 		line-height: 1.2;
+	}
+
+	.projectMeta {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-top: auto;
+		padding-top: 0.75rem;
+	}
+
+	.metaDate {
+		padding: 0.28rem 0.55rem;
+		border: 2px solid var(--black);
+		border-radius: var(--radius-sm);
+		background: var(--backlight-2);
+		font-size: var(--fs-body);
+		font-weight: bold;
+		letter-spacing: 0.02em;
+		line-height: 1.2;
+	}
+
+	.statusBadge {
+		padding: 0.28rem 0.55rem;
+		border: 2px solid var(--black);
+		border-radius: var(--radius-sm);
+		font-size: var(--fs-body);
+		font-weight: bold;
+		letter-spacing: 0.02em;
+		line-height: 1.2;
+		background: var(--off-white);
+	}
+
+	.statusBadge.active {
+		background: var(--backlight);
 	}
 
 	@media (max-width: 1200px) {

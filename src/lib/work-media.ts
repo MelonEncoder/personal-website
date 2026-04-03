@@ -9,7 +9,7 @@ import flatSpace from "$lib/assets/digital-media/flat-space.webp";
 import jibiRamen from "$lib/assets/digital-media/jibi-ramen.webp";
 
 // Video Games
-import whiteButtonScreenshot from "$lib/assets/white-button-screenshot.png";
+import whiteButtonScreenshot from "$lib/assets/video-games/white-button-screenshot.png";
 
 export const workMediaSources: string[] = [
 	magazineCover,
