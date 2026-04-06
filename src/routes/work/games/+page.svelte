@@ -34,7 +34,6 @@
 <div class="gamesContent">
 	<section class="projectSection" id="videogameProjects">
 		<h1 class="sectionHeading">Video Games</h1>
-		<p class="introText">Playable prototypes and game jam projects.</p>
 		<div class="gameGrid">
 			{#each gamingProjects as game, i (i)}
 				<div class="gameItem">
@@ -72,14 +71,6 @@
 		line-height: 1.3;
 		text-transform: uppercase;
 		letter-spacing: 0.02em;
-	}
-
-	.introText {
-		font-size: var(--fs-body);
-		line-height: 1.7;
-		color: var(--black);
-		margin: 0 0 1.5rem 0;
-		font-weight: 400;
 	}
 
 	.sectionText {
@@ -171,10 +162,6 @@
 	@media (max-width: 600px) {
 		.sectionHeading {
 			font-size: var(--fs-h1);
-		}
-
-		.introText {
-			font-size: var(--fs-body);
 		}
 	}
 </style>

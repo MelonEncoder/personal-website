@@ -60,7 +60,6 @@
 <div class="programmingContent">
 	<section class="projectSection" id="programmingProjects">
 		<h1 class="sectionHeading">Programming Projects</h1>
-		<p class="introText">Programming projects, scripts, and cli tools.</p>
 		<ul class="programmingList">
 			{#each programmingProjects as project, i (i)}
 				<li class="projectItem">
@@ -79,9 +78,6 @@
 						<p class="sectionText">{project.description}</p>
 						<div class="projectMeta">
 							<span class="metaDate">{project.startDate}</span>
-							<!-- <span class="statusBadge" class:active={project.active}>
-								{project.active ? "Active" : "Inactive"}
-							</span> -->
 						</div>
 						{#if project.tech.length}
 							<div class="techSection">
@@ -114,14 +110,6 @@
 		line-height: 1.3;
 		text-transform: uppercase;
 		letter-spacing: 0.02em;
-	}
-
-	.introText {
-		font-size: var(--fs-body);
-		line-height: 1.7;
-		color: var(--black);
-		margin: 0 0 1.5rem 0;
-		font-weight: 400;
 	}
 
 	.sectionText {
@@ -224,21 +212,6 @@
 		line-height: 1.2;
 	}
 
-	.statusBadge {
-		padding: 0.28rem 0.55rem;
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-		font-size: var(--fs-body-sm);
-		font-weight: bold;
-		letter-spacing: 0.02em;
-		line-height: 1.2;
-		background: var(--off-white);
-	}
-
-	.statusBadge.active {
-		background: var(--backlight);
-	}
-
 	@media (max-width: 1200px) {
 		.programmingList {
 			grid-template-columns: repeat(2, 1fr);
@@ -251,10 +224,6 @@
 		}
 		.sectionHeading {
 			font-size: var(--fs-h1);
-		}
-
-		.introText {
-			font-size: var(--fs-body);
 		}
 	}
 </style>

@@ -1,6 +1,7 @@
 <script lang="ts">
-	import githubLogo from "$lib/assets/icons/logo-github.svg";
-	import linkedinLogo from "$lib/assets/icons/logo-linkedin.svg";
+	import githubLogo from "$lib/assets/logos/github.svg";
+	import linkedinLogo from "$lib/assets/logos/linkedin.svg";
+	import itchLogo from "$lib/assets/logos/itch.svg";
 
 	interface LanguageItem {
 		name: string;
@@ -49,17 +50,22 @@
 		}
 	];
 
-	const links: { href: string; icon: string }[] = [
-		{ href: "https://github.com/MelonEncoder", icon: githubLogo },
-		{ href: "https://www.linkedin.com/in/iangillette", icon: linkedinLogo }
+	const links: { href: string; icon: string; alt: string }[] = [
+		{ href: "https://github.com/MelonEncoder", icon: githubLogo, alt: "GitHub logo" },
+		{ href: "https://karpoonz.itch.io/", icon: itchLogo, alt: "Itch.io logo" },
+		{
+			href: "https://www.linkedin.com/in/iangillette",
+			icon: linkedinLogo,
+			alt: "LinkedIn logo"
+		}
 	];
 </script>
 
 <div class="content">
 	<h1 class="title">ABOUT</h1>
 	<p class="sectionText">
-		Hello! My name is Ian Gillette and I'm currently studying Computer Science. I enjoy
-		programming, game design, creative projects, and learning new things.
+		Hello! My name is Ian Gillette. I'm currently studying Game Design at UCF. In my free time I
+		enjoy programming, drawing, venturing outdoors, and learning new languages.
 	</p>
 	<h2 class="sectionHeading">Development</h2>
 	<ul class="toolList">
@@ -91,7 +97,7 @@
 		<div class="links">
 			{#each links as link, i (i)}
 				<a class="link" id="github" href={link.href} target="_blank" rel="external">
-					<img src={link.icon} alt="github logo" />
+					<img src={link.icon} alt={link.alt} />
 				</a>
 			{/each}
 		</div>

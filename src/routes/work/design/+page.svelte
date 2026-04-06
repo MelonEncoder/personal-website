@@ -74,7 +74,6 @@
 <div class="designContent">
 	<section class="projectSection" id="artProjects">
 		<h1 class="sectionHeading">Graphic Design</h1>
-		<p class="introText">Here are some of my graphic design works.</p>
 		<div class="artContainer">
 			{#each artProjects as art, i (i)}
 				<article class="artItem">
@@ -114,14 +113,6 @@
 		line-height: 1.3;
 		text-transform: uppercase;
 		letter-spacing: 0.02em;
-	}
-
-	.introText {
-		font-size: var(--fs-body);
-		line-height: 1.7;
-		color: var(--black);
-		margin: 0 0 1.5rem 0;
-		font-weight: 400;
 	}
 
 	.artContainer {
@@ -206,10 +197,6 @@
 
 		.sectionHeading {
 			font-size: var(--fs-h1);
-		}
-
-		.introText {
-			font-size: var(--fs-body);
 		}
 	}
 </style>
