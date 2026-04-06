@@ -276,6 +276,7 @@
 		width: 100%;
 		background-color: var(--backlight);
 		position: sticky;
+		scrollbar-color: var(--accent) var(--black);
 	}
 
 	.content {
@@ -410,9 +411,11 @@
 		color: var(--black);
 		background-color: transparent;
 		padding: 0 0.25rem;
+		padding-right: 0.4rem;
 		transition: 0.15s ease;
 		height: fit-content;
 		border: none;
+		border-right: 2px solid var(--black);
 	}
 
 	.menuButton:hover {

@@ -78,10 +78,10 @@
 						</h2>
 						<p class="sectionText">{project.description}</p>
 						<div class="projectMeta">
-							<span class="metaDate">Started {project.startDate}</span>
-							<span class="statusBadge" class:active={project.active}>
+							<span class="metaDate">{project.startDate}</span>
+							<!-- <span class="statusBadge" class:active={project.active}>
 								{project.active ? "Active" : "Inactive"}
-							</span>
+							</span> -->
 						</div>
 						{#if project.tech.length}
 							<div class="techSection">

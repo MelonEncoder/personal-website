@@ -49,7 +49,7 @@
 							<img src={arrowOut} alt="link icon" />
 						</h2>
 						<p class="sectionText">{game.description}</p>
-						<span class="metaReleaseDate">Release Date: {game.releaseDate}</span>
+						<span class="metaReleaseDate">{game.releaseDate}</span>
 					</div>
 				</div>
 			{/each}
