@@ -155,7 +155,9 @@
 					</button>
 				</header>
 				<div class="content" bind:this={contentElement}>
-					{@render children?.()}
+					<div class="contentInner">
+						{@render children?.()}
+					</div>
 				</div>
 			</section>
 		</div>
@@ -197,7 +199,7 @@
 		--radius-lg: 1rem;
 
 		/* Constraints */
-		--content-max-width: 1500px;
+		--content-max-width: 1300px;
 	}
 
 	:global(body) {
@@ -287,6 +289,12 @@
 		width: 100%;
 		height: 100%;
 		-webkit-overflow-scrolling: touch;
+	}
+
+	.contentInner {
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+		min-height: 100%;
 	}
 
 	.fileTreeMenu {

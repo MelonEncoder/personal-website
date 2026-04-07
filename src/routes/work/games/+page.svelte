@@ -1,56 +1,41 @@
 <script lang="ts">
+	import WorkCard from "$lib/components/WorkCard.svelte";
 	import whiteButtonScreenshot from "$lib/assets/video-games/white-button-screenshot.png";
 	import blackedOutScreenshot from "$lib/assets/video-games/blacked-out.png";
-	import arrowOut from "$lib/assets/icons/arrow-outward.svg";
 
-	interface GameProject {
-		title: string;
-		description: string;
-		url: string;
-		image: string;
-		releaseDate: string;
-	}
-
-	const gamingProjects: GameProject[] = [
+	const gamingProjects = [
 		{
 			title: "White Button",
 			description:
 				"White Button was created during a week long game jam where the theme was 1-bit color palette. Your goal is to click all the buttons before the lava reaches you.",
-			url: "https://karpoonz.itch.io/white-button",
+			href: "https://karpoonz.itch.io/white-button",
 			image: whiteButtonScreenshot,
-			releaseDate: "2025"
+			date: "2025"
 		},
 		{
 			title: "Blacked Out",
 			description:
 				"Someone knocked you out and trapped you inside of a pitch black room. Your goal is to escape by using a flashlight and keys you find lying around in the environment.",
-			url: "https://karpoonz.itch.io/blacked-out",
+			href: "https://karpoonz.itch.io/blacked-out",
 			image: blackedOutScreenshot,
-			releaseDate: "2024"
+			date: "2024"
 		}
 	];
 </script>
 
 <div class="gamesContent">
-	<section class="projectSection" id="videogameProjects">
+	<section id="videogameProjects">
 		<h1 class="sectionHeading">Video Games</h1>
 		<div class="gameGrid">
-			{#each gamingProjects as game, i (i)}
-				<div class="gameItem">
-					<div class="gameImageFrame">
-						<img src={game.image} alt="white button video game screenshot" />
-					</div>
-					<div class="gameInfo">
-						<h2 class="title">
-							<a href={game.url} rel="external noreferrer" target="_blank">
-								{game.title}
-							</a>
-							<img src={arrowOut} alt="link icon" />
-						</h2>
-						<p class="sectionText">{game.description}</p>
-						<span class="metaReleaseDate">{game.releaseDate}</span>
-					</div>
-				</div>
+			{#each gamingProjects as game (game.title)}
+				<WorkCard
+					title={game.title}
+					description={game.description}
+					href={game.href}
+					image={game.image}
+					imageAlt="{game.title} screenshot"
+					date={game.date}
+				/>
 			{/each}
 		</div>
 	</section>
@@ -73,84 +58,10 @@
 		letter-spacing: 0.02em;
 	}
 
-	.sectionText {
-		font-size: var(--fs-body);
-		line-height: 1.7;
-		color: color-mix(in srgb, var(--black), white 12%);
-		margin: 0;
-		font-weight: 400;
-	}
-
-	.title {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: 0.35rem;
-		font-size: var(--fs-h3);
-		font-weight: 600;
-		margin: 0;
-		color: var(--black);
-	}
-
-	.title a {
-		color: var(--black);
-		text-decoration: underline;
-		transition: color 0.1s ease;
-	}
-
-	.title a:hover {
-		color: var(--accent);
-	}
-
-	.metaReleaseDate {
-		padding: 0.28rem 0.55rem;
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-		background: var(--backlight-2);
-		font-size: var(--fs-body-sm);
-		font-weight: 700;
-		letter-spacing: 0.02em;
-		line-height: 1.2;
-		align-self: flex-start;
-		margin-top: auto;
-	}
-
 	.gameGrid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		gap: 2rem;
-	}
-
-	.gameItem {
-		display: flex;
-		flex-direction: column;
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-		background-color: var(--white);
-		overflow: hidden;
-	}
-
-	.gameImageFrame {
-		display: block;
-		width: 100%;
-		border-bottom: 2px solid var(--black);
-		overflow: hidden;
-		aspect-ratio: 16 / 9;
-		background: color-mix(in srgb, var(--black), white 92%);
-	}
-
-	.gameImageFrame img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-
-	.gameInfo {
-		display: flex;
-		flex-direction: column;
-		flex: 1;
-		padding: 1.5rem;
-		gap: 0.5rem;
 	}
 
 	@media (max-width: 1200px) {

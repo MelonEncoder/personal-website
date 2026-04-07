@@ -81,7 +81,7 @@
 		font-family: var(--font-title), monospace;
 		font-size: var(--fs-h2);
 		line-height: 1.2;
-		margin: 0.65rem 0 0.75rem;
+		margin: 0;
 		margin-bottom: 1.5rem;
 		text-transform: uppercase;
 		letter-spacing: 0.02em;

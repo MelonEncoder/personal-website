@@ -17,6 +17,7 @@
 		"Typescript",
 		"HTML/CSS",
 		"Go",
+		"Linux",
 		"Gdscript",
 		"Svelte",
 		"Git",
@@ -63,45 +64,58 @@
 
 <div class="content">
 	<h1 class="title">ABOUT</h1>
-	<p class="sectionText">
-		Hello! My name is Ian Gillette. I'm currently studying Game Design at UCF. In my free time I
-		enjoy programming, drawing, venturing outdoors, and learning new languages.
-	</p>
-	<h2 class="sectionHeading">Development</h2>
-	<ul class="toolList">
-		{#each developmentItems as item (item)}
-			<li class="toolItem" id={item}>{item}</li>
-		{/each}
-	</ul>
-	<h2 class="sectionHeading">Tools</h2>
-	<ul class="toolList">
-		{#each softwareItems as item (item)}
-			<li class="toolItem" id={item}>{item}</li>
-		{/each}
-	</ul>
-	<h2 class="sectionHeading">Languages</h2>
-	<ul class="languageList">
-		{#each languages as language (language.name)}
-			<li class="languageCard">
-				<p class="languageName">{language.name}</p>
-				<div class="languageMeta">
-					<p><span>Status</span>{language.focus}</p>
-					<p><span>Fluency</span>{language.fluency}</p>
-					<p><span>Native Name</span>{language.nativeName}</p>
-				</div>
-			</li>
-		{/each}
-	</ul>
-	<h2 class="sectionHeading">Links</h2>
-	<div class="linksContent">
+	<div class="card">
+		<p class="sectionText">
+			Hello! My name is Ian Gillette. I'm currently studying Game Design at UCF. In my free
+			time I enjoy programming, drawing, venturing outdoors, and learning new languages.
+		</p>
+	</div>
+	<section id="technologySection">
+		<h2 class="sectionHeading">Technology I Use</h2>
+		<div class="cardGrid">
+			<div class="card toolCard">
+				<p class="cardLabel">Development</p>
+				<ul class="toolList">
+					{#each developmentItems as item (item)}
+						<li class="toolItem" id={item}>{item}</li>
+					{/each}
+				</ul>
+			</div>
+			<div class="card toolCard">
+				<p class="cardLabel">Software</p>
+				<ul class="toolList">
+					{#each softwareItems as item (item)}
+						<li class="toolItem" id={item}>{item}</li>
+					{/each}
+				</ul>
+			</div>
+		</div>
+	</section>
+	<section>
+		<h2 class="sectionHeading">Languages</h2>
+		<ul class="cardGrid languageList">
+			{#each languages as language (language.name)}
+				<li class="card languageCard">
+					<p class="cardLabel">{language.name}</p>
+					<div class="languageMeta">
+						<p><span>Status</span>{language.focus}</p>
+						<p><span>Fluency</span>{language.fluency}</p>
+						<p><span>Native Name</span>{language.nativeName}</p>
+					</div>
+				</li>
+			{/each}
+		</ul>
+	</section>
+	<section>
+		<h2 class="sectionHeading">Links</h2>
 		<div class="links">
 			{#each links as link, i (i)}
-				<a class="link" id="github" href={link.href} target="_blank" rel="external">
+				<a class="link" href={link.href} target="_blank" rel="external">
 					<img src={link.icon} alt={link.alt} />
 				</a>
 			{/each}
 		</div>
-	</div>
+	</section>
 </div>
 
 <style>
@@ -113,35 +127,88 @@
 	.title {
 		font-family: var(--font-title), monospace;
 		font-size: var(--fs-title);
+		color: var(--black);
 		text-transform: uppercase;
 		letter-spacing: 0.02em;
 		margin: 0 0 1rem 0;
 	}
 
+	section {
+		margin-top: 2rem;
+	}
+
 	.sectionHeading {
+		font-family: var(--font-mono), monospace;
 		font-size: var(--fs-h2);
 		font-weight: 700;
-		margin: 2rem 0 1rem 0;
+		margin: 0 0 1rem 0;
 		color: var(--black);
 		line-height: 1.3;
 		letter-spacing: 0.02em;
 	}
 
+	.cardLabel {
+		margin: 0 0 0.75rem 0;
+		width: fit-content;
+		padding: 0.15rem 0.35rem;
+		font-size: var(--fs-body);
+		font-family: var(--font-mono), monospace;
+		font-weight: bold;
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+		background: transparent;
+		border: 1px solid var(--black);
+		color: var(--accent);
+	}
+
+	.toolCard {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.card {
+		background-color: var(--white);
+		padding: 1rem;
+		border: 2px solid var(--black);
+		border-radius: var(--radius-sm);
+	}
+
 	.sectionText {
 		font-size: var(--fs-body);
 		line-height: 1.7;
-		color: var(--black);
-		margin-bottom: 1rem;
 		font-weight: 400;
+		margin: 0;
 	}
 
-	.languageList {
-		grid-template-columns: repeat(4, auto);
-		margin: 1rem 0 1.5rem 0;
+	.cardGrid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
 		padding: 0;
 		list-style: none;
-		display: grid;
-		gap: 0.8rem;
+		margin: 0;
+	}
+
+	.toolList {
+		display: flex;
+		flex-wrap: wrap;
+		padding: 0;
+		padding-top: 0.75rem;
+		margin: 0;
+		list-style: none;
+		border-top: 1px dashed color-mix(in srgb, var(--black), white 60%);
+	}
+
+	.toolItem {
+		font-size: var(--fs-body);
+		letter-spacing: 0.02em;
+		line-height: 1.2;
+		border: 1px solid var(--black);
+		background-color: transparent;
+		border-radius: var(--radius-sm);
+		padding: 0.28rem 0.55rem;
+		margin-right: 0.5rem;
+		margin-bottom: 0.5rem;
 	}
 
 	.languageCard {
@@ -150,23 +217,6 @@
 		gap: 0.55rem;
 		line-height: 1.5;
 		font-size: var(--fs-body);
-		padding: 0.95rem;
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-		background: var(--white);
-	}
-
-	.languageName {
-		margin: 0;
-		width: fit-content;
-		padding: 0.15rem 0.35rem;
-		font-size: var(--fs-body);
-		font-family: var(--font-title), monospace;
-		letter-spacing: 0.03em;
-		text-transform: uppercase;
-		background: color-mix(in srgb, var(--primary), white 35%);
-		border: 1px solid var(--black);
-		color: color-mix(in srgb, var(--accent), black 10%);
 	}
 
 	.languageMeta {
@@ -177,7 +227,6 @@
 
 	.languageMeta p {
 		display: flex;
-		flex-direction: row;
 		justify-content: space-between;
 		align-items: baseline;
 		margin: 0;
@@ -187,43 +236,20 @@
 	}
 
 	.languageMeta span {
-		font-family: var(--font-body), monospace;
-		font-size: var(--fs-body);
+		font-family: var(--font-mono), monospace;
+		font-size: var(--fs-body-sm);
 		letter-spacing: 0.03em;
 		text-transform: uppercase;
 		color: color-mix(in srgb, var(--black), white 35%);
 	}
 
-	.toolList {
-		display: flex;
-		flex-wrap: wrap;
-		flex-direction: row;
-		padding: 0;
-		list-style: none;
-	}
-
-	.toolItem {
-		font-size: var(--fs-body);
-		font-weight: 700;
-		letter-spacing: 0.02em;
-		line-height: 1.2;
-		border: 2px solid var(--black);
-		background: color-mix(in srgb, var(--backlight-3), white 30%);
-		border-radius: var(--radius-sm);
-		padding: 0.28rem 0.55rem;
-		margin-right: 0.5rem;
-		margin-bottom: 0.5rem;
-	}
-
 	.links {
 		display: flex;
-		grid-template-columns: repeat(4, minmax(0, 1fr));
 		gap: 1rem;
 	}
 
 	.link {
 		display: flex;
-		flex-direction: row;
 		align-items: center;
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
@@ -231,13 +257,7 @@
 		background-color: var(--white);
 		box-shadow: 0 4px 0 0 var(--black);
 		transform: translateY(0);
-
-		font-size: var(--fs-body);
-		font-weight: 700;
-		color: var(--black);
-		line-height: 1;
 		text-decoration: none;
-
 		transition: 0.12s ease;
 	}
 
@@ -245,12 +265,11 @@
 		border-color: var(--accent);
 		box-shadow: 0 4px 0 0 var(--accent);
 		background-color: color-mix(in srgb, var(--accent), white 65%);
-		color: var(--black);
 	}
 
 	.link:active {
 		transform: translateY(4px);
-		box-shadow: 0 0px 0 0 var(--accent);
+		box-shadow: 0 0 0 0 var(--accent);
 	}
 
 	.link > img {
@@ -258,19 +277,9 @@
 		aspect-ratio: 1 / 1;
 	}
 
-	@media (max-width: 1200px) {
-		.languageList {
-			grid-template-columns: repeat(3, auto);
-		}
-	}
-
 	@media (max-width: 700px) {
-		.languageList {
+		.cardGrid {
 			grid-template-columns: 1fr;
-		}
-
-		.links {
-			grid-template-columns: 1fr 1fr;
 		}
 
 		.sectionHeading {
