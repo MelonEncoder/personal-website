@@ -1,6 +1,13 @@
 services:
-  web:
-    build: .
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
+    personal-website:
+        build: .
+        container_name: personal-website
+        restart: unless-stopped
+        networks:
+            - web
+
+# Used by Caddy in the homelab config
+networks:
+    web:
+        name: web
+        external: true
