@@ -6,7 +6,6 @@ services:
         networks:
             - web
 
-# Used by Caddy in the homelab config
 networks:
     web:
         name: web
