@@ -33,7 +33,8 @@
 		"Figma",
 		"Godot Engine",
 		"Illustrator",
-		"Photoshop"
+		"Photoshop",
+		"Procreate"
 	];
 
 	const languages: LanguageItem[] = [
@@ -63,7 +64,7 @@
 </script>
 
 <div class="content">
-	<h1 class="title">ABOUT</h1>
+	<h1 class="title">ABOUT ME</h1>
 	<div class="card">
 		<p class="sectionText">
 			Hello! My name is Ian Gillette. I'm currently studying Game Design at UCF. In my free

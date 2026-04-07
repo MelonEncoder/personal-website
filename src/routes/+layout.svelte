@@ -180,7 +180,7 @@
 		--off-white: rgb(226 218 220);
 		--accent: rgb(250, 73, 109);
 		--accent-2: color-mix(in srgb, var(--accent), white 70%);
-		--backlight: rgb(210, 242, 219);
+		--backlight: rgb(188, 235, 200);
 		--backlight-2: rgb(235, 246, 255);
 		--backlight-3: rgb(252, 201, 238);
 		--gradient: linear-gradient(45deg, var(--accent), var(--accent-2));
@@ -279,6 +279,23 @@
 		background-color: var(--backlight);
 		position: sticky;
 		scrollbar-color: var(--accent) var(--black);
+	}
+
+	.contentContainer::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		z-index: 100;
+		background:
+			repeating-linear-gradient(
+				0deg,
+				transparent,
+				transparent 3px,
+				rgba(0, 0, 0, 0.04) 3px,
+				rgba(0, 0, 0, 0.04) 4px
+			),
+			radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.13) 100%);
 	}
 
 	.content {
