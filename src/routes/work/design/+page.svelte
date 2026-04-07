@@ -74,6 +74,7 @@
 					description={art.description}
 					image={art.image}
 					imageAlt={art.title}
+					imageAspectRatio="auto"
 					date={art.date}
 				/>
 			{/each}

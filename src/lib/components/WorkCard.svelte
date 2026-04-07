@@ -6,17 +6,27 @@
 		description?: string;
 		image?: string;
 		imageAlt?: string;
+		imageAspectRatio?: string;
 		date?: string;
 		tags?: string[];
 		href?: string;
 	}
 
-	let { title, description, image, imageAlt = "", date, tags = [], href }: Props = $props();
+	let {
+		title,
+		description,
+		image,
+		imageAlt = "",
+		imageAspectRatio = "16/9",
+		date,
+		tags = [],
+		href
+	}: Props = $props();
 </script>
 
 <article class="workCard">
 	{#if image}
-		<div class="imageFrame">
+		<div class="imageFrame" style:aspect-ratio={imageAspectRatio}>
 			<img src={image} alt={imageAlt || title} loading="lazy" decoding="async" />
 		</div>
 	{/if}
@@ -34,15 +44,15 @@
 		{/if}
 		{#if date || tags.length}
 			<div class="cardMeta">
+				{#if date}
+					<span class="dateTag">{date}</span>
+				{/if}
 				{#if tags.length}
 					<ul class="tagList" aria-label="Technologies used">
 						{#each tags as tag (tag)}
 							<li class="tag">{tag}</li>
 						{/each}
 					</ul>
-				{/if}
-				{#if date}
-					<span class="dateTag">{date}</span>
 				{/if}
 			</div>
 		{/if}
@@ -64,7 +74,6 @@
 		border-bottom: 2px solid var(--black);
 		overflow: hidden;
 		background: color-mix(in srgb, var(--black), white 92%);
-		aspect-ratio: 16 / 9;
 	}
 
 	.imageFrame img {
@@ -104,8 +113,8 @@
 	}
 
 	.cardTitle img {
-		width: 1rem;
-		height: 1rem;
+		width: 1.5rem;
+		height: 1.5rem;
 		flex-shrink: 0;
 	}
 
@@ -137,7 +146,7 @@
 
 	.tag {
 		padding: 0.28rem 0.55rem;
-		border: 1px solid var(--black);
+		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
 		background: color-mix(in srgb, var(--backlight-3), white 30%);
 		font-size: var(--fs-body-sm);
@@ -148,13 +157,12 @@
 
 	.dateTag {
 		padding: 0.28rem 0.55rem;
-		border: 1px solid var(--black);
+		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
 		background: var(--backlight-2);
 		font-size: var(--fs-body-sm);
 		font-weight: 700;
 		letter-spacing: 0.02em;
 		line-height: 1.2;
-		margin-left: auto;
 	}
 </style>

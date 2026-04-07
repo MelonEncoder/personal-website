@@ -249,6 +249,10 @@
 	}
 
 	@media (max-width: 760px) {
+		h1 {
+			font-size: var(--fs-h2);
+		}
+
 		.actions {
 			justify-content: stretch;
 			flex-wrap: wrap;

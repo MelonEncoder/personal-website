@@ -40,13 +40,13 @@
 		{
 			name: "Japanese",
 			nativeName: "日本語",
-			fluency: "Elementary",
+			fluency: "Elementary [N5]",
 			focus: "Actively Learning"
 		},
 		{
 			name: "Spanish",
 			nativeName: "Español",
-			fluency: "Elementary",
+			fluency: "Elementary [A1]",
 			focus: "Next Focus"
 		}
 	];
@@ -150,7 +150,7 @@
 	.cardLabel {
 		margin: 0 0 0.75rem 0;
 		width: fit-content;
-		padding: 0.15rem 0.35rem;
+		padding: 0.3rem 0.5rem;
 		font-size: var(--fs-body);
 		font-family: var(--font-mono), monospace;
 		font-weight: bold;
@@ -161,16 +161,16 @@
 		color: var(--accent);
 	}
 
-	.toolCard {
-		display: flex;
-		flex-direction: column;
-	}
-
 	.card {
 		background-color: var(--white);
 		padding: 1rem;
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
+	}
+
+	.toolCard {
+		display: flex;
+		flex-direction: column;
 	}
 
 	.sectionText {
@@ -206,7 +206,7 @@
 		border: 1px solid var(--black);
 		background-color: transparent;
 		border-radius: var(--radius-sm);
-		padding: 0.28rem 0.55rem;
+		padding: 0.3rem 0.5rem;
 		margin-right: 0.5rem;
 		margin-bottom: 0.5rem;
 	}
