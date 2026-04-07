@@ -61,26 +61,28 @@
 	<section class="bootPanel">
 		<header class="heroHeader">
 			<img class="monogram" src={monogram} alt="Ian logo" />
-			<div>
+			<div class="headerText">
 				<p class="label">Portfolio Bootloader</p>
 				<h1>
-					IAN
+					IAN GILLETTE
 					<span class="cursor" aria-hidden="true">_</span>
 				</h1>
 			</div>
 		</header>
-		<div class="progressMeta">
-			<span>{ready ? "System ready" : "Loading . . ."}</span>
-			<span>{Math.round(progress)}%</span>
-		</div>
-		<div
-			class="progressTrack"
-			role="progressbar"
-			aria-valuemin="0"
-			aria-valuemax="100"
-			aria-valuenow={Math.round(progress)}
-		>
-			<div class="progressFill" style={`width: ${progress}%;`}></div>
+		<div class="loadingProgress">
+			<div class="progressMeta">
+				<span>{ready ? "System ready" : "Loading . . ."}</span>
+				<span>{Math.round(progress)}%</span>
+			</div>
+			<div
+				class="progressTrack"
+				role="progressbar"
+				aria-valuemin="0"
+				aria-valuemax="100"
+				aria-valuenow={Math.round(progress)}
+			>
+				<div class="progressFill" style={`width: ${progress}%;`}></div>
+			</div>
 		</div>
 
 		<div class="actions">
@@ -108,7 +110,7 @@
 	.bootPanel {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 1.5rem;
 		width: min(880px, 100%);
 		padding: clamp(1rem, 2.5vw, 1.8rem);
 		background: color-mix(in srgb, var(--white), var(--backlight-2) 35%);
@@ -118,8 +120,12 @@
 
 	.heroHeader {
 		display: flex;
-		align-items: center;
-		gap: 1rem;
+		gap: clamp(1rem, 2.5vw, 1.8rem);
+	}
+
+	.headerText {
+		height: 100%;
+		align-items: baseline;
 	}
 
 	.monogram {
@@ -148,6 +154,12 @@
 		display: inline-block;
 		color: var(--accent);
 		animation: blink 0.9s steps(1) infinite;
+	}
+
+	.loadingProgress {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
 	}
 
 	.progressTrack {
