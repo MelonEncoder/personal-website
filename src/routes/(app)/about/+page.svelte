@@ -65,10 +65,20 @@
 
 <div class="content">
 	<h1 class="title">ABOUT ME</h1>
-	<div class="card">
+	<div class="card aboutCard">
 		<p class="sectionText">
-			Hello! My name is Ian Gillette. I'm currently studying Game Design at UCF. In my free
-			time I enjoy programming, drawing, venturing outdoors, and learning new languages.
+			Hello! My name is Ian Gillette. I'm currently studying Game Design at UCF with plans to
+			create beautiful art and stories with talented individuals. In my free time I enjoy
+			programming, drawing, venturing outdoors, and learning new languages. My interests are
+			always changing and expanding so I tend to keep busy. One interest tends to stick around
+			and that is LEARNING!
+		</p>
+		<p class="sectionText">
+			The ability to learn is the most important ability humans have in my opinion. Ever since
+			I was little I loved learning just about anything the world had to offer and I have
+			carried that curiosity with me through my life. With this mideset I have been able to
+			discover many different intricacies about our reality and, through these discoveries,
+			have come to appreciate just how beautiful our world and its people can be.
 		</p>
 	</div>
 	<section id="technologySection">
@@ -172,6 +182,12 @@
 	.toolCard {
 		display: flex;
 		flex-direction: column;
+	}
+
+	.aboutCard {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
 	}
 
 	.sectionText {
