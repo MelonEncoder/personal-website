@@ -92,8 +92,11 @@
 				>
 			{/if}
 			{#if ready}
-				<a class="actionButton ghost" href={resolve("/about")}>About Me</a>
-				<a class="actionButton primary" href={resolve("/work")}>My Work</a>
+				<a class="actionButton primary" href={resolve("/about")}>About Me</a>
+				<a class="actionButton ghost" href={resolve("/work")}>My Work</a>
+				<a class="actionButton ghost" href={resolve("/technical-writing")}
+					>Technical Writing</a
+				>
 			{/if}
 		</div>
 	</section>
