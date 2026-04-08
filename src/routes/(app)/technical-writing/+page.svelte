@@ -42,10 +42,10 @@
 	<h1 class="title">TECHNICAL WRITING</h1>
 	<div class="card intro">
 		<p class="bodyText">
-			This portfolio showcases the projects I worked on while taking a technical communication
-			course. Each section contains a revised project along with a reflection on the
-			assignment, my approach, and what I learned about communicating clearly for a specific
-			audience and purpose. Use the buttons below to navigate to each project.
+			This section showcases the projects I worked on while taking ENC 2341 - Technical
+			Writing at UCF. Each folder below contains a project I worked on along with a reflection
+			on the assignment, my approach, and what I learned about communicating with a purpose to
+			a specific audieance.
 		</p>
 	</div>
 
