@@ -68,17 +68,21 @@
 	<div class="card aboutCard">
 		<p class="sectionText">
 			Hello! My name is Ian Gillette. I'm currently studying Game Design at UCF with plans to
-			create beautiful art and stories with talented individuals. In my free time I enjoy
-			programming, drawing, venturing outdoors, and learning new languages. My interests are
-			always changing and expanding so I tend to keep busy. One interest tends to stick around
-			and that is LEARNING!
+			create and share art and stories with the world. I was a computer science major but
+			decided to switch to a more art centric field that still keeped some technical elements
+			from computer science.
 		</p>
 		<p class="sectionText">
-			The ability to learn is the most important ability humans have in my opinion. Ever since
-			I was little I loved learning just about anything the world had to offer and I have
-			carried that curiosity with me through my life. With this mideset I have been able to
-			discover many different intricacies about our reality and, through these discoveries,
-			have come to appreciate just how beautiful our world and its people can be.
+			In my free time I enjoy programming, drawing, venturing outdoors, and learning new
+			languages. My interests are always changing and expanding so I tend to stay busy with my
+			hobbies. One interest though tends to stick around and that is learning!
+		</p>
+		<p class="sectionText">
+			The ability to learn, in my opinion, is the most important ability humans have. Ever
+			since I was little I loved learning just about anything, specifically space and marine
+			biology, and I have carried that curiosity with me through my life. With this mideset I
+			have been able to discover just how complex the our reality is and, through these
+			discoveries, have come to appreciate just how beautiful our world is.
 		</p>
 	</div>
 	<section id="technologySection">
@@ -273,7 +277,7 @@
 		padding: 1rem;
 		background-color: var(--white);
 		box-shadow: 0 4px 0 0 var(--black);
-		transform: translateY(0);
+		transform: translateY(-4px);
 		text-decoration: none;
 		transition: 0.12s ease;
 	}
@@ -285,7 +289,7 @@
 	}
 
 	.link:active {
-		transform: translateY(4px);
+		transform: translateY(0);
 		box-shadow: 0 0 0 0 var(--accent);
 	}
 

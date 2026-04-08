@@ -140,7 +140,7 @@
 		</div>
 
 		<div class="copyrightContainer">
-			<p>&copy; {year} Ian Gillette</p>
+			<p>{year} &copy; Ian Gillette</p>
 		</div>
 
 		<div class="gridCenterCell">
