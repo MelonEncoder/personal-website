@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Disallow:
+Disallow: /private
 
 Sitemap: https://www.iangillette.net/sitemap.xml
