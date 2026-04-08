@@ -3,6 +3,8 @@ services:
         build: .
         container_name: personal-website
         restart: unless-stopped
+        environment:
+            - PRIVATE_PASSWORD=${PRIVATE_PASSWORD}
         networks:
             - web
 

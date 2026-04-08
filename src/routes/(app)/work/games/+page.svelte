@@ -1,7 +1,7 @@
 <script lang="ts">
 	import WorkCard from "$lib/components/WorkCard.svelte";
-	import whiteButtonScreenshot from "$lib/assets/video-games/white-button-screenshot.png";
-	import blackedOutScreenshot from "$lib/assets/video-games/blacked-out.png";
+
+	const BASE = "https://files.iangillette.net/public/video-games";
 
 	const gamingProjects = [
 		{
@@ -9,7 +9,7 @@
 			description:
 				"White Button was created during a week long game jam where the theme was 1-bit color palette. Your goal is to click all the buttons before the lava reaches you.",
 			href: "https://karpoonz.itch.io/white-button",
-			image: whiteButtonScreenshot,
+			image: `${BASE}/white-button-screenshot.png`,
 			date: "2025"
 		},
 		{
@@ -17,7 +17,7 @@
 			description:
 				"Someone knocked you out and trapped you inside of a pitch black room. Your goal is to escape by using a flashlight and keys you find lying around in the environment.",
 			href: "https://karpoonz.itch.io/blacked-out",
-			image: blackedOutScreenshot,
+			image: `${BASE}/blacked-out.png`,
 			date: "2024"
 		}
 	];
