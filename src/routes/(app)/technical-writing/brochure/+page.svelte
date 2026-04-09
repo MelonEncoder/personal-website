@@ -53,6 +53,26 @@
 			></iframe>
 		</div>
 	</section>
+
+	<section class="section">
+		<h2 class="sectionHeading">Writeup</h2>
+		<p class="fileNote">
+			<a
+				class="link"
+				href="https://files.iangillette.net/public/technical-writing/udl-brochure-writeup.pdf"
+				target="_blank"
+				rel="noopener">Open in new tab</a
+			>
+		</p>
+		<div class="embedWrapper">
+			<iframe
+				class="embed"
+				src="https://files.iangillette.net/public/technical-writing/udl-brochure-writeup.pdf"
+				title="UN SDG Brochure Writeup"
+				aria-label="Embedded brochure writeup PDF"
+			></iframe>
+		</div>
+	</section>
 </div>
 
 <style>
