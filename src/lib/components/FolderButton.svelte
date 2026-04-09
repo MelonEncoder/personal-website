@@ -2,16 +2,21 @@
 	import { resolve } from "$app/paths";
 	import type { ResolvedPathname } from "$app/types";
 
-	interface Props {
+	let {
+		href,
+		tag,
+		title,
+		icon,
+		iconAlt = "",
+		description
+	}: {
 		href: ResolvedPathname;
-		tag?: string;
+		tag: string;
 		title: string;
 		icon: string;
-		iconAlt?: string;
+		iconAlt: string;
 		description?: string;
-	}
-
-	let { href, tag, title, icon, iconAlt = "", description }: Props = $props();
+	} = $props();
 </script>
 
 <a class="fileLink" href={resolve(href)}>

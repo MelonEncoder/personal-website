@@ -82,7 +82,7 @@
 		return path !== "/" && path.endsWith("/") ? path.slice(0, -1) : path;
 	}
 
-	function isActive(url: Parameters<typeof resolve>[0]) {
+	function isActive(url: string) {
 		return normalizePath(page.url.pathname) === normalizePath(url);
 	}
 
