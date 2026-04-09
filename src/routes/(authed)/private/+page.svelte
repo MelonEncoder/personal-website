@@ -1,12 +1,19 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-import type { ActionData, PageData } from './$types';
+	import { enhance } from "$app/forms";
+	import { resolve } from "$app/paths";
+	import type { ActionData, PageData } from "./$types";
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 
 	function embeddedEnhance() {
-		return async ({ result, update }: { result: { type: string }, update: (opts?: { reset?: boolean }) => Promise<void> }) => {
-			if (result.type === 'redirect') {
+		return async ({
+			result,
+			update
+		}: {
+			result: { type: string };
+			update: (opts?: { reset?: boolean }) => Promise<void>;
+		}) => {
+			if (result.type === "redirect") {
 				window.parent.location.reload();
 			} else {
 				await update();
@@ -19,10 +26,14 @@ import type { ActionData, PageData } from './$types';
 	{#if data.authenticated}
 		<h1 class="title">PRIVATE FILES</h1>
 		<p class="signedIn">You are signed in!</p>
-		<a class="button" href="/">Go Home</a>
+		<a class="button" href={resolve("/")}>Go Home</a>
 	{:else}
 		<h1 class="title">PRIVATE FILES</h1>
-		<form method="POST" use:enhance={data.redirectTo ? embeddedEnhance : undefined} class="form">
+		<form
+			method="POST"
+			use:enhance={data.redirectTo ? embeddedEnhance : undefined}
+			class="form"
+		>
 			<label class="label" for="password">Password</label>
 			<div class="row">
 				<input
@@ -94,24 +105,6 @@ import type { ActionData, PageData } from './$types';
 		border-color: var(--accent);
 	}
 
-	.button {
-		font-family: var(--font-mono), monospace;
-		font-size: var(--fs-body);
-		font-weight: 700;
-		padding: 0.55rem 1.25rem;
-		border: 2px solid var(--black);
-		border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-		background-color: var(--black);
-		color: var(--white);
-		cursor: pointer;
-		transition: 0.12s ease;
-	}
-
-	.button:hover {
-		background-color: var(--accent);
-		border-color: var(--accent);
-	}
-
 	.error {
 		font-size: var(--fs-body-sm);
 		color: var(--accent);
@@ -142,6 +135,7 @@ import type { ActionData, PageData } from './$types';
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
 		box-shadow: 0 4px 0 0 var(--black);
+		transform: translateY(-4px);
 		transition: 0.12s ease;
 	}
 
@@ -153,7 +147,7 @@ import type { ActionData, PageData } from './$types';
 
 	.button:active {
 		border-color: var(--accent);
-		transform: translateY(4px);
+		transform: translateY(0);
 		box-shadow: 0 0 0 0 var(--accent);
 	}
 </style>
