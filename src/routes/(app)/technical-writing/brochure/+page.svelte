@@ -4,33 +4,49 @@
 	<section class="section">
 		<h2 class="sectionHeading">About This Assignment</h2>
 		<div class="card">
-			<p class="bodyText">[placeholder]</p>
-			<!-- <p class="bodyText">
-				[Placeholder: Describe the UN SDG brochure assignment here. Explain what the assignment
-				asked you to produce — a persuasive brochure connected to one of the United Nations
-				Sustainable Development Goals. Name the SDG you focused on and explain why you chose
-				it. Discuss the audience you were writing for and what action or understanding you
-				wanted to promote through the document.]
+			<p class="bodyText">
+				The UN SDG Project was a collaborative team project that aimed to simulate a
+				real-world professional environment. Our team consisted of four people, and we were
+				tasked with producing a research-based deliverable connected to the United Nations
+				Sustainable Development Goals and their application to the UCF community. The
+				research component of the deliverable consisted of both primary and secondary
+				research. The primary research included a survey and at least two interviews with
+				students at UCF and the secondary research involved using the UCF database to find
+				other papers and articles on our topic. For the deliverable, we had the choice
+				between a presentation, brochure, infographic, or a recommendation report.
 			</p>
 			<p class="bodyText">
-				[Placeholder: Explain your approach. How did you research your chosen SDG and find
-				credible supporting information? How did you decide on the visual layout, tone, and
-				the amount of text to include? Brochures must communicate quickly — describe how you
-				balanced brevity with persuasion and how you structured the content to guide the reader
-				through the document.]
+				Before we got started with the project, we created a team charter, where we defined
+				how we communicated, our availability, our individual and team goals, defining
+				conflict-resolution and deadline agreements, and deciding on what our deliverable
+				would be. After the charter, we started working on finalizing our topic and
+				deliverables, defining our research question and audience, and gathering data from
+				our primary and secondary sources.
 			</p>
 			<p class="bodyText">
-				[Placeholder: Describe what you specifically revised. What feedback did you receive on
-				your first draft? Were there sections that were too text-heavy, unclear in argument,
-				or lacking visual appeal? Walk through the concrete changes you made to the content,
-				design, and layout and explain how each revision better served your audience and purpose.]
+				Once we had all the planning and research out of the way, we could start working on
+				our deliverables. We chose to create a brochure that explained UDL principles and
+				our target audience was teachers at UCF. We felt that teachers would be the best
+				audience for this topic because they are directly involved with the education
+				system, creating the curriculum they teach, and the classroom resources they use.
+				Also, each member had to write at least 500 words and since a brochure was fairly
+				limited in terms of space, we also wrote a writeup of our research to go along with
+				the brochure.
 			</p>
 			<p class="bodyText">
-				[Placeholder: Reflect on what you learned about technical communication through this
-				project. How did the constraints of the brochure format challenge you as a writer?
-				What did you learn about designing for visual communication alongside written content?
-				How might you apply these skills to future professional writing or design work?]
-			</p> -->
+				After submitting the project, we met with high praise on our deliverable and very
+				few issues from the feedback we received from our instructor. They even wanted to
+				use our work as an example for future classes, which we were delighted to hear. Of
+				the feedback that we could act upon were some slight editorial fixes and the sizing
+				of our graphs being too small. All of these changes were relatively easy to apply to
+				our documents.
+			</p>
+			<p class="bodyText">
+				From working on a team to conducting interviews to designing a brochure, I learned a
+				lot during the process of developing these deliverables. I feel more confident while
+				working with a team, I have a deeper understanding of the research process and
+				important planning can be to the success of the final product.
+			</p>
 		</div>
 	</section>
 
