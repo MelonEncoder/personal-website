@@ -37,15 +37,17 @@
 	</section>
 
 	<section class="section">
-		<h2 class="sectionHeading">Document</h2>
-		<p class="fileNote">
-			<a
-				class="link"
-				href="https://files.iangillette.net/public/technical-writing/instructions.pdf"
-				target="_blank"
-				rel="noopener">Open in new tab</a
-			>
-		</p>
+		<div class="sectionHeader">
+			<h2 class="sectionHeading">Document</h2>
+			<p class="fileNote">
+				<a
+					class="link"
+					href="https://files.iangillette.net/public/technical-writing/instructions.pdf"
+					target="_blank"
+					rel="noopener">Open in new tab</a
+				>
+			</p>
+		</div>
 		<div class="embedWrapper">
 			<iframe
 				class="embed"
@@ -74,6 +76,12 @@
 
 	.section {
 		margin-top: 2rem;
+	}
+
+	.sectionHeader {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
 	}
 
 	.sectionHeading {

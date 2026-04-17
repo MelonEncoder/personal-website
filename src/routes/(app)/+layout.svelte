@@ -53,18 +53,18 @@
 			icon: jobIcon
 		},
 		{
-			label: "Instructions",
-			depth: 2,
-			type: "file",
-			url: "/technical-writing/instructions",
-			icon: instructionsIcon
-		},
-		{
 			label: "UN SDG Brochure",
 			depth: 2,
 			type: "file",
 			url: "/technical-writing/brochure",
 			icon: brochureIcon
+		},
+		{
+			label: "Instructions",
+			depth: 2,
+			type: "file",
+			url: "/technical-writing/instructions",
+			icon: instructionsIcon
 		}
 	];
 

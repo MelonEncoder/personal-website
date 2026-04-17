@@ -22,18 +22,18 @@
 			icon: jobIcon
 		},
 		{
-			label: "Instructions",
-			description: "Step-by-step instructional document.",
-			url: "/technical-writing/instructions",
-			tag: ".DOC",
-			icon: instructionsIcon
-		},
-		{
 			label: "UN SDG Brochure",
 			description: "Brochure designed around a UN Sustainable Development Goal.",
 			url: "/technical-writing/brochure",
 			tag: ".SDG",
 			icon: brochureIcon
+		},
+		{
+			label: "Instructions",
+			description: "Step-by-step instructional document.",
+			url: "/technical-writing/instructions",
+			tag: ".DOC",
+			icon: instructionsIcon
 		}
 	];
 </script>

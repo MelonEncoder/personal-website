@@ -40,16 +40,23 @@
 	</section>
 
 	<section class="section">
-		<div class="sectionHeadingRow">
-			<h2 class="sectionHeading">Resume</h2>
-			<span class="badge">Password Protected</span>
+		<div class="sectionHeader">
+			<div class="sectionHeadingRow">
+				<h2 class="sectionHeading">Resume</h2>
+				<span class="badge">Password Protected</span>
+			</div>
+			{#if data.authenticated}
+				<div class="fileNote">
+					<a
+						class="link"
+						href={resolve("/private/resume.pdf")}
+						target="_blank"
+						rel="noopener">Open in new tab</a
+					>
+				</div>
+			{/if}
 		</div>
 		{#if data.authenticated}
-			<div class="fileNote">
-				<a class="link" href={resolve("/private/resume.pdf")} target="_blank" rel="noopener"
-					>Open in new tab</a
-				>
-			</div>
 			<div class="embedWrapper">
 				<iframe
 					class="embed"
@@ -71,19 +78,23 @@
 	</section>
 
 	<section class="section">
-		<div class="sectionHeadingRow">
-			<h2 class="sectionHeading">Cover Letter</h2>
-			<span class="badge">Password Protected</span>
+		<div class="sectionHeader">
+			<div class="sectionHeadingRow">
+				<h2 class="sectionHeading">Cover Letter Example</h2>
+				<span class="badge">Password Protected</span>
+			</div>
+			{#if data.authenticated}
+				<div class="fileNote">
+					<a
+						class="link"
+						href={resolve("/private/resume.pdf")}
+						target="_blank"
+						rel="noopener">Open in new tab</a
+					>
+				</div>
+			{/if}
 		</div>
 		{#if data.authenticated}
-			<div class="fileNote">
-				<a
-					class="link"
-					href={resolve("/private/cover-letter-example.pdf")}
-					target="_blank"
-					rel="noopener">Open in new tab</a
-				>
-			</div>
 			<div class="embedWrapper">
 				<iframe
 					class="embed"
@@ -122,6 +133,12 @@
 
 	.section {
 		margin-top: 2rem;
+	}
+
+	.sectionHeader {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
 	}
 
 	.sectionHeading {
@@ -222,6 +239,4 @@
 		min-height: 480px;
 		border: none;
 	}
-
-
 </style>
