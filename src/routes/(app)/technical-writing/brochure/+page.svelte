@@ -2,8 +2,8 @@
 	<h1 class="title">UN SDG BROCHURE</h1>
 
 	<section class="section">
-		<h2 class="sectionHeading">About This Assignment</h2>
 		<div class="card">
+			<h2 class="sectionHeading">About this Project</h2>
 			<p class="bodyText">
 				The UN SDG Project was a collaborative team project that aimed to simulate a
 				real-world professional environment. Our team consisted of four people, and we were
@@ -52,7 +52,7 @@
 
 	<section class="section">
 		<div class="sectionHeader">
-			<h2 class="sectionHeading">Document</h2>
+			<h2 class="sectionHeading">Brochure</h2>
 			<p class="fileNote">
 				<a
 					class="link"
@@ -137,12 +137,15 @@
 		border-radius: var(--radius-sm);
 		display: flex;
 		flex-direction: column;
-		gap: 0.85rem;
 	}
 
 	.bodyText {
 		font-size: var(--fs-body);
 		line-height: 1.75;
+		margin: 0 0 0.85rem 0;
+	}
+
+	.bodyText:last-child {
 		margin: 0;
 	}
 

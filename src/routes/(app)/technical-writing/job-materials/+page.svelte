@@ -9,8 +9,8 @@
 	<h1 class="title">JOB MATERIALS</h1>
 
 	<section class="section">
-		<h2 class="sectionHeading">About This Assignment</h2>
 		<div class="card">
+			<h2 class="sectionHeading">About this Project</h2>
 			<p class="bodyText">
 				The job materials assignment required me to create two professional career-oriented
 				documents, a resume and a cover letter, and practice writing to a hiring manager.
@@ -173,12 +173,15 @@
 		border-radius: var(--radius-sm);
 		display: flex;
 		flex-direction: column;
-		gap: 0.85rem;
 	}
 
 	.bodyText {
 		font-size: var(--fs-body);
 		line-height: 1.75;
+		margin: 0 0 0.85rem 0;
+	}
+
+	.bodyText:last-child {
 		margin: 0;
 	}
 

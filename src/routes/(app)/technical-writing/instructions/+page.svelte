@@ -2,8 +2,8 @@
 	<h1 class="title">INSTRUCTIONS</h1>
 
 	<section class="section">
-		<h2 class="sectionHeading">About This Assignment</h2>
 		<div class="card">
+			<h2 class="sectionHeading">About this Project</h2>
 			<p class="bodyText">[placeholder]</p>
 			<!-- <p class="bodyText">
 				[Placeholder: Describe the instructions assignment here. Explain what the assignment
@@ -38,7 +38,7 @@
 
 	<section class="section">
 		<div class="sectionHeader">
-			<h2 class="sectionHeading">Document</h2>
+			<h2 class="sectionHeading">Instructions</h2>
 			<p class="fileNote">
 				<a
 					class="link"
@@ -101,12 +101,15 @@
 		border-radius: var(--radius-sm);
 		display: flex;
 		flex-direction: column;
-		gap: 0.85rem;
 	}
 
 	.bodyText {
 		font-size: var(--fs-body);
 		line-height: 1.75;
+		margin: 0 0 0.85rem 0;
+	}
+
+	.bodyText:last-child {
 		margin: 0;
 	}
 
