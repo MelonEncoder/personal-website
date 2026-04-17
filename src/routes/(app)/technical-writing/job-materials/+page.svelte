@@ -11,31 +11,46 @@
 	<section class="section">
 		<h2 class="sectionHeading">About This Assignment</h2>
 		<div class="card">
-			<p class="bodyText">[placeholder]</p>
-			<!-- <p class="bodyText">
-				[Placeholder: Describe the job materials assignment here. Explain what the assignment
-				asked you to produce — a resume and cover letter targeted at a specific job posting or
-				industry. Discuss the genre conventions you were expected to follow and any constraints
-				given by the course.]
+			<p class="bodyText">
+				The job materials assignment required me to create two professional career-oriented
+				documents, a resume and a cover letter, and practice writing to a hiring manager.
+				These documents would be based on a real-world job position I found on the career
+				management platform, Handshake, to give me practical experience that can be used in
+				the future. At the time of writing these documents, I was enrolled as a computer
+				science major, though I am now a graphic design major with a game design track.
 			</p>
 			<p class="bodyText">
-				[Placeholder: Explain your approach. What job or role did you target? How did you tailor
-				your resume and cover letter to that audience? What decisions did you make about format,
-				length, and content selection? Discuss how you prioritized information for a hiring
-				manager who may spend only a few seconds scanning a document.]
+				Before I started working on the resume, I created an outline of my credentials,
+				education, important links, and work experience. I also had my portfolio website up
+				and running at this time, so I was able to put this on my resume as well. This
+				allowed me to stay organized and keep track of relevant information so I could focus
+				on designing the layout and structure of the document.
 			</p>
 			<p class="bodyText">
-				[Placeholder: Describe what you specifically revised. What feedback did you receive on
-				your first draft? What was unclear, too long, or missing? Walk through the concrete
-				changes you made — restructured bullet points, tightened language, adjusted formatting,
-				updated the summary statement — and explain why each change improved the document.]
+				For the cover letter, I found an internship position that matched my interests and
+				worked well with my current resume. After I found the listing, I created another
+				planning document that held the title of the position, its location, and work
+				responsibilities. From there I noted my qualifications and how my experience can be
+				beneficial for the company.
 			</p>
 			<p class="bodyText">
-				[Placeholder: Reflect on what you learned about technical communication through this
-				project. How did working on these documents change how you think about writing for a
-				professional audience? What surprised you? What would you do differently on the next
-				revision?]
-			</p> -->
+				After writing up the documents and submitting them, I received very helpful
+				feedback. My cover letter needed the most work where my resume had minimal issues.
+				When making updates to my cover letter, I mainly reorganized the content and was
+				clearer on what my thesis was. I ended up moving my address and contact information
+				into the header section up top instead of below the date. I removed duplicated
+				references to contact information at the end of the document and split a big central
+				body paragraph that explained my experience into two sections, one specifically for
+				my experiences at UCF.
+			</p>
+			<p class="bodyText">
+				From this project, I learned how to create a resume that highlights my strengths in
+				an easily scannable format. Additionally, I practiced writing a potential cover
+				letter to a real employer that expresses my interest in a specific job position and
+				shares how I can be a valuable member of the organization. Finally, I got the chance
+				to reflect on my skills and what I have learned from my experience throughout my
+				life.
+			</p>
 		</div>
 	</section>
 
