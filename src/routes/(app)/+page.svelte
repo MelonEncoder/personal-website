@@ -62,7 +62,7 @@
 		<header class="heroHeader">
 			<img class="monogram" src={monogram} alt="Ian logo" />
 			<div class="headerText">
-				<p class="label">Portfolio Bootloader</p>
+				<p class="label">Portfolio Bootloader | v0.2</p>
 				<h1>
 					IAN GILLETTE
 					<span class="cursor" aria-hidden="true">_</span>
