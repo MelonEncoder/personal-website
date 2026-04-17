@@ -141,8 +141,8 @@
 
 	.bodyText {
 		font-size: var(--fs-body);
-		line-height: 1.75;
-		margin: 0 0 0.85rem 0;
+		line-height: 1.7;
+		margin: 0 0 1rem 0;
 	}
 
 	.bodyText:last-child {

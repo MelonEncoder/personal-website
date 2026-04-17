@@ -191,13 +191,16 @@
 	.aboutCard {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
 	}
 
 	.sectionText {
 		font-size: var(--fs-body);
 		line-height: 1.7;
 		font-weight: 400;
+		margin: 0 0 1rem 0;
+	}
+
+	.sectionText:last-child {
 		margin: 0;
 	}
 
