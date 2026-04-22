@@ -180,7 +180,6 @@
 					<button
 						type="button"
 						class="menuButton"
-						class:isActive={menuVisible}
 						aria-pressed={menuVisible}
 						aria-expanded={menuVisible}
 						aria-controls="routeTreeMenu"
@@ -188,9 +187,12 @@
 					>
 						<div class="buttonContent">
 							<img src={menuIcon} alt="folder-icon" />
-							Menu
+							<p class="menuBarText">Menu</p>
 						</div>
 					</button>
+					<div class="menuName">
+						<p class="menuBarText">Ian Gillette</p>
+					</div>
 				</header>
 				<div class="content" bind:this={contentElement}>
 					<div class="contentInner">
@@ -402,8 +404,16 @@
 
 	.menuBar {
 		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
 		background-color: var(--backlight-2);
 		border-bottom: 2px solid var(--black);
+	}
+
+	.menuBarText {
+		font-weight: 700;
+		margin: 0;
+		font-size: 1.25rem;
 	}
 
 	.menuBackdrop {
@@ -453,6 +463,13 @@
 
 	.buttonContent img {
 		width: 1.75rem;
+	}
+
+	.menuName {
+		display: flex;
+		align-items: center;
+		padding: 0 0.5rem 0 0.5rem;
+		height: 100%;
 	}
 
 	.monogramContainer {
