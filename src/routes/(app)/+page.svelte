@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import { resolve } from "$app/paths";
-	import ActionButton from "$lib/components/ActionButton.svelte";
+	import TextButton from "$lib/components/TextButton.svelte";
 
 	import monogram from "$lib/assets/brand/monogram.svg";
 	import { goto } from "$app/navigation";
@@ -46,11 +46,6 @@
 		rafId = requestAnimationFrame(tick);
 	}
 
-	function skipIntro() {
-		cancelAnimationFrame(rafId);
-		completeIntro();
-	}
-
 	onMount(() => {
 		seenIntro = localStorage.getItem(INTRO_SEEN_KEY) === "1";
 		startSequence(seenIntro ? 900 : 2400);
@@ -65,7 +60,7 @@
 			<img class="monogram" src={monogram} alt="Ian logo" />
 			<div class="headerText">
 				<p class="label">Portfolio Bootloader | v0.2</p>
-				<h1>
+				<h1 class="title">
 					IAN GILLETTE
 					<span class="cursor" aria-hidden="true">_</span>
 				</h1>
@@ -88,25 +83,22 @@
 		</div>
 
 		<div class="actions">
-			{#if !ready}
-				<ActionButton type="secondary" text="Skip Intro" onclick={skipIntro} />
-			{/if}
 			{#if ready}
-				<ActionButton
+				<TextButton
 					type="primary"
 					text="About Me"
 					onclick={() => {
 						goto(resolve("/about"));
 					}}
 				/>
-				<ActionButton
+				<TextButton
 					type="secondary"
 					text="My Work"
 					onclick={() => {
 						goto(resolve("/work"));
 					}}
 				/>
-				<ActionButton
+				<TextButton
 					type="secondary"
 					text="Technical Writing"
 					onclick={() => {
@@ -116,6 +108,17 @@
 			{/if}
 		</div>
 	</section>
+	<section>
+		<div class="card">
+			<h1 class="sectionHeading">Welcome!</h1>
+			<p class="bodyText">
+				This is my portfolio website that hosts my projects and work. The about me page
+				talks about who I am and some of my skills and interests, the work pages hosts all
+				of my personal projects, and the technical writing page showcases the projects I
+				completed in my technical wriring class.
+			</p>
+		</div>
+	</section>
 </div>
 
 <style>
@@ -123,7 +126,9 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		flex-direction: column;
 		min-height: 100%;
+		gap: 2rem;
 	}
 
 	.bootPanel {
@@ -132,7 +137,7 @@
 		gap: 1.5rem;
 		width: min(880px, 100%);
 		padding: clamp(1rem, 2.5vw, 1.8rem);
-		background: color-mix(in srgb, var(--white), var(--backlight-2) 35%);
+		background: var(--white);
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
 	}
@@ -161,7 +166,7 @@
 		color: color-mix(in srgb, var(--black), white 35%);
 	}
 
-	h1 {
+	.title {
 		margin: 0.2rem 0 0;
 		font-family: var(--font-title), monospace;
 		font-size: var(--fs-title);
@@ -212,6 +217,37 @@
 		justify-content: flex-end;
 		align-items: center;
 		min-height: 2.9rem;
+	}
+
+	.card {
+		display: flex;
+		flex-direction: column;
+		width: min(880px, 100%);
+		padding: clamp(1rem, 2.5vw, 1.8rem);
+		margin: auto;
+		background-color: var(--white);
+		border: 2px solid var(--black);
+		border-radius: var(--radius-sm);
+	}
+
+	.sectionHeading {
+		font-family: var(--font-mono), monospace;
+		font-size: var(--fs-h2);
+		font-weight: 700;
+		margin: 0 0 1rem 0;
+		color: var(--black);
+		line-height: 1.3;
+		letter-spacing: 0.02em;
+	}
+
+	.bodyText {
+		font-size: var(--fs-body);
+		line-height: 1.7;
+		margin: 0 0 1rem 0;
+	}
+
+	.bodyText:last-child {
+		margin: 0;
 	}
 
 	@keyframes blink {

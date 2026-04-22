@@ -27,6 +27,7 @@
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
 		box-shadow: 0 4px 0 0 var(--black);
+		transform: translateY(-4px);
 		cursor: pointer;
 		transition: 0.12s ease;
 	}
@@ -50,7 +51,7 @@
 
 	.textButton:active {
 		border-color: var(--accent);
-		transform: translateY(4px);
+		transform: translateY(0);
 		box-shadow: 0 0 0 0 var(--accent);
 	}
 </style>
