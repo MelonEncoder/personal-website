@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { resolve } from "$app/paths";
+	import { goto } from "$app/navigation";
+	import TextButton from "$lib/components/TextButton.svelte";
 	import type { PageData } from "./$types";
 
 	let { data }: { data: PageData } = $props();
@@ -62,12 +64,13 @@
 			</div>
 			{#if data.authenticated}
 				<div class="fileNote">
-					<a
-						class="link"
-						href={resolve("/private/resume.pdf")}
-						target="_blank"
-						rel="noopener">Open in new tab</a
-					>
+					<TextButton
+						type="secondary"
+						text="open in new tab"
+						onclick={() => {
+							goto(resolve("/private/resume.pdf"));
+						}}
+					/>
 				</div>
 			{/if}
 		</div>
@@ -100,12 +103,13 @@
 			</div>
 			{#if data.authenticated}
 				<div class="fileNote">
-					<a
-						class="link"
-						href={resolve("/private/resume.pdf")}
-						target="_blank"
-						rel="noopener">Open in new tab</a
-					>
+					<TextButton
+						type="secondary"
+						text="open in new tab"
+						onclick={() => {
+							goto(resolve("/private/cover-letter-example.pdf"));
+						}}
+					/>
 				</div>
 			{/if}
 		</div>
@@ -210,37 +214,6 @@
 		border: 1px solid color-mix(in srgb, var(--black), white 55%);
 		border-radius: var(--radius-sm);
 		padding: 0.3rem 0.6rem;
-	}
-
-	.link {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.62rem 1rem;
-		font-family: var(--font-mono), monospace;
-		font-size: var(--fs-body);
-		font-weight: 700;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		text-decoration: none;
-		background: var(--white);
-		color: var(--black);
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-		box-shadow: 0 4px 0 0 var(--black);
-		transition: 0.12s ease;
-	}
-
-	.link:hover {
-		border-color: var(--accent);
-		box-shadow: 0 4px 0 0 var(--accent);
-		background-color: color-mix(in srgb, var(--accent), white 65%);
-	}
-
-	.link:active {
-		border-color: var(--accent);
-		transform: translateY(4px);
-		box-shadow: 0 0 0 0 var(--accent);
 	}
 
 	.embedWrapper {

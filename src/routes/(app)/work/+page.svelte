@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { resolve } from "$app/paths";
 	import FolderButton from "$lib/components/FolderButton.svelte";
 	import joystickIcon from "$lib/assets/icons/joystick.svg";
 	import codeIcon from "$lib/assets/icons/code-xml.svg";
 	import imageIcon from "$lib/assets/icons/image.svg";
+	import { goto } from "$app/navigation";
+	import { resolve } from "$app/paths";
 
 	const workRoutes = [
 		{
@@ -38,11 +39,13 @@
 			{#each workRoutes as route, i (i)}
 				<li>
 					<FolderButton
-						href={resolve(route.url)}
 						tag={route.tag}
 						title={route.label}
 						icon={route.icon}
 						iconAlt={route.iconAlt}
+						onclick={() => {
+							goto(resolve(route.url));
+						}}
 					/>
 				</li>
 			{/each}

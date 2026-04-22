@@ -1,54 +1,51 @@
 <script lang="ts">
-	import { resolve } from "$app/paths";
-	import type { ResolvedPathname } from "$app/types";
-
 	let {
-		href,
 		tag,
 		title,
 		icon,
 		iconAlt = "",
-		description
+		description,
+		onclick
 	}: {
-		href: ResolvedPathname;
 		tag: string;
 		title: string;
 		icon: string;
 		iconAlt: string;
 		description?: string;
+		onclick: () => void;
 	} = $props();
 </script>
 
-<a class="fileLink" href={resolve(href)}>
-	<div class="folderButton" aria-hidden="true">
-		<div class="folderTab">{tag ?? ""}</div>
-		<div class="folderBody">
-			<img class="folderIcon" src={icon} alt={iconAlt} aria-hidden="true" />
-			<span class="folderTitle">{title}</span>
-			{#if description}
-				<span class="folderDesc">{description}</span>
-			{/if}
-		</div>
+<button class="folderButton" aria-hidden="true" {onclick}>
+	<div class="folderTab">{tag ?? ""}</div>
+	<div class="folderBody">
+		<img class="folderIcon" src={icon} alt={iconAlt} aria-hidden="true" />
+		<span class="folderTitle">{title}</span>
+		{#if description}
+			<span class="folderDesc">{description}</span>
+		{/if}
 	</div>
-</a>
+</button>
 
 <style>
-	.fileLink {
-		text-decoration: none;
-		color: var(--black);
-		display: block;
-	}
-
-	.fileLink:focus-visible {
-		outline: 2px dashed var(--accent);
-		outline-offset: 4px;
-	}
-
 	.folderButton {
 		display: grid;
 		grid-template-columns: 1fr;
 		grid-template-rows: 2rem 1fr;
 		box-sizing: border-box;
+		background: transparent;
+		border: none;
+		width: 100%;
+		height: 100%;
+	}
+
+	.folderButton:focus-visible {
+		outline: 2px dashed var(--accent);
+		outline-offset: 4px;
+	}
+
+	.folderButton:hover {
+		cursor: pointer;
 	}
 
 	.folderTab {
@@ -108,19 +105,19 @@
 		color: var(--black);
 	}
 
-	.fileLink:hover .folderTab {
+	.folderButton:hover .folderTab {
 		border-color: var(--accent);
 		background-color: color-mix(in srgb, var(--accent), white 50%);
 	}
 
-	.fileLink:hover .folderBody {
+	.folderButton:hover .folderBody {
 		border-color: var(--accent);
 		background-color: color-mix(in srgb, var(--accent), white 65%);
 		box-shadow: 0 4px 0 0 var(--accent);
 	}
 
-	.fileLink:active .folderTab,
-	.fileLink:active .folderBody {
+	.folderButton:active .folderTab,
+	.folderButton:active .folderBody {
 		transform: translateY(0);
 		box-shadow: 0 0 0 0 var(--accent);
 	}

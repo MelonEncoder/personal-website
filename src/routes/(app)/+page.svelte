@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import { resolve } from "$app/paths";
+	import ActionButton from "$lib/components/ActionButton.svelte";
 
 	import monogram from "$lib/assets/brand/monogram.svg";
+	import { goto } from "$app/navigation";
 
 	const INTRO_SEEN_KEY = "ian-portfolio-intro-seen";
 
@@ -87,16 +89,30 @@
 
 		<div class="actions">
 			{#if !ready}
-				<button type="button" class="actionButton ghost" onclick={skipIntro}
-					>Skip Intro</button
-				>
+				<ActionButton type="secondary" text="Skip Intro" onclick={skipIntro} />
 			{/if}
 			{#if ready}
-				<a class="actionButton primary" href={resolve("/about")}>About Me</a>
-				<a class="actionButton ghost" href={resolve("/work")}>My Work</a>
-				<a class="actionButton ghost" href={resolve("/technical-writing")}
-					>Technical Writing</a
-				>
+				<ActionButton
+					type="primary"
+					text="About Me"
+					onclick={() => {
+						goto(resolve("/about"));
+					}}
+				/>
+				<ActionButton
+					type="secondary"
+					text="My Work"
+					onclick={() => {
+						goto(resolve("/work"));
+					}}
+				/>
+				<ActionButton
+					type="secondary"
+					text="Technical Writing"
+					onclick={() => {
+						goto(resolve("/technical-writing"));
+					}}
+				/>
 			{/if}
 		</div>
 	</section>
@@ -198,47 +214,6 @@
 		min-height: 2.9rem;
 	}
 
-	.actionButton {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.62rem 1rem;
-		font-family: var(--font-mono), sans-serif;
-		font-size: var(--fs-body);
-		font-weight: 700;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		text-decoration: none;
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-		box-shadow: 0 4px 0 0 var(--black);
-		cursor: pointer;
-		transition: 0.12s ease;
-	}
-
-	.actionButton.primary {
-		background: var(--accent);
-		color: var(--white);
-	}
-
-	.actionButton.ghost {
-		background: var(--white);
-		color: var(--black);
-	}
-
-	.actionButton:hover {
-		border-color: var(--accent);
-		box-shadow: 0 4px 0 0 var(--accent);
-		background-color: color-mix(in srgb, var(--accent), white 65%);
-		color: var(--black);
-	}
-
-	.actionButton:active {
-		border-color: var(--accent);
-		transform: translateY(4px);
-		box-shadow: 0 0 0 0 var(--accent);
-	}
-
 	@keyframes blink {
 		0%,
 		50% {
@@ -259,10 +234,6 @@
 		.actions {
 			justify-content: stretch;
 			flex-wrap: wrap;
-		}
-
-		.actionButton {
-			flex: 1 1 100%;
 		}
 	}
 </style>

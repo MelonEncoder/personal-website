@@ -4,6 +4,8 @@
 	import instructionsIcon from "$lib/assets/icons/assignment.svg";
 	import brochureIcon from "$lib/assets/icons/newsmode.svg";
 	import type { ResolvedPathname } from "$app/types";
+	import { goto } from "$app/navigation";
+	import { resolve } from "$app/paths";
 
 	interface Section {
 		label: string;
@@ -11,6 +13,7 @@
 		url: ResolvedPathname;
 		tag: string;
 		icon: string;
+		iconAlt: string;
 	}
 
 	const sections: Section[] = [
@@ -19,21 +22,24 @@
 			description: "Resume and cover letter for a job application.",
 			url: "/technical-writing/job-materials",
 			tag: ".JOB",
-			icon: jobIcon
+			icon: jobIcon,
+			iconAlt: "briefcase icon"
 		},
 		{
 			label: "UN SDG Brochure",
 			description: "Brochure designed around a UN Sustainable Development Goal.",
 			url: "/technical-writing/brochure",
 			tag: ".SDG",
-			icon: brochureIcon
+			icon: brochureIcon,
+			iconAlt: "brochure icon"
 		},
 		{
 			label: "Instructions",
 			description: "Step-by-step instructional document.",
 			url: "/technical-writing/instructions",
 			tag: ".DOC",
-			icon: instructionsIcon
+			icon: instructionsIcon,
+			iconAlt: "document icon"
 		}
 	];
 </script>
@@ -52,11 +58,14 @@
 		{#each sections as section, i (i)}
 			<li>
 				<FolderButton
-					href={section.url}
 					tag={section.tag}
 					title={section.label}
 					icon={section.icon}
+					iconAlt={section.iconAlt}
 					description={section.description}
+					onclick={() => {
+						goto(resolve(section.url));
+					}}
 				/>
 			</li>
 		{/each}

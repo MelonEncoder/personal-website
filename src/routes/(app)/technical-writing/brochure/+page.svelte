@@ -1,3 +1,7 @@
+<script lang="ts">
+	import TextButton from "$lib/components/TextButton.svelte";
+</script>
+
 <div class="content">
 	<h1 class="title">UN SDG BROCHURE</h1>
 
@@ -54,12 +58,14 @@
 		<div class="sectionHeader">
 			<h2 class="sectionHeading">Brochure</h2>
 			<p class="fileNote">
-				<a
-					class="link"
-					href="https://files.iangillette.net/public/technical-writing/udl-brochure.pdf"
-					target="_blank"
-					rel="noopener">Open in new tab</a
-				>
+				<TextButton
+					type="secondary"
+					text="Open in new tab"
+					onclick={() => {
+						window.location.href =
+							"https://files.iangillette.net/public/technical-writing/udl-brochure.pdf";
+					}}
+				/>
 			</p>
 		</div>
 		<div class="embedWrapper">
@@ -76,12 +82,14 @@
 		<div class="sectionHeader">
 			<h2 class="sectionHeading">Writeup</h2>
 			<p class="fileNote">
-				<a
-					class="link"
-					href="https://files.iangillette.net/public/technical-writing/udl-brochure-writeup.pdf"
-					target="_blank"
-					rel="noopener">Open in new tab</a
-				>
+				<TextButton
+					type="secondary"
+					text="Open in new tab"
+					onclick={() => {
+						window.location.href =
+							"https://files.iangillette.net/public/technical-writing/udl-brochure-writeup.pdf";
+					}}
+				/>
 			</p>
 		</div>
 		<div class="embedWrapper">
@@ -154,37 +162,6 @@
 		font-family: var(--font-mono), monospace;
 		color: color-mix(in srgb, var(--black), white 30%);
 		margin: 0 0 0.75rem 0;
-	}
-
-	.link {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.62rem 1rem;
-		font-family: var(--font-mono), monospace;
-		font-size: var(--fs-body);
-		font-weight: 700;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		text-decoration: none;
-		background: var(--white);
-		color: var(--black);
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-		box-shadow: 0 4px 0 0 var(--black);
-		transition: 0.12s ease;
-	}
-
-	.link:hover {
-		border-color: var(--accent);
-		box-shadow: 0 4px 0 0 var(--accent);
-		background-color: color-mix(in srgb, var(--accent), white 65%);
-	}
-
-	.link:active {
-		border-color: var(--accent);
-		transform: translateY(4px);
-		box-shadow: 0 0 0 0 var(--accent);
 	}
 
 	.embedWrapper {
