@@ -5,6 +5,7 @@
 	import imageIcon from "$lib/assets/icons/image.svg";
 	import { goto } from "$app/navigation";
 	import { resolve } from "$app/paths";
+	import Card from "$lib/components/Card.svelte";
 
 	const workRoutes = [
 		{
@@ -32,45 +33,56 @@
 </script>
 
 <div class="content">
-	<div class="workContent">
-		<h1 class="title">MY WORK</h1>
+	<h1 class="title">MY WORK</h1>
 
-		<ul class="fileGrid" aria-label="Work directory files">
-			{#each workRoutes as route, i (i)}
-				<li>
-					<FolderButton
-						tag={route.tag}
-						title={route.label}
-						icon={route.icon}
-						iconAlt={route.iconAlt}
-						onclick={() => {
-							goto(resolve(route.url));
-						}}
-					/>
-				</li>
-			{/each}
-		</ul>
-	</div>
+	<Card>
+		<p class="bodyText">
+			This section of the website hosts my personal projects which include my programming
+			projects, video games, and digital media creations. This section will be continually
+			updated and I've made sure to add a date to each project for reference.
+		</p>
+	</Card>
+
+	<ul class="fileGrid" aria-label="Work directory files">
+		{#each workRoutes as route, i (i)}
+			<li>
+				<FolderButton
+					tag={route.tag}
+					title={route.label}
+					icon={route.icon}
+					iconAlt={route.iconAlt}
+					onclick={() => {
+						goto(resolve(route.url));
+					}}
+				/>
+			</li>
+		{/each}
+	</ul>
 </div>
 
 <style>
 	.content {
-		color: var(--black);
-	}
-
-	.workContent {
+		display: flex;
+		flex-direction: column;
 		font-family: var(--font-body), sans-serif;
 		color: var(--black);
+		gap: 2rem;
 	}
 
 	.title {
 		font-family: var(--font-title), monospace;
-		font-size: var(--fs-h2);
+		font-size: var(--fs-title);
 		line-height: 1.2;
 		margin: 0;
 		margin-bottom: 1.5rem;
 		text-transform: uppercase;
 		letter-spacing: 0.02em;
+	}
+
+	.bodyText {
+		font-size: var(--fs-body);
+		line-height: 1.7;
+		margin: 0;
 	}
 
 	.fileGrid {

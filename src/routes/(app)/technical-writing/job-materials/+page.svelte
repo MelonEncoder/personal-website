@@ -61,7 +61,9 @@
 		<div class="sectionHeader">
 			<div class="sectionHeadingRow">
 				<h2 class="sectionHeading">Resume</h2>
-				<span class="badge">Password Protected</span>
+				{#if !data.authenticated}
+					<span class="badge">Password Protected</span>
+				{/if}
 			</div>
 			{#if data.authenticated}
 				<div class="fileNote">
@@ -99,8 +101,10 @@
 	<section class="section">
 		<div class="sectionHeader">
 			<div class="sectionHeadingRow">
-				<h2 class="sectionHeading">Cover Letter Example</h2>
-				<span class="badge">Password Protected</span>
+				<h2 class="sectionHeading">Cover Letter</h2>
+				{#if !data.authenticated}
+					<span class="badge">Password Protected</span>
+				{/if}
 			</div>
 			{#if data.authenticated}
 				<div class="fileNote">

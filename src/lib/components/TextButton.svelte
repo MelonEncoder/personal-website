@@ -54,4 +54,10 @@
 		transform: translateY(0);
 		box-shadow: 0 0 0 0 var(--accent);
 	}
+
+	@media (max-width: 760px) {
+		.textButton {
+			width: 100%;
+		}
+	}
 </style>

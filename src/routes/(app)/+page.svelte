@@ -69,7 +69,7 @@
 		<header class="heroHeader">
 			<img class="monogram" src={monogram} alt="Ian logo" />
 			<div class="headerText">
-				<p class="label">Portfolio Bootloader | v0.2</p>
+				<p class="label">PORTFOLIO BOOTLOADER v0.3</p>
 				<h1 class="title">
 					IAN GILLETTE
 					<span class="cursor" aria-hidden="true">_</span>
@@ -137,6 +137,8 @@
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
 		padding: clamp(1rem, 2.5vw, 1.8rem);
+		width: 100%;
+		box-sizing: border-box;
 	}
 
 	.heroHeader {
@@ -159,7 +161,6 @@
 		font-family: var(--font-mono), monospace;
 		font-size: var(--fs-body);
 		letter-spacing: 0.1em;
-		text-transform: uppercase;
 		color: color-mix(in srgb, var(--black), white 35%);
 	}
 
