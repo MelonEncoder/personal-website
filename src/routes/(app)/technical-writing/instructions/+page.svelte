@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Card from "$lib/components/Card.svelte";
 	import TextButton from "$lib/components/TextButton.svelte";
 </script>
 
@@ -6,7 +7,7 @@
 	<h1 class="title">INSTRUCTIONS</h1>
 
 	<section class="section">
-		<div class="card">
+		<Card>
 			<h2 class="sectionHeading">About this Project</h2>
 			<p class="bodyText">
 				For this project I was tasked to create a step-by-step instructional document that
@@ -62,7 +63,7 @@
 				software from the perspective of new users and what kind of siutations or errors
 				they might encounter.
 			</p>
-		</div>
+		</Card>
 	</section>
 
 	<section class="section">
@@ -123,15 +124,6 @@
 		color: var(--black);
 		line-height: 1.3;
 		letter-spacing: 0.02em;
-	}
-
-	.card {
-		background-color: var(--white);
-		padding: 1rem 1.25rem;
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-		display: flex;
-		flex-direction: column;
 	}
 
 	.bodyText {

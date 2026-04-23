@@ -3,6 +3,7 @@
 	import { goto } from "$app/navigation";
 	import TextButton from "$lib/components/TextButton.svelte";
 	import type { PageData } from "./$types";
+	import Card from "$lib/components/Card.svelte";
 
 	let { data }: { data: PageData } = $props();
 </script>
@@ -11,7 +12,7 @@
 	<h1 class="title">JOB MATERIALS</h1>
 
 	<section class="section">
-		<div class="card">
+		<Card>
 			<h2 class="sectionHeading">About this Project</h2>
 			<p class="bodyText">
 				The job materials assignment required me to create two professional career-oriented
@@ -53,7 +54,7 @@
 				to reflect on my skills and what I have learned from my experience throughout my
 				life.
 			</p>
-		</div>
+		</Card>
 	</section>
 
 	<section class="section">
@@ -168,15 +169,6 @@
 		color: var(--black);
 		line-height: 1.3;
 		letter-spacing: 0.02em;
-	}
-
-	.card {
-		background-color: var(--white);
-		padding: 1rem 1.25rem;
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-		display: flex;
-		flex-direction: column;
 	}
 
 	.bodyText {

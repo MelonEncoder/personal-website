@@ -5,6 +5,7 @@
 
 	import monogram from "$lib/assets/brand/monogram.svg";
 	import { goto } from "$app/navigation";
+	import Card from "$lib/components/Card.svelte";
 
 	const INTRO_SEEN_KEY = "ian-portfolio-intro-seen";
 
@@ -55,7 +56,16 @@
 </script>
 
 <div class="homeContent">
-	<section class="bootPanel">
+	<Card>
+		<h1 class="sectionHeading">Welcome!</h1>
+		<p class="bodyText">
+			This is my portfolio website that showcases who I am and what I have accomplished. The
+			about me page talks about who I am and some of my skills and interests, the work pages
+			hosts all of my personal projects, and the technical writing page showcases the projects
+			I completed in my technical wriring class.
+		</p>
+	</Card>
+	<div class="bootPanel">
 		<header class="heroHeader">
 			<img class="monogram" src={monogram} alt="Ian logo" />
 			<div class="headerText">
@@ -81,7 +91,6 @@
 				<div class="progressFill" style={`width: ${progress}%;`}></div>
 			</div>
 		</div>
-
 		<div class="actions">
 			{#if ready}
 				<TextButton
@@ -107,18 +116,7 @@
 				/>
 			{/if}
 		</div>
-	</section>
-	<section>
-		<div class="card">
-			<h1 class="sectionHeading">Welcome!</h1>
-			<p class="bodyText">
-				This is my portfolio website that hosts my projects and work. The about me page
-				talks about who I am and some of my skills and interests, the work pages hosts all
-				of my personal projects, and the technical writing page showcases the projects I
-				completed in my technical wriring class.
-			</p>
-		</div>
-	</section>
+	</div>
 </div>
 
 <style>
@@ -135,11 +133,10 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
-		width: min(880px, 100%);
-		padding: clamp(1rem, 2.5vw, 1.8rem);
-		background: var(--white);
+		background-color: var(--white);
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
+		padding: clamp(1rem, 2.5vw, 1.8rem);
 	}
 
 	.heroHeader {
@@ -184,6 +181,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
+		width: 100%;
 	}
 
 	.progressTrack {
@@ -217,17 +215,6 @@
 		justify-content: flex-end;
 		align-items: center;
 		min-height: 2.9rem;
-	}
-
-	.card {
-		display: flex;
-		flex-direction: column;
-		width: min(880px, 100%);
-		padding: clamp(1rem, 2.5vw, 1.8rem);
-		margin: auto;
-		background-color: var(--white);
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
 	}
 
 	.sectionHeading {

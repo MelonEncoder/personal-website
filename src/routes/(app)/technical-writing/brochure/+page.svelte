@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Card from "$lib/components/Card.svelte";
 	import TextButton from "$lib/components/TextButton.svelte";
 </script>
 
@@ -6,7 +7,7 @@
 	<h1 class="title">UN SDG BROCHURE</h1>
 
 	<section class="section">
-		<div class="card">
+		<Card>
 			<h2 class="sectionHeading">About this Project</h2>
 			<p class="bodyText">
 				The UN SDG Project was a collaborative team project that aimed to simulate a
@@ -51,7 +52,7 @@
 				working with a team, I have a deeper understanding of the research process and
 				important planning can be to the success of the final product.
 			</p>
-		</div>
+		</Card>
 	</section>
 
 	<section class="section">
@@ -136,15 +137,6 @@
 		color: var(--black);
 		line-height: 1.3;
 		letter-spacing: 0.02em;
-	}
-
-	.card {
-		background-color: var(--white);
-		padding: 1rem 1.25rem;
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-		display: flex;
-		flex-direction: column;
 	}
 
 	.bodyText {

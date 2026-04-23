@@ -6,6 +6,7 @@
 	import type { ResolvedPathname } from "$app/types";
 	import { goto } from "$app/navigation";
 	import { resolve } from "$app/paths";
+	import Card from "$lib/components/Card.svelte";
 
 	interface Section {
 		label: string;
@@ -46,13 +47,14 @@
 
 <div class="content">
 	<h1 class="title">TECHNICAL WRITING</h1>
-	<div class="card intro">
+
+	<Card>
 		<p class="bodyText">
 			This section showcases the projects I worked on while taking ENC2341 - Technical Writing
 			at UCF. Each folder below contains the project documents with a reflection on the
 			assignment, my approach, and what I learned about communicating to a specific audieance.
 		</p>
-	</div>
+	</Card>
 
 	<ul class="fileGrid" aria-label="Technical writing sections">
 		{#each sections as section, i (i)}
@@ -74,6 +76,9 @@
 
 <style>
 	.content {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
 		color: var(--black);
 		font-family: var(--font-body), sans-serif;
 	}
@@ -85,17 +90,6 @@
 		text-transform: uppercase;
 		letter-spacing: 0.02em;
 		margin: 0 0 1.25rem 0;
-	}
-
-	.card {
-		background-color: var(--white);
-		padding: 1rem;
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-	}
-
-	.intro {
-		margin-bottom: 2rem;
 	}
 
 	.bodyText {

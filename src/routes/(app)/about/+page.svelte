@@ -4,6 +4,7 @@
 	import itchLogo from "$lib/assets/logos/itch.svg";
 
 	import ImageButton from "$lib/components/ImageButton.svelte";
+	import Card from "$lib/components/Card.svelte";
 
 	interface LanguageItem {
 		name: string;
@@ -67,7 +68,7 @@
 
 <div class="content">
 	<h1 class="title">ABOUT ME</h1>
-	<div class="card aboutCard">
+	<Card>
 		<p class="sectionText">
 			Hello! My name is Ian Gillette. I'm currently studying Game Design at UCF with plans to
 			create and share art and stories with the world. I was a computer science major but
@@ -86,42 +87,42 @@
 			have been able to discover just how complex the our reality is and, through these
 			discoveries, have come to appreciate just how beautiful our world is.
 		</p>
-	</div>
+	</Card>
 	<section id="technologySection">
 		<h2 class="sectionHeading">Technology I Use</h2>
 		<div class="cardGrid">
-			<div class="card toolCard">
+			<Card>
 				<p class="cardLabel">Development</p>
 				<ul class="toolList">
 					{#each developmentItems as item (item)}
 						<li class="toolItem" id={item}>{item}</li>
 					{/each}
 				</ul>
-			</div>
-			<div class="card toolCard">
+			</Card>
+			<Card>
 				<p class="cardLabel">Software</p>
 				<ul class="toolList">
 					{#each softwareItems as item (item)}
 						<li class="toolItem" id={item}>{item}</li>
 					{/each}
 				</ul>
-			</div>
+			</Card>
 		</div>
 	</section>
 	<section>
 		<h2 class="sectionHeading">Languages</h2>
-		<ul class="cardGrid languageList">
+		<div class="cardGrid languageList">
 			{#each languages as language (language.name)}
-				<li class="card languageCard">
+				<Card>
 					<p class="cardLabel">{language.name}</p>
 					<div class="languageMeta">
 						<p><span>Status</span>{language.focus}</p>
 						<p><span>Fluency</span>{language.fluency}</p>
 						<p><span>Native Name</span>{language.nativeName}</p>
 					</div>
-				</li>
+				</Card>
 			{/each}
-		</ul>
+		</div>
 	</section>
 	<section>
 		<h2 class="sectionHeading">Links</h2>
@@ -180,23 +181,6 @@
 		background: transparent;
 		border: 1px solid var(--black);
 		color: var(--accent);
-	}
-
-	.card {
-		background-color: var(--white);
-		padding: 1rem;
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-	}
-
-	.toolCard {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.aboutCard {
-		display: flex;
-		flex-direction: column;
 	}
 
 	.sectionText {
