@@ -56,15 +56,6 @@
 </script>
 
 <div class="homeContent">
-	<Card>
-		<h1 class="sectionHeading">Welcome!</h1>
-		<p class="bodyText">
-			This is my portfolio website that showcases who I am and what I have accomplished. The
-			about me page talks about who I am and some of my skills and interests, the work pages
-			hosts all of my personal projects, and the technical writing page showcases the projects
-			I completed in my technical wriring class.
-		</p>
-	</Card>
 	<div class="bootPanel">
 		<header class="heroHeader">
 			<img class="monogram" src={monogram} alt="Ian logo" />
@@ -117,6 +108,15 @@
 			{/if}
 		</div>
 	</div>
+	<Card>
+		<h1 class="sectionHeading">Welcome!</h1>
+		<p class="bodyText">
+			This is my portfolio website that showcases who I am and what I have accomplished. The
+			about me page talks about who I am and some of my skills and interests, the work pages
+			hosts all of my personal projects, and the technical writing page showcases the projects
+			I completed in my technical wriring class.
+		</p>
+	</Card>
 </div>
 
 <style>
