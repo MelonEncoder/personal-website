@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Card from "$lib/components/Card.svelte";
 	import TextButton from "$lib/components/TextButton.svelte";
+	import instructionsPdf from "$lib/assets/media/technical-writing/instructions.pdf?url";
 </script>
 
 <div class="content">
@@ -74,8 +75,7 @@
 					type="secondary"
 					text="Open in new tab"
 					onclick={() => {
-						window.location.href =
-							"https://files.iangillette.net/public/technical-writing/instructions.pdf";
+						window.location.href = instructionsPdf;
 					}}
 				/>
 			</p>
@@ -83,7 +83,7 @@
 		<div class="embedWrapper">
 			<iframe
 				class="embed"
-				src="https://files.iangillette.net/public/technical-writing/instructions.pdf"
+				src={instructionsPdf}
 				title="Instructions Document"
 				aria-label="Embedded instructions PDF"
 			></iframe>

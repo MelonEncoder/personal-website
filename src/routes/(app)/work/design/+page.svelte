@@ -1,58 +1,64 @@
 <script lang="ts">
 	import WorkCard from "$lib/components/WorkCard.svelte";
-
-	const BASE = "https://files.iangillette.net/public/digital-media";
+	import magazineCover from "$lib/assets/media/graphic-design/magazine-cover.webp";
+	import theQueensGambitPoster from "$lib/assets/media/graphic-design/the-queens-gambit-poster.webp";
+	import businessCard from "$lib/assets/media/graphic-design/business-card.webp";
+	import mountain from "$lib/assets/media/graphic-design/mountain.webp";
+	import flatSpace from "$lib/assets/media/graphic-design/flat-space.webp";
+	import teaParty from "$lib/assets/media/graphic-design/tea-party.webp";
+	import robot from "$lib/assets/media/graphic-design/robot.webp";
+	import jibiRamen from "$lib/assets/media/graphic-design/jibi-ramen.webp";
 
 	const artProjects = [
 		{
 			title: "National Geographic Magazine Cover",
 			description:
 				"Magazine cover utilizing layered photography and different typography hierarchies.",
-			image: `${BASE}/magazine-cover.webp`,
+			image: magazineCover,
 			date: "2022"
 		},
 		{
 			title: "The Queen's Gambit Movie Poster",
 			description:
 				"Movie poster inspired by the The Queen's Gambit that explores the contrast between the themes of chess master and substance abuse.",
-			image: `${BASE}/the-queens-gambit-poster.webp`,
+			image: theQueensGambitPoster,
 			date: "2023"
 		},
 		{
 			title: "Personal Business Card",
 			description: "Print-ready, vertically oriented business card.",
-			image: `${BASE}/business-card.webp`,
+			image: businessCard,
 			date: "2025"
 		},
 		{
 			title: "Blackout Mountain",
 			description: "Created this artwork to put on my climbing bag.",
-			image: `${BASE}/mountain.webp`,
+			image: mountain,
 			date: "2025"
 		},
 		{
 			title: "Flat Space",
 			description: "Flat-illustration study focused on a space theme.",
-			image: `${BASE}/flat-space.webp`,
+			image: flatSpace,
 			date: "2023"
 		},
 		{
 			title: "Tea Party",
 			description:
 				"A royal figure bathing in red tea, celebrating their success. Created during a competition and selected as the winner.",
-			image: `${BASE}/tea-party.webp`,
+			image: teaParty,
 			date: "2023"
 		},
 		{
 			title: "Robot Squared",
 			description: "Concept art for a colorful, boxy robot.",
-			image: `${BASE}/robot.webp`,
+			image: robot,
 			date: "2023"
 		},
 		{
 			title: "Jibi Ramen Branding",
 			description: "Created the branding for a fake business named Jibi Ramen.",
-			image: `${BASE}/jibi-ramen.webp`,
+			image: jibiRamen,
 			date: "2023"
 		}
 	];

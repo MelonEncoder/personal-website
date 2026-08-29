@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Card from "$lib/components/Card.svelte";
 	import TextButton from "$lib/components/TextButton.svelte";
+	import brochurePdf from "$lib/assets/media/technical-writing/udl-brochure.pdf?url";
+	import brochureWriteupPdf from "$lib/assets/media/technical-writing/udl-brochure-writeup.pdf?url";
 </script>
 
 <div class="content">
@@ -63,8 +65,7 @@
 					type="secondary"
 					text="Open in new tab"
 					onclick={() => {
-						window.location.href =
-							"https://files.iangillette.net/public/technical-writing/udl-brochure.pdf";
+						window.location.href = brochurePdf;
 					}}
 				/>
 			</p>
@@ -72,7 +73,7 @@
 		<div class="embedWrapper">
 			<iframe
 				class="embed"
-				src="https://files.iangillette.net/public/technical-writing/udl-brochure.pdf"
+				src={brochurePdf}
 				title="UN SDG Brochure"
 				aria-label="Embedded brochure PDF"
 			></iframe>
@@ -87,8 +88,7 @@
 					type="secondary"
 					text="Open in new tab"
 					onclick={() => {
-						window.location.href =
-							"https://files.iangillette.net/public/technical-writing/udl-brochure-writeup.pdf";
+						window.location.href = brochureWriteupPdf;
 					}}
 				/>
 			</p>
@@ -96,7 +96,7 @@
 		<div class="embedWrapper">
 			<iframe
 				class="embed"
-				src="https://files.iangillette.net/public/technical-writing/udl-brochure-writeup.pdf"
+				src={brochureWriteupPdf}
 				title="UN SDG Brochure Writeup"
 				aria-label="Embedded brochure writeup PDF"
 			></iframe>

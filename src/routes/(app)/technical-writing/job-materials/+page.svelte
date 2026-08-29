@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { resolve } from "$app/paths";
-	import { goto } from "$app/navigation";
-	import TextButton from "$lib/components/TextButton.svelte";
 	import type { PageData } from "./$types";
 	import Card from "$lib/components/Card.svelte";
 
@@ -65,28 +62,8 @@
 					<span class="badge">Password Protected</span>
 				{/if}
 			</div>
-			{#if data.authenticated}
-				<div class="fileNote">
-					<TextButton
-						type="secondary"
-						text="open in new tab"
-						onclick={() => {
-							goto(resolve("/private/resume.pdf"));
-						}}
-					/>
-				</div>
-			{/if}
 		</div>
-		{#if data.authenticated}
-			<div class="embedWrapper">
-				<iframe
-					class="embed"
-					src="/private/resume.pdf"
-					title="Resume"
-					aria-label="Embedded resume PDF"
-				></iframe>
-			</div>
-		{:else}
+		{#if !data.authenticated}
 			<div class="embedWrapper">
 				<iframe
 					class="embed"
@@ -106,28 +83,8 @@
 					<span class="badge">Password Protected</span>
 				{/if}
 			</div>
-			{#if data.authenticated}
-				<div class="fileNote">
-					<TextButton
-						type="secondary"
-						text="open in new tab"
-						onclick={() => {
-							goto(resolve("/private/cover-letter-example.pdf"));
-						}}
-					/>
-				</div>
-			{/if}
 		</div>
-		{#if data.authenticated}
-			<div class="embedWrapper">
-				<iframe
-					class="embed"
-					src="/private/cover-letter-example.pdf"
-					title="Cover Letter"
-					aria-label="Embedded cover letter PDF"
-				></iframe>
-			</div>
-		{:else}
+		{#if !data.authenticated}
 			<div class="embedWrapper">
 				<iframe
 					class="embed"
@@ -194,10 +151,6 @@
 
 	.sectionHeadingRow .sectionHeading {
 		margin: 0;
-	}
-
-	.fileNote {
-		margin: 0 0 0.75rem 0;
 	}
 
 	.badge {

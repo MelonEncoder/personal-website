@@ -15,6 +15,16 @@
 	import jobIcon from "$lib/assets/icons/briefcase.svg";
 	import instructionsIcon from "$lib/assets/icons/assignment.svg";
 	import brochureIcon from "$lib/assets/icons/newsmode.svg";
+	import magazineCover from "$lib/assets/media/graphic-design/magazine-cover.webp";
+	import theQueensGambitPoster from "$lib/assets/media/graphic-design/the-queens-gambit-poster.webp";
+	import businessCard from "$lib/assets/media/graphic-design/business-card.webp";
+	import mountain from "$lib/assets/media/graphic-design/mountain.webp";
+	import flatSpace from "$lib/assets/media/graphic-design/flat-space.webp";
+	import teaParty from "$lib/assets/media/graphic-design/tea-party.webp";
+	import robot from "$lib/assets/media/graphic-design/robot.webp";
+	import jibiRamen from "$lib/assets/media/graphic-design/jibi-ramen.webp";
+	import whiteButtonScreenshot from "$lib/assets/media/video-games/white-button-screenshot.png";
+	import blackedOut from "$lib/assets/media/video-games/blacked-out.png";
 	import type { ResolvedPathname } from "$app/types";
 
 	interface RouteTreeNode {
@@ -93,16 +103,16 @@
 	});
 
 	const workMediaSources = [
-		"https://files.iangillette.net/public/digital-media/magazine-cover.webp",
-		"https://files.iangillette.net/public/digital-media/the-queens-gambit-poster.webp",
-		"https://files.iangillette.net/public/digital-media/business-card.webp",
-		"https://files.iangillette.net/public/digital-media/mountain.webp",
-		"https://files.iangillette.net/public/digital-media/flat-space.webp",
-		"https://files.iangillette.net/public/digital-media/tea-party.webp",
-		"https://files.iangillette.net/public/digital-media/robot.webp",
-		"https://files.iangillette.net/public/digital-media/jibi-ramen.webp",
-		"https://files.iangillette.net/public/video-games/white-button-screenshot.png",
-		"https://files.iangillette.net/public/video-games/blacked-out.png"
+		magazineCover,
+		theQueensGambitPoster,
+		businessCard,
+		mountain,
+		flatSpace,
+		teaParty,
+		robot,
+		jibiRamen,
+		whiteButtonScreenshot,
+		blackedOut
 	];
 
 	function preloadWorkMedia() {
