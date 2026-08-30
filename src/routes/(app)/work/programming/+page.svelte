@@ -1,7 +1,15 @@
 <script lang="ts">
 	import WorkCard from "$lib/components/WorkCard.svelte";
 
-	const programmingProjects = [
+	interface ProgrammingProject {
+	    title: string,
+		description: string,
+		href: string,
+		tags: string[],
+		date: string,
+	}
+
+	const programmingProjects: ProgrammingProject[] = [
 		{
 			title: "Personal Website (this site)",
 			description: "Made using Svelte with the intention to showcase myself and my work.",

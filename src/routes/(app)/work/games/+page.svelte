@@ -3,7 +3,15 @@
 	import whiteButtonScreenshot from "$lib/assets/media/video-games/white-button-screenshot.png";
 	import blackedOut from "$lib/assets/media/video-games/blacked-out.png";
 
-	const gamingProjects = [
+	interface GameProject {
+	    title: string,
+		description: string,
+		href: string,
+		image: string,
+		date: string,
+	}
+
+	const gameProjects: GameProject[] = [
 		{
 			title: "White Button",
 			description:
@@ -27,7 +35,7 @@
 	<section id="videogameProjects">
 		<h1 class="sectionHeading">Video Games</h1>
 		<div class="gameGrid">
-			{#each gamingProjects as game (game.title)}
+			{#each gameProjects as game (game.title)}
 				<WorkCard
 					title={game.title}
 					description={game.description}

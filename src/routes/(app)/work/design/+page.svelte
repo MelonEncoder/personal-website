@@ -9,7 +9,14 @@
 	import robot from "$lib/assets/media/graphic-design/robot.webp";
 	import jibiRamen from "$lib/assets/media/graphic-design/jibi-ramen.webp";
 
-	const artProjects = [
+	interface DesignProject {
+	    title: string,
+		description: string,
+		image: string,
+		date: string,
+	}
+
+	const designProjects: DesignProject[] = [
 		{
 			title: "National Geographic Magazine Cover",
 			description:
@@ -68,7 +75,7 @@
 	<section id="artProjects">
 		<h1 class="sectionHeading">Graphic Design</h1>
 		<div class="artContainer">
-			{#each artProjects as art (art.title)}
+			{#each designProjects as art (art.title)}
 				<WorkCard
 					title={art.title}
 					description={art.description}
