@@ -25,13 +25,13 @@
 	import jibiRamen from "$lib/assets/media/graphic-design/jibi-ramen.webp";
 	import whiteButtonScreenshot from "$lib/assets/media/video-games/white-button-screenshot.png";
 	import blackedOut from "$lib/assets/media/video-games/blacked-out.png";
-	import type { ResolvedPathname } from "$app/types";
+	import type { Pathname } from "$app/types";
 
 	interface RouteTreeNode {
 		label: string;
 		depth: number;
 		type: "root" | "folder" | "file";
-		url: ResolvedPathname;
+		url: Pathname;
 		icon?: string;
 	}
 

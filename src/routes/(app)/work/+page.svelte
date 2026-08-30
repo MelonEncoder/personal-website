@@ -6,8 +6,17 @@
 	import { goto } from "$app/navigation";
 	import { resolve } from "$app/paths";
 	import Card from "$lib/components/Card.svelte";
+	import type { Pathname } from "$app/types";
 
-	const workRoutes = [
+	interface WorkRoute {
+	    label: string,
+		url: Pathname,
+		icon: string,
+		iconAlt: string,
+		tag: string,
+	}
+
+	const workRoutes: WorkRoute[] = [
 		{
 			label: "Programming Projects",
 			url: "/work/programming",
