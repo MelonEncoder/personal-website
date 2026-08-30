@@ -18,7 +18,7 @@
 		/* Colors */
 		--black: rgb(33 33 35);
 		--white: rgb(250 250 250);
-		--off-white: rgb(226 218 220);
+		--off-white: rgb(216 208 210);
 		--accent: rgb(250, 73, 109);
 		--accent-2: color-mix(in srgb, var(--accent), white 70%);
 		--backlight: rgb(188, 235, 200);

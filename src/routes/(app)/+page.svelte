@@ -49,7 +49,8 @@
 
 	onMount(() => {
 		seenIntro = localStorage.getItem(INTRO_SEEN_KEY) === "1";
-		startSequence(seenIntro ? 900 : 2400);
+
+		startSequence(seenIntro ? 0 : 2400);
 
 		return () => cancelAnimationFrame(rafId);
 	});

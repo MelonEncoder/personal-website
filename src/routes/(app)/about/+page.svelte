@@ -225,14 +225,6 @@
 		margin-bottom: 0.5rem;
 	}
 
-	.languageCard {
-		display: flex;
-		flex-direction: column;
-		gap: 0.55rem;
-		line-height: 1.5;
-		font-size: var(--fs-body);
-	}
-
 	.languageMeta {
 		display: grid;
 		grid-template-columns: 1fr;

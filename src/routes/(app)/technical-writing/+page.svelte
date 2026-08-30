@@ -1,23 +1,12 @@
 <script lang="ts">
-	import FolderButton from "$lib/components/FolderButton.svelte";
 	import jobIcon from "$lib/assets/icons/briefcase.svg";
 	import instructionsIcon from "$lib/assets/icons/assignment.svg";
 	import brochureIcon from "$lib/assets/icons/newsmode.svg";
-	import type { ResolvedPathname } from "$app/types";
-	import { goto } from "$app/navigation";
-	import { resolve } from "$app/paths";
 	import Card from "$lib/components/Card.svelte";
+	import FolderGrid from "$lib/components/FolderGrid.svelte";
+	import type { FolderProps } from "$lib/types/folder";
 
-	interface Section {
-		label: string;
-		description: string;
-		url: ResolvedPathname;
-		tag: string;
-		icon: string;
-		iconAlt: string;
-	}
-
-	const sections: Section[] = [
+	const folders: FolderProps[] = [
 		{
 			label: "Job Materials",
 			description: "Resume and cover letter for a job application.",
@@ -56,22 +45,7 @@
 		</p>
 	</Card>
 
-	<ul class="fileGrid" aria-label="Technical writing sections">
-		{#each sections as section, i (i)}
-			<li>
-				<FolderButton
-					tag={section.tag}
-					title={section.label}
-					icon={section.icon}
-					iconAlt={section.iconAlt}
-					description={section.description}
-					onclick={() => {
-						goto(resolve(section.url));
-					}}
-				/>
-			</li>
-		{/each}
-	</ul>
+	<FolderGrid {folders} ariaLabel="Technical writing sections" />
 </div>
 
 <style>
@@ -98,26 +72,7 @@
 		margin: 0;
 	}
 
-	.fileGrid {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 1.25rem;
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-
-	@media (max-width: 1000px) {
-		.fileGrid {
-			grid-template-columns: 1fr 1fr;
-		}
-	}
-
 	@media (max-width: 700px) {
-		.fileGrid {
-			grid-template-columns: 1fr;
-		}
-
 		.title {
 			font-size: var(--fs-h1);
 		}

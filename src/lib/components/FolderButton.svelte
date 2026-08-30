@@ -1,26 +1,15 @@
 <script lang="ts">
-	let {
-		tag,
-		title,
-		icon,
-		iconAlt = "",
-		description,
-		onclick
-	}: {
-		tag: string;
-		title: string;
-		icon: string;
-		iconAlt: string;
-		description?: string;
-		onclick: () => void;
-	} = $props();
+	import type { FolderProps } from "$lib/types/folder";
+
+	let { label, description, tag, icon, iconAlt, onclick }: FolderProps & { onclick: () => void } =
+		$props();
 </script>
 
 <button class="folderButton" aria-hidden="true" {onclick}>
 	<div class="folderTab">{tag ?? ""}</div>
 	<div class="folderBody">
-		<img class="folderIcon" src={icon} alt={iconAlt} aria-hidden="true" />
-		<span class="folderTitle">{title}</span>
+		<img class="folderIcon" src={icon} alt={iconAlt ?? ""} aria-hidden="true" />
+		<span class="folderTitle">{label}</span>
 		{#if description}
 			<span class="folderDesc">{description}</span>
 		{/if}

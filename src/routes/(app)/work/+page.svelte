@@ -1,22 +1,12 @@
 <script lang="ts">
-	import FolderButton from "$lib/components/FolderButton.svelte";
+	import FolderGrid from "$lib/components/FolderGrid.svelte";
 	import joystickIcon from "$lib/assets/icons/joystick.svg";
 	import codeIcon from "$lib/assets/icons/code-xml.svg";
 	import imageIcon from "$lib/assets/icons/image.svg";
-	import { goto } from "$app/navigation";
-	import { resolve } from "$app/paths";
 	import Card from "$lib/components/Card.svelte";
-	import type { Pathname } from "$app/types";
+	import type { FolderProps } from "$lib/types/folder";
 
-	interface WorkRoute {
-	    label: string,
-		url: Pathname,
-		icon: string,
-		iconAlt: string,
-		tag: string,
-	}
-
-	const workRoutes: WorkRoute[] = [
+	const workRoutes: FolderProps[] = [
 		{
 			label: "Programming Projects",
 			url: "/work/programming",
@@ -52,21 +42,7 @@
 		</p>
 	</Card>
 
-	<ul class="fileGrid" aria-label="Work directory files">
-		{#each workRoutes as route, i (i)}
-			<li>
-				<FolderButton
-					tag={route.tag}
-					title={route.label}
-					icon={route.icon}
-					iconAlt={route.iconAlt}
-					onclick={() => {
-						goto(resolve(route.url));
-					}}
-				/>
-			</li>
-		{/each}
-	</ul>
+	<FolderGrid folders={workRoutes} ariaLabel="Work directory files" />
 </div>
 
 <style>
@@ -94,26 +70,7 @@
 		margin: 0;
 	}
 
-	.fileGrid {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 1.25rem;
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-
-	@media (max-width: 1200px) {
-		.fileGrid {
-			grid-template-columns: 1fr 1fr;
-		}
-	}
-
 	@media (max-width: 700px) {
-		.fileGrid {
-			grid-template-columns: 1fr;
-		}
-
 		.title {
 			font-size: var(--fs-h1);
 		}
