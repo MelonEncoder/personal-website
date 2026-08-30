@@ -150,7 +150,7 @@
 		</div>
 
 		<div class="copyrightContainer">
-			<p>{year} &copy; Ian Gillette</p>
+			<p>&copy; {year} Ian Gillette</p>
 		</div>
 
 		<div class="gridCenterCell">
@@ -238,28 +238,24 @@
 		grid-row: 1 / 2;
 		display: grid;
 		grid-template-columns: 4rem auto 4rem;
-		border-bottom: 2px solid var(--black);
 	}
 
 	.gridLeft {
 		grid-column: 1 / 2;
 		grid-row: 1 / 4;
 		grid-template-rows: 4rem 1fr 4rem;
-		border-right: 2px solid var(--black);
 	}
 
 	.gridRight {
 		grid-column: 3 / 4;
 		grid-row: 1 / 4;
 		grid-template-rows: 4rem 1fr 4rem;
-		border-left: 2px solid var(--black);
 	}
 
 	.gridBottom {
 		grid-column: 1 / 4;
 		grid-row: 3 / 4;
 		grid-template-columns: 4rem 1fr 4rem;
-		border-top: 2px solid var(--black);
 	}
 
 	.gridCenterCell {
