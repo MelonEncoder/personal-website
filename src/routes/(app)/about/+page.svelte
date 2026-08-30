@@ -72,22 +72,20 @@
 	<h1 class="title">ABOUT ME</h1>
 	<Card>
 		<p class="sectionText">
-			Hello! My name is Ian Gillette. I'm currently studying Game Design at UCF with plans to
-			create and share art and stories with the world. I was a computer science major but
-			decided to switch to a more art centric field that still keeped some technical elements
-			from computer science.
+			Hello! My name is Ian Gillette. I'm currently studying Game Design at UCF. I want to learn how to make interactive art
+			that can make peoples every day lives more fun and accessable. One of my biggest goals in life is to bring world class
+			public transit back to the united states, for everyone to experience.
 		</p>
 		<p class="sectionText">
-			In my free time I enjoy programming, drawing, venturing outdoors, and learning new
+			Some things I enjoy are photography, drawing, programming, and learning new
 			languages. My interests are always changing and expanding so I tend to stay busy with my
-			hobbies. One interest though tends to stick around and that is learning!
+			hobbies.
 		</p>
 		<p class="sectionText">
 			The ability to learn, in my opinion, is the most important ability humans have. Ever
 			since I was little I loved learning just about anything, specifically space and marine
 			biology, and I have carried that curiosity with me through my life. With this mideset I
-			have been able to discover just how complex the our reality is and, through these
-			discoveries, have come to appreciate just how beautiful our world is.
+			have been able to discover just how beautifully complex our world is.
 		</p>
 	</Card>
 	<section id="technologySection">
