@@ -1,4 +1,5 @@
-import type { FileNode, FolderNode, FsNode, MediaFileNode, ProjectFileNode } from "./types";
+import type { FileNode, FolderNode, FsNode, MediaFileNode } from "./types";
+import { GAME_PROJECTS, screenshotPath } from "./projects";
 
 import folderIcon from "$lib/assets/icons/folder.svg";
 import infoIcon from "$lib/assets/icons/info.svg";
@@ -18,8 +19,6 @@ import flatSpace from "$lib/assets/media/graphic-design/flat-space.webp";
 import teaParty from "$lib/assets/media/graphic-design/tea-party.webp";
 import robot from "$lib/assets/media/graphic-design/robot.webp";
 import jibiRamen from "$lib/assets/media/graphic-design/jibi-ramen.webp";
-import whiteButtonScreenshot from "$lib/assets/media/video-games/white-button-screenshot.png";
-import blackedOut from "$lib/assets/media/video-games/blacked-out.png";
 import brochurePdf from "$lib/assets/media/technical-writing/udl-brochure.pdf?url";
 import brochureWriteupPdf from "$lib/assets/media/technical-writing/udl-brochure-writeup.pdf?url";
 import instructionsPdf from "$lib/assets/media/technical-writing/instructions.pdf?url";
@@ -32,16 +31,6 @@ function image(
 	date: string
 ): MediaFileNode {
 	return { kind: "image", id, name: `${id}.webp`, src, title, description, date };
-}
-
-/** Project entries are named after their title, like an app ("PDF to Video"). */
-function project(
-	id: string,
-	category: ProjectFileNode["category"],
-	data: Omit<ProjectFileNode, "kind" | "id" | "name" | "icon" | "category">
-): ProjectFileNode {
-	const icon = category === "game" ? gameIcon : codeIcon;
-	return { kind: "project", id, name: data.title, icon, category, ...data };
 }
 
 export const root: FolderNode = {
@@ -58,77 +47,15 @@ export const root: FolderNode = {
 			name: "Work",
 			route: "/work",
 			children: [
+				// Each lists every project as a card (data in projects.ts).
 				{
-					kind: "folder",
+					kind: "app",
 					id: "programming",
 					name: "Programming",
-					route: "/work/programming",
-					children: [
-						project("personal-website", "program", {
-							title: "Personal Website (this site)",
-							description:
-								"Made using Svelte with the intention to showcase myself and my work.",
-							href: "https://github.com/MelonEncoder/personal-website",
-							tags: ["Svelte", "TypeScript", "HTML/CSS"],
-							date: "2024"
-						}),
-						project("pdf-to-video", "program", {
-							title: "PDF to Video",
-							description:
-								"This is a program that converts a .pdf file into a .mp4 file. You can set the FPS, duration, resolution, and even animate the pdf.",
-							href: "https://github.com/MelonEncoder/pdf-to-video",
-							tags: ["C++", "Meson", "OpenCV", "Poppler"],
-							date: "2023"
-						}),
-						project("html-image-parser", "program", {
-							title: "HTML Image Parser",
-							description:
-								'I created this program to test out the Go programming language. Just describe the prefix you want to look for like "src=" and then all the respective images will downloaded.',
-							href: "https://github.com/MelonEncoder/img-downloader",
-							tags: ["Go"],
-							date: "2023"
-						}),
-						project("wallpaper-switcher", "program", {
-							title: "Linux Wallpaper Switcher",
-							description:
-								"A lightweight wallpaper switcher for Linux that rotates images from a folder with simple keyboard controls.",
-							href: "https://github.com/MelonEncoder/simple-wallpaper-switcher",
-							tags: ["C++", "SFML"],
-							date: "2023"
-						}),
-						project("pong", "program", {
-							title: "PONG",
-							description: "Recreated the classic game of Pong with a little twist.",
-							href: "https://github.com/MelonEncoder/pong",
-							tags: ["C", "RayLib"],
-							date: "2023"
-						})
-					]
+					icon: codeIcon,
+					app: "programming"
 				},
-				{
-					kind: "folder",
-					id: "games",
-					name: "Video Games",
-					route: "/work/games",
-					children: [
-						project("white-button", "game", {
-							title: "White Button",
-							description:
-								"White Button was created during a week long game jam where the theme was 1-bit color palette. Your goal is to click all the buttons before the lava reaches you.",
-							href: "https://karpoonz.itch.io/white-button",
-							image: whiteButtonScreenshot,
-							date: "2025"
-						}),
-						project("blacked-out", "game", {
-							title: "Blacked Out",
-							description:
-								"Someone knocked you out and trapped you inside of a pitch black room. Your goal is to escape by using a flashlight and keys you find lying around in the environment.",
-							href: "https://karpoonz.itch.io/blacked-out",
-							image: blackedOut,
-							date: "2024"
-						})
-					]
-				},
+				{ kind: "app", id: "games", name: "Video Games", icon: gameIcon, app: "games" },
 				{
 					kind: "folder",
 					id: "graphic-design",
@@ -276,6 +203,20 @@ function walk(node: FsNode, path: string) {
 }
 walk(root, "");
 
+// Game screenshots open in Preview as images, but aren't listed in any folder.
+for (const game of GAME_PROJECTS) {
+	if (!game.screenshot) continue;
+	index.set(screenshotPath(game), {
+		kind: "image",
+		id: `${game.id}-screenshot`,
+		name: game.screenshot.name,
+		src: game.screenshot.src,
+		title: `${game.title} screenshot`,
+		description: game.description,
+		date: game.date
+	});
+}
+
 /** Virtual paths look like `work/graphic-design/robot`; the root is `""`. */
 export function getNode(path: string): FsNode | undefined {
 	return index.get(path);
@@ -289,14 +230,6 @@ export function getFolder(path: string): FolderNode | undefined {
 export function getMedia(path: string): MediaFileNode | undefined {
 	const node = index.get(path);
 	return node && (node.kind === "image" || node.kind === "pdf") ? node : undefined;
-}
-
-/** Anything Preview can show: images, PDFs and projects. */
-export function getPreviewable(path: string): MediaFileNode | ProjectFileNode | undefined {
-	const node = index.get(path);
-	return node && (node.kind === "image" || node.kind === "pdf" || node.kind === "project")
-		? node
-		: undefined;
 }
 
 export function joinPath(parent: string, id: string) {
@@ -329,7 +262,7 @@ export function folderForRoute(route: string): string | undefined {
 }
 
 export function fileIcon(file: FileNode): string {
-	if (file.kind === "app" || file.kind === "project") return file.icon;
+	if (file.kind === "app") return file.icon;
 	return file.kind === "image" ? imageIcon : pdfIcon;
 }
 

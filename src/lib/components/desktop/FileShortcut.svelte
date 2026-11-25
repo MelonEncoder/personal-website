@@ -21,8 +21,6 @@
 				return "Image";
 			case "folder":
 				return "Folder";
-			case "project":
-				return node.category === "game" ? "Video game" : "Programming project";
 			default:
 				return "App";
 		}

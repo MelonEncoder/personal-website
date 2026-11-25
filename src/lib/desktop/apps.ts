@@ -1,7 +1,7 @@
 import type { Component } from "svelte";
 import type { Pathname } from "$app/types";
 import type { AppId, WinProps } from "./types";
-import { getFolder, getPreviewable, fileIcon } from "./fs";
+import { getFolder, getMedia, fileIcon } from "./fs";
 
 import infoIcon from "$lib/assets/icons/info.svg";
 import linkIcon from "$lib/assets/icons/link.svg";
@@ -10,9 +10,13 @@ import notesIcon from "$lib/assets/icons/assignment.svg";
 import brochureIcon from "$lib/assets/icons/newsmode.svg";
 import folderIcon from "$lib/assets/icons/folder.svg";
 import computerIcon from "$lib/assets/icons/computer.svg";
+import codeIcon from "$lib/assets/icons/code-xml.svg";
+import gameIcon from "$lib/assets/icons/joystick.svg";
 
 import About from "$lib/content/About.svelte";
 import Links from "$lib/content/Links.svelte";
+import Programming from "$lib/content/Programming.svelte";
+import Games from "$lib/content/Games.svelte";
 import Brochure from "$lib/content/Brochure.svelte";
 import Instructions from "$lib/content/Instructions.svelte";
 import JobMaterials from "$lib/content/JobMaterials.svelte";
@@ -59,7 +63,13 @@ function content(
 
 export const APPS: Record<AppId, AppDef> = {
 	about: content("About Me", infoIcon, "/about", About),
-	links: content("Links", linkIcon, undefined, Links, { w: 480, h: 400 }),
+	links: content("Links", linkIcon, undefined, Links, { w: 480, h: 420 }),
+	// Each lists every project as a card (data in projects.ts).
+	programming: content("Programming", codeIcon, "/work/programming", Programming, {
+		w: 860,
+		h: 620
+	}),
+	games: content("Video Games", gameIcon, "/work/games", Games, { w: 760, h: 600 }),
 	brochure: content(
 		"UN SDG Brochure — Reflection",
 		brochureIcon,
@@ -97,9 +107,9 @@ export const APPS: Record<AppId, AppDef> = {
 		component: FileExplorer
 	},
 	preview: {
-		title: (p) => `Preview — ${getPreviewable(p.path ?? "")?.name ?? "Untitled"}`,
+		title: (p) => `Preview — ${getMedia(p.path ?? "")?.name ?? "Untitled"}`,
 		icon: (p) => {
-			const file = getPreviewable(p.path ?? "");
+			const file = getMedia(p.path ?? "");
 			return file ? fileIcon(file) : infoIcon;
 		},
 		key: (p) => p.path ?? "",
