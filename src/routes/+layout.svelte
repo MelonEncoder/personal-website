@@ -8,12 +8,14 @@
 	@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 	@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap");
 	@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+	@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap");
 
 	:global(:root) {
 		/* Fonts */
 		--font-title: "Press Start 2P";
 		--font-body: "Inter";
 		--font-mono: "IBM Plex Sans";
+		--font-terminal: "IBM Plex Mono";
 
 		/* Colors */
 		--black: rgb(33 33 35);
@@ -25,6 +27,7 @@
 		--backlight-2: rgb(235, 246, 255);
 		--backlight-3: rgb(252, 201, 238);
 		--gradient: linear-gradient(45deg, var(--accent), var(--accent-2));
+		--boot-bg: rgb(10 10 11);
 
 		/* Font Sizes */
 		--fs-title: clamp(2rem, 4vw, 2.6rem);
@@ -41,6 +44,8 @@
 
 		/* Constraints */
 		--content-max-width: 1300px;
+		--topbar-h: 2.25rem;
+		--taskbar-h: 2.75rem;
 	}
 
 	:global(body) {
