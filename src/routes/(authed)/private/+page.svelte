@@ -1,9 +1,13 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
 	import { resolve } from "$app/paths";
+	import { page } from "$app/state";
 	import type { ActionData, PageData } from "./$types";
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
+
+	/** Shown inside a desktop window (Job Materials): compact, no big title. */
+	const embedded = $derived(page.url.searchParams.get("embed") === "1");
 
 	function embeddedEnhance() {
 		return async ({
@@ -22,13 +26,17 @@
 	}
 </script>
 
-<div class="content">
+<div class="content" class:embedded>
 	{#if data.authenticated}
 		<h1 class="title">PRIVATE FILES</h1>
 		<p class="signedIn">You are signed in!</p>
 		<a class="button" href={resolve("/")}>Go Home</a>
 	{:else}
-		<h1 class="title">PRIVATE FILES</h1>
+		{#if embedded}
+			<p class="hint">Enter the password to view this file.</p>
+		{:else}
+			<h1 class="title">PRIVATE FILES</h1>
+		{/if}
 		<form
 			method="POST"
 			use:enhance={data.redirectTo ? embeddedEnhance : undefined}
@@ -149,5 +157,44 @@
 		border-color: var(--accent);
 		transform: translateY(0);
 		box-shadow: 0 0 0 0 var(--accent);
+	}
+
+	/* Embedded in a desktop window: matches the app style (small mono text, flat controls). */
+	.content.embedded {
+		width: min(24rem, 100%);
+		font-family: var(--font-mono), sans-serif;
+		font-size: var(--fs-body-sm);
+	}
+
+	.hint {
+		margin: 0 0 0.75rem;
+		color: color-mix(in srgb, var(--black), white 30%);
+	}
+
+	.content.embedded .label {
+		letter-spacing: 0.06em;
+		color: color-mix(in srgb, var(--black), white 30%);
+	}
+
+	.content.embedded .input {
+		min-width: 0;
+		font-size: var(--fs-body-sm);
+		padding: 0.45rem 0.65rem;
+	}
+
+	.content.embedded .button {
+		padding: 0.45rem 0.85rem;
+		font-size: var(--fs-body-sm);
+		letter-spacing: 0.04em;
+		border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+		box-shadow: none;
+		transform: none;
+	}
+
+	.content.embedded .button:hover {
+		background-color: var(--accent);
+		border-color: var(--black);
+		color: var(--white);
+		box-shadow: none;
 	}
 </style>

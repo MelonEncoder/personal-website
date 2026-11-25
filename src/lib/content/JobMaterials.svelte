@@ -1,18 +1,21 @@
 <script lang="ts">
 	import { page } from "$app/state";
-	import Card from "$lib/components/Card.svelte";
+	import AppPage from "$lib/components/desktop/AppPage.svelte";
+	import jobIcon from "$lib/assets/icons/briefcase.svg";
 
 	// Comes from the (app) layout server load so it is available whichever route is focused.
 	const authenticated = $derived(page.data.privateAuthenticated === true);
 </script>
 
-<div class="content">
-	<h1 class="title">JOB MATERIALS</h1>
-
+<AppPage
+	icon={jobIcon}
+	title="Job Materials"
+	subtitle="Resume and cover letter for a job application."
+>
 	<section class="section">
-		<Card>
-			<h2 class="sectionHeading">About this Project</h2>
-			<p class="bodyText">
+		<h2 class="label">About this Project</h2>
+		<div class="prose">
+			<p>
 				The job materials assignment required me to create two professional career-oriented
 				documents, a resume and a cover letter, and practice writing to a hiring manager.
 				These documents would be based on a real-world job position I found on the career
@@ -20,21 +23,21 @@
 				the future. At the time of writing these documents, I was enrolled as a computer
 				science major, though I am now a graphic design major with a game design track.
 			</p>
-			<p class="bodyText">
+			<p>
 				Before I started working on the resume, I created an outline of my credentials,
 				education, important links, and work experience. I also had my portfolio website up
 				and running at this time, so I was able to put this on my resume as well. This
 				allowed me to stay organized and keep track of relevant information so I could focus
 				on designing the layout and structure of the document.
 			</p>
-			<p class="bodyText">
+			<p>
 				For the cover letter, I found an internship position that matched my interests and
 				worked well with my current resume. After I found the listing, I created another
 				planning document that held the title of the position, its location, and work
 				responsibilities. From there I noted my qualifications and how my experience can be
 				beneficial for the company.
 			</p>
-			<p class="bodyText">
+			<p>
 				After writing up the documents and submitting them, I received very helpful
 				feedback. My cover letter needed the most work where my resume had minimal issues.
 				When making updates to my cover letter, I mainly reorganized the content and was
@@ -44,7 +47,7 @@
 				body paragraph that explained my experience into two sections, one specifically for
 				my experiences at UCF.
 			</p>
-			<p class="bodyText">
+			<p>
 				From this project, I learned how to create a resume that highlights my strengths in
 				an easily scannable format. Additionally, I practiced writing a potential cover
 				letter to a real employer that expresses my interest in a specific job position and
@@ -52,132 +55,82 @@
 				to reflect on my skills and what I have learned from my experience throughout my
 				life.
 			</p>
-		</Card>
+		</div>
 	</section>
 
 	<section class="section">
-		<div class="sectionHeader">
-			<div class="sectionHeadingRow">
-				<h2 class="sectionHeading">Resume</h2>
-				{#if !authenticated}
-					<span class="badge">Password Protected</span>
-				{/if}
-			</div>
+		<div class="labelRow">
+			<h2 class="label">Resume</h2>
+			{#if !authenticated}<span class="lock">Password protected</span>{/if}
 		</div>
 		{#if !authenticated}
 			<div class="embedWrapper">
 				<iframe
 					class="embed"
 					src="/private?embed=1&redirect=/private"
-					title="Login"
-					aria-label="Password prompt"
+					title="Resume login"
+					aria-label="Password prompt for the resume"
 				></iframe>
 			</div>
 		{/if}
 	</section>
 
 	<section class="section">
-		<div class="sectionHeader">
-			<div class="sectionHeadingRow">
-				<h2 class="sectionHeading">Cover Letter</h2>
-				{#if !authenticated}
-					<span class="badge">Password Protected</span>
-				{/if}
-			</div>
+		<div class="labelRow">
+			<h2 class="label">Cover Letter</h2>
+			{#if !authenticated}<span class="lock">Password protected</span>{/if}
 		</div>
 		{#if !authenticated}
 			<div class="embedWrapper">
 				<iframe
 					class="embed"
 					src="/private?embed=1&redirect=/private"
-					title="Login"
-					aria-label="Password prompt"
+					title="Cover Letter login"
+					aria-label="Password prompt for the cover letter"
 				></iframe>
 			</div>
 		{/if}
 	</section>
-</div>
+</AppPage>
 
 <style>
-	.content {
-		color: var(--black);
-		font-family: var(--font-body), sans-serif;
-	}
-
-	.title {
-		font-family: var(--font-title), monospace;
-		font-size: var(--fs-title);
-		color: var(--black);
-		text-transform: uppercase;
-		letter-spacing: 0.02em;
-		margin: 0 0 1rem 0;
-	}
-
-	.section {
-		margin-top: 2rem;
-	}
-
-	.sectionHeader {
+	/* The section label with a "Password protected" tag on the right. */
+	.labelRow {
 		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-	}
-
-	.sectionHeading {
-		font-family: var(--font-mono), monospace;
-		font-size: var(--fs-h2);
-		font-weight: 700;
-		margin: 0 0 1rem 0;
-		color: var(--black);
-		line-height: 1.3;
-		letter-spacing: 0.02em;
-	}
-
-	.bodyText {
-		font-size: var(--fs-body);
-		line-height: 1.7;
-		margin: 0 0 1rem 0;
-	}
-
-	.bodyText:last-child {
-		margin: 0;
-	}
-
-	.sectionHeadingRow {
-		display: flex;
-		align-items: center;
+		align-items: flex-end;
 		gap: 0.75rem;
-		margin: 0 0 1rem 0;
+		margin-bottom: 0.6rem;
+		border-bottom: 1px solid color-mix(in srgb, var(--black), white 80%);
 	}
 
-	.sectionHeadingRow .sectionHeading {
+	.labelRow :global(.label) {
+		flex: 1;
 		margin: 0;
+		border-bottom: none;
 	}
 
-	.badge {
-		font-family: var(--font-mono), monospace;
-		font-size: var(--fs-body-sm);
-		font-weight: 700;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: color-mix(in srgb, var(--black), white 35%);
-		border: 1px solid color-mix(in srgb, var(--black), white 55%);
+	.lock {
+		margin-bottom: 0.35rem;
+		padding: 0.15rem 0.45rem;
+		border: 1.5px solid var(--black);
 		border-radius: var(--radius-sm);
-		padding: 0.3rem 0.6rem;
+		background: var(--accent-2);
+		font-size: 0.75rem;
+		font-weight: 700;
+		white-space: nowrap;
 	}
 
 	.embedWrapper {
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
 		overflow: hidden;
-		background-color: var(--white);
+		background: var(--white);
 	}
 
 	.embed {
 		display: block;
 		width: 100%;
-		height: 70vh;
-		min-height: 480px;
+		height: 10rem;
 		border: none;
 	}
 </style>

@@ -12,7 +12,7 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<div class="page">
+<div class="page" class:embedded>
 	{#if !embedded}
 		<header class="header">
 			<a href={resolve("/")} class="homeLink" aria-label="Go home">
@@ -57,5 +57,14 @@
 		align-items: center;
 		justify-content: center;
 		padding: clamp(1.5rem, 4vw, 3rem);
+	}
+
+	/* Inside a desktop window (e.g. Job Materials): plain white, tight padding. */
+	.page.embedded {
+		background-color: var(--white);
+	}
+
+	.page.embedded .main {
+		padding: 1rem;
 	}
 </style>

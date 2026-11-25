@@ -28,7 +28,10 @@ export interface AppDef {
 	/** Windows with the same key are the same window (opening again focuses it). */
 	key: (props: WinProps) => string;
 	size: { w: number; h: number };
-	/** Content windows get padding and a max content width; tool apps lay themselves out. */
+	/**
+	 * Old-style content frame: padding, a max width and a mint background. Most apps draw
+	 * their own frame instead (AppPage, Explorer, Preview); only About This Site uses it.
+	 */
 	padded: boolean;
 	/** Rendered with `{ props, winId }`; content pages simply ignore them. */
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -40,7 +43,8 @@ function content(
 	icon: string,
 	route: Pathname | undefined,
 	component: AppDef["component"],
-	size = { w: 820, h: 600 }
+	size = { w: 820, h: 600 },
+	padded = false
 ): AppDef {
 	return {
 		title: () => title,
@@ -48,14 +52,14 @@ function content(
 		route: route ? () => route : undefined,
 		key: () => "",
 		size,
-		padded: true,
+		padded,
 		component
 	};
 }
 
 export const APPS: Record<AppId, AppDef> = {
 	about: content("About Me", infoIcon, "/about", About),
-	links: content("Links", linkIcon, undefined, Links, { w: 520, h: 480 }),
+	links: content("Links", linkIcon, undefined, Links, { w: 480, h: 400 }),
 	brochure: content(
 		"UN SDG Brochure — Reflection",
 		brochureIcon,
@@ -74,7 +78,14 @@ export const APPS: Record<AppId, AppDef> = {
 		"/technical-writing/job-materials",
 		JobMaterials
 	),
-	aboutSite: content("About This Site", computerIcon, undefined, AboutSite, { w: 440, h: 420 }),
+	aboutSite: content(
+		"About This Site",
+		computerIcon,
+		undefined,
+		AboutSite,
+		{ w: 440, h: 420 },
+		true
+	),
 	explorer: {
 		title: (p) => `File Explorer — ${getFolder(p.path ?? "")?.name ?? "Home"}`,
 		icon: () => folderIcon,

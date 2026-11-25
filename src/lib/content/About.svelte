@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { LINKS } from "$lib/desktop/links";
-
-	import ImageButton from "$lib/components/ImageButton.svelte";
-	import Card from "$lib/components/Card.svelte";
+	import AppPage from "$lib/components/desktop/AppPage.svelte";
+	import monogram from "$lib/assets/brand/monogram.svg";
 
 	interface LanguageItem {
 		name: string;
@@ -56,199 +54,155 @@
 	];
 </script>
 
-<div class="content">
-	<h1 class="title">ABOUT ME</h1>
-	<Card>
-		<p class="sectionText">
-			Hello! My name is Ian Gillette. I'm currently studying Game Design at UCF. I want to
-			learn how to make interactive art that can make peoples every day lives more fun and
-			accessable. One of my biggest goals in life is to bring world class public transit back
-			to the united states, for everyone to experience.
-		</p>
-		<p class="sectionText">
-			Some things I enjoy are photography, drawing, programming, and learning new languages.
-			My interests are always changing and expanding so I tend to stay busy with my hobbies.
-		</p>
-		<p class="sectionText">
-			The ability to learn, in my opinion, is the most important ability humans have. Ever
-			since I was little I loved learning just about anything, specifically space and marine
-			biology, and I have carried that curiosity with me through my life. With this mideset I
-			have been able to discover just how beautifully complex our world is.
-		</p>
-	</Card>
-	<section id="technologySection">
-		<h2 class="sectionHeading">Technology I Use</h2>
-		<div class="cardGrid">
-			<Card>
-				<p class="cardLabel">Development</p>
-				<ul class="toolList">
+<AppPage icon={monogram} title="Ian Gillette" subtitle="Game Design student at UCF">
+	<section class="section">
+		<h2 class="label">About</h2>
+		<div class="prose">
+			<p>
+				Hello! My name is Ian Gillette. I'm currently studying Game Design at UCF. I want to
+				learn how to make interactive art that can make peoples every day lives more fun and
+				accessable. One of my biggest goals in life is to bring world class public transit
+				back to the united states, for everyone to experience.
+			</p>
+			<p>
+				Some things I enjoy are photography, drawing, programming, and learning new
+				languages. My interests are always changing and expanding so I tend to stay busy
+				with my hobbies.
+			</p>
+			<p>
+				The ability to learn, in my opinion, is the most important ability humans have. Ever
+				since I was little I loved learning just about anything, specifically space and
+				marine biology, and I have carried that curiosity with me through my life. With this
+				mideset I have been able to discover just how beautifully complex our world is.
+			</p>
+		</div>
+	</section>
+
+	<section class="section">
+		<h2 class="label">Technology I Use</h2>
+		<div class="groups">
+			<div class="group">
+				<h3 class="groupName">Development</h3>
+				<ul class="tags">
 					{#each developmentItems as item (item)}
-						<li class="toolItem" id={item}>{item}</li>
+						<li>{item}</li>
 					{/each}
 				</ul>
-			</Card>
-			<Card>
-				<p class="cardLabel">Software</p>
-				<ul class="toolList">
+			</div>
+			<div class="group">
+				<h3 class="groupName">Software</h3>
+				<ul class="tags">
 					{#each softwareItems as item (item)}
-						<li class="toolItem" id={item}>{item}</li>
+						<li>{item}</li>
 					{/each}
 				</ul>
-			</Card>
+			</div>
 		</div>
 	</section>
-	<section>
-		<h2 class="sectionHeading">Languages</h2>
-		<div class="cardGrid languageList">
+
+	<section class="section">
+		<h2 class="label">Languages</h2>
+		<ul class="panels">
 			{#each languages as language (language.name)}
-				<Card>
-					<p class="cardLabel">{language.name}</p>
-					<div class="languageMeta">
-						<p><span>Status</span>{language.focus}</p>
-						<p><span>Fluency</span>{language.fluency}</p>
-						<p><span>Native Name</span>{language.nativeName}</p>
-					</div>
-				</Card>
+				<li class="panel">
+					<h3 class="panelName">{language.name}</h3>
+					<dl class="meta">
+						<div>
+							<dt>Status</dt>
+							<dd>{language.focus}</dd>
+						</div>
+						<div>
+							<dt>Fluency</dt>
+							<dd>{language.fluency}</dd>
+						</div>
+						<div>
+							<dt>Native name</dt>
+							<dd>{language.nativeName}</dd>
+						</div>
+					</dl>
+				</li>
 			{/each}
-		</div>
+		</ul>
 	</section>
-	<section>
-		<h2 class="sectionHeading">Links</h2>
-		<div class="links">
-			{#each LINKS as link (link.href)}
-				<ImageButton
-					src={link.icon}
-					alt={link.alt}
-					onclick={() => {
-						window.open(link.href, "_blank", "noopener,noreferrer");
-					}}
-				/>
-			{/each}
-		</div>
-	</section>
-</div>
+</AppPage>
 
 <style>
-	.content {
-		color: var(--black);
-		font-family: var(--font-body), sans-serif;
-	}
-
-	.title {
-		font-family: var(--font-title), monospace;
-		font-size: var(--fs-title);
-		color: var(--black);
-		text-transform: uppercase;
-		letter-spacing: 0.02em;
-		margin: 0 0 1rem 0;
-	}
-
-	section {
-		margin-top: 2rem;
-	}
-
-	.sectionHeading {
-		font-family: var(--font-mono), monospace;
-		font-size: var(--fs-h2);
-		font-weight: 700;
-		margin: 0 0 1rem 0;
-		color: var(--black);
-		line-height: 1.3;
-		letter-spacing: 0.02em;
-	}
-
-	.cardLabel {
-		margin: 0 0 0.75rem 0;
-		width: fit-content;
-		padding: 0.3rem 0.5rem;
-		font-size: var(--fs-body);
-		font-family: var(--font-mono), monospace;
-		font-weight: bold;
-		letter-spacing: 0.03em;
-		text-transform: uppercase;
-		background: transparent;
-		border: 1px solid var(--black);
-		color: var(--accent);
-	}
-
-	.sectionText {
-		font-size: var(--fs-body);
-		line-height: 1.7;
-		font-weight: 400;
-		margin: 0 0 1rem 0;
-	}
-
-	.sectionText:last-child {
-		margin: 0;
-	}
-
-	.cardGrid {
+	.groups {
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 1rem;
-		padding: 0;
-		list-style: none;
-		margin: 0;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem 1.5rem;
 	}
 
-	.toolList {
+	.groupName,
+	.panelName {
+		margin: 0 0 0.5rem;
+		font-size: var(--fs-body);
+		font-weight: 700;
+	}
+
+	/* Same chips as the tags in Preview's info panel. */
+	.tags {
 		display: flex;
 		flex-wrap: wrap;
-		padding: 0;
-		padding-top: 0.75rem;
+		gap: 0.35rem;
 		margin: 0;
+		padding: 0;
 		list-style: none;
-		border-top: 1px dashed color-mix(in srgb, var(--black), white 60%);
 	}
 
-	.toolItem {
-		font-size: var(--fs-body);
-		letter-spacing: 0.02em;
-		line-height: 1.2;
-		border: 1px solid var(--black);
-		background-color: transparent;
+	.tags li {
+		padding: 0.15rem 0.45rem;
+		border: 1.5px solid var(--black);
 		border-radius: var(--radius-sm);
-		padding: 0.3rem 0.5rem;
-		margin-right: 0.5rem;
-		margin-bottom: 0.5rem;
+		background: color-mix(in srgb, var(--backlight-3), white 30%);
+		font-size: 0.75rem;
+		font-weight: 700;
 	}
 
-	.languageMeta {
+	.panels {
 		display: grid;
-		grid-template-columns: 1fr;
-		gap: 0.4rem;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+		margin: 0;
+		padding: 0 0 4px;
+		list-style: none;
 	}
 
-	.languageMeta p {
+	.panel {
+		padding: 0.75rem 0.9rem;
+		border: 2px solid var(--black);
+		border-radius: var(--radius-sm);
+		background: color-mix(in srgb, var(--backlight-2), white 45%);
+		box-shadow: 0 3px 0 0 var(--black);
+	}
+
+	/* Label/value rows, like Preview's info panel. */
+	.meta {
+		display: grid;
+		gap: 0.4rem;
+		margin: 0;
+	}
+
+	.meta div {
 		display: flex;
 		justify-content: space-between;
-		align-items: baseline;
-		margin: 0;
-		padding-top: 0.35rem;
-		border-top: 1px dashed color-mix(in srgb, var(--black), white 60%);
-		font-size: var(--fs-body);
+		gap: 1rem;
 	}
 
-	.languageMeta span {
-		font-family: var(--font-mono), monospace;
-		font-size: var(--fs-body-sm);
-		letter-spacing: 0.03em;
-		text-transform: uppercase;
+	dt {
+		font-weight: 700;
 		color: color-mix(in srgb, var(--black), white 35%);
 	}
 
-	.links {
-		display: flex;
-		gap: 1rem;
+	dd {
+		margin: 0;
+		text-align: right;
 	}
 
-	@container (max-width: 700px) {
-		.cardGrid {
-			grid-template-columns: 1fr;
-		}
-
-		.sectionHeading {
-			font-size: var(--fs-h1);
+	@container (max-width: 560px) {
+		.groups,
+		.panels {
+			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 </style>

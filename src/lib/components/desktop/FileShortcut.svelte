@@ -1,58 +1,119 @@
 <script lang="ts">
-	import { getNode, fileIcon, folderIcon } from "$lib/desktop/fs";
+	import { getNode, fileIcon } from "$lib/desktop/fs";
 	import { getWindowManager } from "$lib/desktop/windows.svelte";
+	import FolderGlyph from "./FolderGlyph.svelte";
+	import PdfGlyph from "./PdfGlyph.svelte";
 
-	/** A clickable file inside a content window that opens the file in its own window. */
+	/**
+	 * A file inside a content window, shown as a row like an Explorer item. Clicking it
+	 * opens the file in its own window (PDFs and images in Preview).
+	 */
 	let { path }: { path: string } = $props();
 
 	const wm = getWindowManager();
 	const node = $derived(getNode(path));
+
+	const kind = $derived.by(() => {
+		switch (node?.kind) {
+			case "pdf":
+				return "PDF document";
+			case "image":
+				return "Image";
+			case "folder":
+				return "Folder";
+			case "project":
+				return node.category === "game" ? "Video game" : "Programming project";
+			default:
+				return "App";
+		}
+	});
 </script>
 
 {#if node}
-	<button type="button" class="fileShortcut" onclick={() => wm.openPath(path)}>
-		<img src={node.kind === "folder" ? folderIcon : fileIcon(node)} alt="" aria-hidden="true" />
-		<span class="name">{node.name}</span>
+	<button type="button" class="fileRow" onclick={() => wm.openPath(path)}>
+		{#if node.kind === "pdf"}
+			<PdfGlyph size="2.6rem" />
+		{:else if node.kind === "folder"}
+			<FolderGlyph size="2.6rem" />
+		{:else}
+			<span class="tile"><img src={fileIcon(node)} alt="" aria-hidden="true" /></span>
+		{/if}
+		<span class="text">
+			<span class="name">{node.name}</span>
+			<span class="kind">{kind}</span>
+		</span>
+		<span class="open" aria-hidden="true">Open</span>
 	</button>
 {/if}
 
 <style>
-	.fileShortcut {
-		display: inline-flex;
+	.fileRow {
+		display: flex;
 		align-items: center;
-		gap: 0.6rem;
-		padding: 0.6rem 0.9rem;
-		font-family: var(--font-mono), monospace;
-		font-size: var(--fs-body);
-		font-weight: 600;
+		gap: 0.85rem;
+		width: 100%;
+		padding: 0.5rem 0.6rem;
+		border: 1px solid transparent;
+		border-radius: var(--radius-sm);
+		background: transparent;
 		color: var(--black);
-		background: var(--white);
+		font-family: var(--font-mono), sans-serif;
+		font-size: var(--fs-body-sm);
+		text-align: left;
+		cursor: pointer;
+	}
+
+	/* Highlights like items in the Explorer. */
+	.fileRow:hover,
+	.fileRow:focus-visible {
+		--page-fill: color-mix(in srgb, var(--accent), white 80%);
+		border-color: var(--accent);
+		background: color-mix(in srgb, var(--accent), white 82%);
+		outline: none;
+	}
+
+	.tile {
+		display: grid;
+		place-items: center;
+		flex: 0 0 auto;
+		width: 2.6rem;
+		height: 2.6rem;
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
-		box-shadow: 0 4px 0 0 var(--black);
-		transform: translateY(-4px);
-		cursor: pointer;
-		transition: 0.12s ease;
+		background: var(--white);
+		box-shadow: 0 3px 0 0 var(--black);
 	}
 
-	.fileShortcut:hover {
-		border-color: var(--accent);
-		box-shadow: 0 4px 0 0 var(--accent);
-		background-color: color-mix(in srgb, var(--accent), white 65%);
+	.tile img {
+		width: 1.4rem;
+		height: 1.4rem;
 	}
 
-	.fileShortcut:active {
-		transform: translateY(0);
-		box-shadow: 0 0 0 0 var(--accent);
+	.text {
+		flex: 1;
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
 	}
 
-	.fileShortcut:focus-visible {
-		outline: 2px dashed var(--accent);
-		outline-offset: 3px;
+	.name {
+		font-size: var(--fs-body);
+		font-weight: 700;
+		overflow-wrap: anywhere;
 	}
 
-	img {
-		width: 1.5rem;
-		height: 1.5rem;
+	.kind {
+		color: color-mix(in srgb, var(--black), white 35%);
+	}
+
+	.open {
+		flex: 0 0 auto;
+		font-weight: 700;
+		color: color-mix(in srgb, var(--black), white 45%);
+	}
+
+	.fileRow:hover .open,
+	.fileRow:focus-visible .open {
+		color: var(--accent);
 	}
 </style>
