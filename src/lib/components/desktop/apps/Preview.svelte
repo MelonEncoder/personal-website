@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getMedia } from "$lib/desktop/fs";
+	import { getPreviewable, fileIcon } from "$lib/desktop/fs";
 	import type { WinProps } from "$lib/desktop/types";
 	import zoomInIcon from "$lib/assets/icons/zoom-in.svg";
 	import infoIcon from "$lib/assets/icons/info.svg";
@@ -7,7 +7,30 @@
 
 	let { props }: { props: WinProps } = $props();
 
-	const file = $derived(getMedia(props.path ?? ""));
+	/** An image, a PDF, or a project (programming project or video game). */
+	const file = $derived(getPreviewable(props.path ?? ""));
+
+	/** The picture to show, if any: the image itself, or a project's screenshot. */
+	const imageSrc = $derived(
+		file?.kind === "image" ? file.src : file?.kind === "project" ? file.image : undefined
+	);
+	/** Where "open" goes: the file itself, or the project's page (GitHub, itch.io). */
+	const openHref = $derived(file ? (file.kind === "project" ? file.href : file.src) : "");
+
+	const kindLabel = $derived.by(() => {
+		if (!file) return "";
+		if (file.kind === "project") {
+			return file.category === "game" ? "Video game" : "Programming project";
+		}
+		return file.kind === "pdf" ? "PDF document" : "Image";
+	});
+
+	const linkLabel = $derived.by(() => {
+		if (file?.kind !== "project") return "Open in new tab";
+		if (file.href.includes("github.com")) return "View on GitHub";
+		if (file.href.includes("itch.io")) return "Play on itch.io";
+		return "Open link";
+	});
 
 	const ZOOM_STEPS = [0.25, 0.5, 0.75, 1, 1.5, 2, 3];
 	/** `null` means "fit to window". */
@@ -27,9 +50,12 @@
 {#if file}
 	<div class="preview">
 		<div class="toolbar">
-			<span class="fileName">{file.name}</span>
+			<span class="fileName">
+				<img class="fileIcon" src={fileIcon(file)} alt="" aria-hidden="true" />
+				<span class="fileNameText">{file.name}</span>
+			</span>
 			<div class="tools">
-				{#if file.kind === "image"}
+				{#if imageSrc}
 					<button
 						type="button"
 						class="tool"
@@ -67,11 +93,11 @@
 				</button>
 				<a
 					class="tool"
-					href={file.src}
+					href={openHref}
 					target="_blank"
 					rel="external noopener noreferrer"
-					aria-label="Open in new tab"
-					title="Open in new tab"
+					aria-label={linkLabel}
+					title={linkLabel}
 				>
 					<img src={arrowOut} alt="" aria-hidden="true" />
 				</a>
@@ -80,17 +106,34 @@
 
 		<div class="stage" class:withInfo={showInfo}>
 			<div class="canvas" class:pdf={file.kind === "pdf"}>
-				{#if file.kind === "image"}
+				{#if imageSrc}
 					<div class="imageWrap" class:fit={zoom === null}>
 						<img
 							class="image"
-							src={file.src}
-							alt={file.title}
+							src={imageSrc}
+							alt={file.kind === "project" ? `${file.title} screenshot` : file.title}
 							style:width={zoom === null ? undefined : `${zoom * 100}%`}
 						/>
 					</div>
-				{:else}
+				{:else if file.kind === "pdf"}
 					<iframe class="document" src={file.src} title={file.title}></iframe>
+				{:else if file.kind === "project"}
+					<!-- Programming projects have no screenshot: show a big app tile instead. -->
+					<div class="placeholder">
+						<span class="placeholderTile">
+							<img src={fileIcon(file)} alt="" aria-hidden="true" />
+						</span>
+						<p class="placeholderTitle">{file.title}</p>
+						<a
+							class="linkButton"
+							href={file.href}
+							target="_blank"
+							rel="external noopener noreferrer"
+						>
+							{linkLabel}
+							<img src={arrowOut} alt="" aria-hidden="true" />
+						</a>
+					</div>
 				{/if}
 			</div>
 
@@ -98,10 +141,17 @@
 				<aside class="info" aria-label="File info">
 					<h3 class="infoTitle">{file.title}</h3>
 					{#if file.description}<p class="infoText">{file.description}</p>{/if}
+					{#if file.kind === "project" && file.tags?.length}
+						<ul class="tags" aria-label="Technologies used">
+							{#each file.tags as tag (tag)}
+								<li>{tag}</li>
+							{/each}
+						</ul>
+					{/if}
 					<dl class="meta">
 						<div>
 							<dt>Kind</dt>
-							<dd>{file.kind === "pdf" ? "PDF document" : "Image"}</dd>
+							<dd>{kindLabel}</dd>
 						</div>
 						{#if file.date}<div>
 								<dt>Created</dt>
@@ -112,6 +162,17 @@
 							<dd>{file.name}</dd>
 						</div>
 					</dl>
+					{#if file.kind === "project"}
+						<a
+							class="linkButton infoLink"
+							href={file.href}
+							target="_blank"
+							rel="external noopener noreferrer"
+						>
+							{linkLabel}
+							<img src={arrowOut} alt="" aria-hidden="true" />
+						</a>
+					{/if}
 				</aside>
 			{/if}
 		</div>
@@ -143,7 +204,21 @@
 	}
 
 	.fileName {
+		display: flex;
+		align-items: center;
+		gap: 0.45rem;
+		min-width: 0;
 		font-weight: 700;
+	}
+
+	/* Shows what kind of file this is: image, PDF, program or game. */
+	.fileIcon {
+		width: 1.1rem;
+		height: 1.1rem;
+		flex: 0 0 auto;
+	}
+
+	.fileNameText {
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -292,6 +367,90 @@
 	.missing {
 		margin: 2rem;
 		font-family: var(--font-mono), sans-serif;
+	}
+
+	/* Programming projects (no screenshot) */
+	.placeholder {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		padding: 1.5rem;
+		text-align: center;
+	}
+
+	.placeholderTile {
+		display: grid;
+		place-items: center;
+		width: 6.5rem;
+		height: 6.5rem;
+		border: 2px solid var(--black);
+		border-radius: var(--radius-sm);
+		background: var(--white);
+		box-shadow: 0 4px 0 0 var(--black);
+	}
+
+	.placeholderTile img {
+		width: 3.25rem;
+		height: 3.25rem;
+	}
+
+	.placeholderTitle {
+		margin: 0;
+		font-size: var(--fs-h3);
+		font-weight: 700;
+	}
+
+	.linkButton {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.5rem 0.85rem;
+		border: 2px solid var(--black);
+		border-radius: var(--radius-sm);
+		background: var(--white);
+		box-shadow: 0 3px 0 0 var(--black);
+		color: var(--black);
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	.linkButton:hover,
+	.linkButton:focus-visible {
+		border-color: var(--accent);
+		background: color-mix(in srgb, var(--accent), white 65%);
+		box-shadow: 0 3px 0 0 var(--accent);
+		outline: none;
+	}
+
+	.linkButton img {
+		width: 1rem;
+		height: 1rem;
+	}
+
+	.infoLink {
+		margin-top: 1rem;
+	}
+
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem;
+		margin: 0 0 1rem;
+		padding: 0;
+		list-style: none;
+	}
+
+	.tags li {
+		padding: 0.15rem 0.45rem;
+		border: 1.5px solid var(--black);
+		border-radius: var(--radius-sm);
+		background: color-mix(in srgb, var(--backlight-3), white 30%);
+		font-size: 0.75rem;
+		font-weight: 700;
 	}
 
 	@container (max-width: 560px) {

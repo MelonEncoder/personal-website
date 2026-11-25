@@ -1,7 +1,7 @@
 import type { Component } from "svelte";
 import type { Pathname } from "$app/types";
 import type { AppId, WinProps } from "./types";
-import { getFolder, getMedia, getProject, fileIcon } from "./fs";
+import { getFolder, getPreviewable, fileIcon } from "./fs";
 
 import infoIcon from "$lib/assets/icons/info.svg";
 import linkIcon from "$lib/assets/icons/link.svg";
@@ -19,7 +19,6 @@ import JobMaterials from "$lib/content/JobMaterials.svelte";
 import AboutSite from "$lib/content/AboutSite.svelte";
 import FileExplorer from "$lib/components/desktop/apps/FileExplorer.svelte";
 import Preview from "$lib/components/desktop/apps/Preview.svelte";
-import Project from "$lib/components/desktop/apps/Project.svelte";
 
 export interface AppDef {
 	title: (props: WinProps) => string;
@@ -86,18 +85,10 @@ export const APPS: Record<AppId, AppDef> = {
 		padded: false,
 		component: FileExplorer
 	},
-	project: {
-		title: (p) => getProject(p.path ?? "")?.title ?? "Project",
-		icon: (p) => getProject(p.path ?? "")?.icon ?? infoIcon,
-		key: (p) => p.path ?? "",
-		size: { w: 620, h: 600 },
-		padded: true,
-		component: Project
-	},
 	preview: {
-		title: (p) => `Preview — ${getMedia(p.path ?? "")?.name ?? "Untitled"}`,
+		title: (p) => `Preview — ${getPreviewable(p.path ?? "")?.name ?? "Untitled"}`,
 		icon: (p) => {
-			const file = getMedia(p.path ?? "");
+			const file = getPreviewable(p.path ?? "");
 			return file ? fileIcon(file) : infoIcon;
 		},
 		key: (p) => p.path ?? "",

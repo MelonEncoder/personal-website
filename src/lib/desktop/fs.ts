@@ -37,10 +37,11 @@ function image(
 /** Project entries are named after their title, like an app ("PDF to Video"). */
 function project(
 	id: string,
-	icon: string,
-	data: Omit<ProjectFileNode, "kind" | "id" | "name" | "icon">
+	category: ProjectFileNode["category"],
+	data: Omit<ProjectFileNode, "kind" | "id" | "name" | "icon" | "category">
 ): ProjectFileNode {
-	return { kind: "project", id, name: data.title, icon, ...data };
+	const icon = category === "game" ? gameIcon : codeIcon;
+	return { kind: "project", id, name: data.title, icon, category, ...data };
 }
 
 export const root: FolderNode = {
@@ -63,7 +64,7 @@ export const root: FolderNode = {
 					name: "Programming",
 					route: "/work/programming",
 					children: [
-						project("personal-website", codeIcon, {
+						project("personal-website", "program", {
 							title: "Personal Website (this site)",
 							description:
 								"Made using Svelte with the intention to showcase myself and my work.",
@@ -71,7 +72,7 @@ export const root: FolderNode = {
 							tags: ["Svelte", "TypeScript", "HTML/CSS"],
 							date: "2024"
 						}),
-						project("pdf-to-video", codeIcon, {
+						project("pdf-to-video", "program", {
 							title: "PDF to Video",
 							description:
 								"This is a program that converts a .pdf file into a .mp4 file. You can set the FPS, duration, resolution, and even animate the pdf.",
@@ -79,7 +80,7 @@ export const root: FolderNode = {
 							tags: ["C++", "Meson", "OpenCV", "Poppler"],
 							date: "2023"
 						}),
-						project("html-image-parser", codeIcon, {
+						project("html-image-parser", "program", {
 							title: "HTML Image Parser",
 							description:
 								'I created this program to test out the Go programming language. Just describe the prefix you want to look for like "src=" and then all the respective images will downloaded.',
@@ -87,7 +88,7 @@ export const root: FolderNode = {
 							tags: ["Go"],
 							date: "2023"
 						}),
-						project("wallpaper-switcher", codeIcon, {
+						project("wallpaper-switcher", "program", {
 							title: "Linux Wallpaper Switcher",
 							description:
 								"A lightweight wallpaper switcher for Linux that rotates images from a folder with simple keyboard controls.",
@@ -95,7 +96,7 @@ export const root: FolderNode = {
 							tags: ["C++", "SFML"],
 							date: "2023"
 						}),
-						project("pong", codeIcon, {
+						project("pong", "program", {
 							title: "PONG",
 							description: "Recreated the classic game of Pong with a little twist.",
 							href: "https://github.com/MelonEncoder/pong",
@@ -110,7 +111,7 @@ export const root: FolderNode = {
 					name: "Video Games",
 					route: "/work/games",
 					children: [
-						project("white-button", gameIcon, {
+						project("white-button", "game", {
 							title: "White Button",
 							description:
 								"White Button was created during a week long game jam where the theme was 1-bit color palette. Your goal is to click all the buttons before the lava reaches you.",
@@ -118,7 +119,7 @@ export const root: FolderNode = {
 							image: whiteButtonScreenshot,
 							date: "2025"
 						}),
-						project("blacked-out", gameIcon, {
+						project("blacked-out", "game", {
 							title: "Blacked Out",
 							description:
 								"Someone knocked you out and trapped you inside of a pitch black room. Your goal is to escape by using a flashlight and keys you find lying around in the environment.",
@@ -290,9 +291,12 @@ export function getMedia(path: string): MediaFileNode | undefined {
 	return node && (node.kind === "image" || node.kind === "pdf") ? node : undefined;
 }
 
-export function getProject(path: string): ProjectFileNode | undefined {
+/** Anything Preview can show: images, PDFs and projects. */
+export function getPreviewable(path: string): MediaFileNode | ProjectFileNode | undefined {
 	const node = index.get(path);
-	return node?.kind === "project" ? node : undefined;
+	return node && (node.kind === "image" || node.kind === "pdf" || node.kind === "project")
+		? node
+		: undefined;
 }
 
 export function joinPath(parent: string, id: string) {
