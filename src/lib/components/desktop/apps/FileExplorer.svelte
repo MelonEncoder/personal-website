@@ -20,8 +20,6 @@
 	const path = $derived(getFolder(props.path ?? "") ? (props.path ?? "") : "");
 	const folder = $derived(getFolder(path) ?? root);
 	const crumbs = $derived(breadcrumbs(path));
-	/** The current folder as a UNIX path, e.g. `/home/ian/work/graphic-design`. */
-	const unixPath = $derived(path ? `/home/ian/${path}` : "/home/ian");
 
 	let sidebarOpen = $state(false);
 	const expanded = new SvelteSet<string>(["", "work", "technical-writing"]);
@@ -192,7 +190,6 @@
 
 		<div class="statusBar">
 			<span>{countLabel(folder)}</span>
-			<span>{unixPath}</span>
 		</div>
 	</div>
 </div>

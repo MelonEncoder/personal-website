@@ -142,6 +142,18 @@
 			</button>
 			<button
 				type="button"
+				class="control maximize"
+				aria-label="{win.restore ? 'Restore' : 'Maximize'} {title}"
+				onclick={() => wm.toggleZoom(win.id)}
+			>
+				{#if win.restore}
+					<span class="restoreGlyph" aria-hidden="true"></span>
+				{:else}
+					<span class="maximizeGlyph" aria-hidden="true"></span>
+				{/if}
+			</button>
+			<button
+				type="button"
 				class="control"
 				aria-label="Close {title}"
 				onclick={() => wm.close(win.id)}
@@ -191,7 +203,7 @@
 		background: var(--white);
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
-		box-shadow: 6px 6px 0 0 color-mix(in srgb, var(--black), transparent 70%);
+		box-shadow: 0 0 24px 0 color-mix(in srgb, var(--black), transparent 82%);
 		animation: open 0.14s ease-out;
 	}
 
@@ -200,7 +212,7 @@
 	}
 
 	.window.active {
-		box-shadow: 6px 6px 0 0 var(--black);
+		box-shadow: 0 0 36px 2px color-mix(in srgb, var(--black), transparent 65%);
 	}
 
 	.titleBar {
@@ -264,6 +276,49 @@
 		height: 2px;
 		margin-top: 7px;
 		background: currentColor;
+	}
+
+	.maximizeGlyph {
+		display: block;
+		width: 10px;
+		height: 9px;
+		box-sizing: border-box;
+		border: 1.5px solid currentColor;
+		border-top-width: 3px;
+	}
+
+	/* Two overlapping windows: shown while maximized. */
+	.restoreGlyph {
+		position: relative;
+		display: block;
+		width: 11px;
+		height: 10px;
+	}
+
+	.restoreGlyph::before,
+	.restoreGlyph::after {
+		content: "";
+		position: absolute;
+		width: 8px;
+		height: 7px;
+		box-sizing: border-box;
+		border: 1.5px solid currentColor;
+		border-top-width: 2.5px;
+	}
+
+	.restoreGlyph::before {
+		top: 0;
+		right: 0;
+	}
+
+	.restoreGlyph::after {
+		bottom: 0;
+		left: 0;
+		background: var(--white);
+	}
+
+	.control:hover .restoreGlyph::after {
+		background: var(--accent);
 	}
 
 	.body {
@@ -390,7 +445,8 @@
 			cursor: default;
 		}
 
-		.resize {
+		.resize,
+		.control.maximize {
 			display: none;
 		}
 	}
