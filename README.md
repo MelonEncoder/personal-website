@@ -31,14 +31,6 @@ npm run dev
 npm run build
 ```
 
-### Docker
-
-```bash
-docker compose up -d
-```
-
-Requires a shared `web` Docker network to exist.
-
 ---
 
 Copyright 2026 Ian Gillette (MelonEncoder)
