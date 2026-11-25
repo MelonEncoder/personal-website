@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { tick } from "svelte";
 	import { getPreviewable, fileIcon } from "$lib/desktop/fs";
 	import type { WinProps } from "$lib/desktop/types";
 	import zoomInIcon from "$lib/assets/icons/zoom-in.svg";
@@ -32,18 +33,51 @@
 		return "Open link";
 	});
 
-	const ZOOM_STEPS = [0.25, 0.5, 0.75, 1, 1.5, 2, 3];
+	/** Zoom levels relative to the image's real size (1 = 100% = actual pixels). */
+	const ZOOM_STEPS = [0.1, 0.25, 0.5, 0.75, 1, 1.5, 2, 3];
 	/** `null` means "fit to window". */
 	let zoom: number | null = $state(null);
 	let showInfo = $state(true);
 
+	let canvasEl: HTMLDivElement | undefined = $state();
+	let imageEl: HTMLImageElement | undefined = $state();
+	let naturalWidth = $state(0);
+
+	// The image may already be loaded (from cache or before hydration), so its load event
+	// can be missed; read the real size directly as well.
+	$effect(() => {
+		if (imageEl?.complete && imageEl.naturalWidth) naturalWidth = imageEl.naturalWidth;
+	});
+
+	/** The scale the image is drawn at in Fit mode, so zooming steps from what you see. */
+	function fitScale() {
+		if (!imageEl || !naturalWidth) return 1;
+		return imageEl.clientWidth / naturalWidth;
+	}
+
+	/** Change zoom while keeping the same point in the middle of the view. */
+	async function setZoom(next: number | null) {
+		const canvas = canvasEl;
+		const centerX = canvas
+			? (canvas.scrollLeft + canvas.clientWidth / 2) / Math.max(canvas.scrollWidth, 1)
+			: 0.5;
+		const centerY = canvas
+			? (canvas.scrollTop + canvas.clientHeight / 2) / Math.max(canvas.scrollHeight, 1)
+			: 0.5;
+		zoom = next;
+		await tick();
+		if (!canvas || next === null) return;
+		canvas.scrollLeft = centerX * canvas.scrollWidth - canvas.clientWidth / 2;
+		canvas.scrollTop = centerY * canvas.scrollHeight - canvas.clientHeight / 2;
+	}
+
 	function zoomBy(direction: 1 | -1) {
-		const current = zoom ?? 1;
+		const current = zoom ?? fitScale();
 		const next =
 			direction === 1
-				? ZOOM_STEPS.find((step) => step > current)
-				: [...ZOOM_STEPS].reverse().find((step) => step < current);
-		if (next !== undefined) zoom = next;
+				? ZOOM_STEPS.find((step) => step > current + 0.001)
+				: [...ZOOM_STEPS].reverse().find((step) => step < current - 0.001);
+		if (next !== undefined) setZoom(next);
 	}
 </script>
 
@@ -67,7 +101,7 @@
 						type="button"
 						class="tool zoomLabel"
 						title="Fit to window"
-						onclick={() => (zoom = null)}
+						onclick={() => setZoom(null)}
 					>
 						{zoom === null ? "Fit" : `${Math.round(zoom * 100)}%`}
 					</button>
@@ -105,14 +139,18 @@
 		</div>
 
 		<div class="stage" class:withInfo={showInfo}>
-			<div class="canvas" class:pdf={file.kind === "pdf"}>
+			<div class="canvas" class:pdf={file.kind === "pdf"} bind:this={canvasEl}>
 				{#if imageSrc}
 					<div class="imageWrap" class:fit={zoom === null}>
 						<img
 							class="image"
 							src={imageSrc}
 							alt={file.kind === "project" ? `${file.title} screenshot` : file.title}
-							style:width={zoom === null ? undefined : `${zoom * 100}%`}
+							bind:this={imageEl}
+							onload={() => (naturalWidth = imageEl?.naturalWidth ?? 0)}
+							style:width={zoom === null || !naturalWidth
+								? undefined
+								: `${Math.round(naturalWidth * zoom)}px`}
 						/>
 					</div>
 				{:else if file.kind === "pdf"}
@@ -290,25 +328,33 @@
 		background: var(--off-white);
 	}
 
+	/*
+	 * Zoomed: the wrapper grows to fit the image, and the image is centered with auto
+	 * margins. (Centering with place-items pushed an oversized image past the left and top
+	 * edges, where it couldn't be scrolled to.)
+	 */
 	.imageWrap {
 		box-sizing: border-box;
+		display: flex;
+		width: max-content;
+		min-width: 100%;
 		min-height: 100%;
 		padding: 1rem;
-		display: grid;
-		place-items: center;
 	}
 
 	/* Fit: a definite-size box, so the image's max-height can resolve against it. */
 	.imageWrap.fit {
 		position: absolute;
 		inset: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		width: auto;
+		min-width: 0;
+		min-height: 0;
 	}
 
 	.image {
 		display: block;
+		flex: none;
+		margin: auto;
 		max-width: none;
 		border: 2px solid var(--black);
 		box-shadow: 4px 4px 0 0 color-mix(in srgb, var(--black), transparent 70%);
