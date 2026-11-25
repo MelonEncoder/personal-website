@@ -56,6 +56,8 @@
 	function logIn() {
 		markBooted();
 		booted = true;
+		// Undo any scroll a phone's keyboard left behind, so the bars line up with the screen.
+		window.scrollTo(0, 0);
 	}
 
 	function logOut() {
@@ -93,9 +95,22 @@
 {/if}
 
 <style>
+	/* While the desktop is shown, the page itself never scrolls or rubber-bands. */
+	:global(html:has(.os)),
+	:global(body:has(.os)) {
+		height: 100%;
+		overflow: hidden;
+		overscroll-behavior: none;
+	}
+
 	.os {
 		position: fixed;
-		inset: 0;
+		top: 0;
+		left: 0;
+		width: 100%;
+		/* The visible viewport on phones (between the browser's toolbars). */
+		height: 100vh;
+		height: 100dvh;
 		display: grid;
 		grid-template-rows: var(--topbar-h) minmax(0, 1fr) var(--taskbar-h);
 		overflow: hidden;

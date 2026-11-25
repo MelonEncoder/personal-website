@@ -27,6 +27,8 @@
 	function enter() {
 		if (exiting) return;
 		exiting = true;
+		// Close the on-screen keyboard so it can't leave the page shifted on phones.
+		passwordInput?.blur();
 		// The password does nothing yet; it is here for the future private area.
 		password = "";
 		window.setTimeout(onenter, reducedMotion() ? 0 : 550);
@@ -56,8 +58,10 @@
 		return () => window.clearInterval(timer);
 	});
 
+	// Focus the password field for keyboard users, but not on touch screens: there it pops
+	// up the on-screen keyboard, which can scroll the page and leave the desktop cut off.
 	$effect(() => {
-		if (ready) passwordInput?.focus();
+		if (ready && !window.matchMedia("(pointer: coarse)").matches) passwordInput?.focus();
 	});
 </script>
 
@@ -116,7 +120,12 @@
 <style>
 	.boot {
 		position: fixed;
-		inset: 0;
+		top: 0;
+		left: 0;
+		width: 100%;
+		/* The visible viewport on phones (between the browser's toolbars). */
+		height: 100vh;
+		height: 100dvh;
 		z-index: 1000;
 		display: grid;
 		place-items: center;
