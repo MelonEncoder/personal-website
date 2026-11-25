@@ -44,8 +44,9 @@
 
 		/* Constraints */
 		--content-max-width: 1300px;
-		--topbar-h: 2.25rem;
-		--taskbar-h: 2.75rem;
+		/* Top bar and taskbar share one height. */
+		--topbar-h: 2.5rem;
+		--taskbar-h: var(--topbar-h);
 	}
 
 	:global(body) {

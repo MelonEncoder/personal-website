@@ -13,7 +13,6 @@
 	<button type="button" class="fileShortcut" onclick={() => wm.openPath(path)}>
 		<img src={node.kind === "folder" ? folderIcon : fileIcon(node)} alt="" aria-hidden="true" />
 		<span class="name">{node.name}</span>
-		{#if node.kind === "pdf"}<span class="badge">PDF</span>{/if}
 	</button>
 {/if}
 
@@ -55,14 +54,5 @@
 	img {
 		width: 1.5rem;
 		height: 1.5rem;
-	}
-
-	.badge {
-		font-size: 0.7rem;
-		font-weight: 700;
-		padding: 0.1rem 0.35rem;
-		border: 1.5px solid var(--black);
-		border-radius: var(--radius-sm);
-		background: var(--accent-2);
 	}
 </style>

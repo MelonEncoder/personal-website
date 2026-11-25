@@ -7,12 +7,7 @@
 	import favicon from "$lib/assets/brand/favicon.svg";
 	import { APPS } from "$lib/desktop/apps";
 	import { clearBooted, markBooted } from "$lib/desktop/session";
-	import {
-		WindowManager,
-		normalizePath,
-		setWindowManager,
-		windowForRoute
-	} from "$lib/desktop/windows.svelte";
+	import { WindowManager, normalizePath, setWindowManager } from "$lib/desktop/windows.svelte";
 	import BootScreen from "$lib/components/desktop/BootScreen.svelte";
 	import TopBar from "$lib/components/desktop/TopBar.svelte";
 	import Wallpaper from "$lib/components/desktop/Wallpaper.svelte";
@@ -22,7 +17,7 @@
 
 	let { data, children } = $props();
 
-	const wm = setWindowManager(new WindowManager());
+	const wm = setWindowManager(new WindowManager(APPS));
 
 	// The server knows from the session cookie whether to show the boot screen, so there is
 	// no flash. After that, this component owns the state (log in / log out).
@@ -45,7 +40,7 @@
 			const current = normalizePath(page.url.pathname);
 			if (route) {
 				if (route !== current) goto(resolve(route), { keepFocus: true, noScroll: true });
-			} else if (!hasActive && windowForRoute(current)) {
+			} else if (!hasActive && wm.windowForRoute(current)) {
 				// The window for this URL was closed or minimized.
 				goto(resolve("/"), { keepFocus: true, noScroll: true });
 			}

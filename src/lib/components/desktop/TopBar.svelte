@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from "svelte";
 	import monogram from "$lib/assets/brand/monogram.svg";
 	import { APPS } from "$lib/desktop/apps";
 	import { getWindowManager } from "$lib/desktop/windows.svelte";
@@ -7,6 +8,22 @@
 
 	const wm = getWindowManager();
 	let menuOpen = $state(false);
+
+	// Filled in on the client only, so server and client HTML match.
+	let time = $state("");
+	let date = $state("");
+
+	function tick() {
+		const now = new Date();
+		time = now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+		date = now.toLocaleDateString([], { weekday: "short", month: "short", day: "numeric" });
+	}
+
+	onMount(() => {
+		tick();
+		const timer = window.setInterval(tick, 15_000);
+		return () => window.clearInterval(timer);
+	});
 	let menuRoot: HTMLDivElement | undefined = $state();
 
 	const activeTitle = $derived.by(() => {
@@ -80,7 +97,7 @@
 		</div>
 		<span class="activeTitle">{activeTitle}</span>
 	</div>
-	<span class="owner">Ian Gillette</span>
+	<time class="clock" title={date}>{time}</time>
 </header>
 
 <style>
@@ -144,10 +161,11 @@
 		text-overflow: ellipsis;
 	}
 
-	.owner {
-		font-weight: 600;
+	.clock {
+		font-weight: 700;
 		padding-right: 0.5rem;
 		white-space: nowrap;
+		font-variant-numeric: tabular-nums;
 	}
 
 	.menu {

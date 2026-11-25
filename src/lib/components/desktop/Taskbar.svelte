@@ -1,27 +1,10 @@
 <script lang="ts">
-	import { onMount } from "svelte";
 	import { APPS } from "$lib/desktop/apps";
 	import { getWindowManager } from "$lib/desktop/windows.svelte";
 	import folderIcon from "$lib/assets/icons/folder.svg";
 
 	const wm = getWindowManager();
 	const year = new Date().getFullYear();
-
-	// Filled in on the client only, so server and client HTML match.
-	let time = $state("");
-	let date = $state("");
-
-	function tick() {
-		const now = new Date();
-		time = now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-		date = now.toLocaleDateString([], { month: "short", day: "numeric", year: "numeric" });
-	}
-
-	onMount(() => {
-		tick();
-		const timer = window.setInterval(tick, 15_000);
-		return () => window.clearInterval(timer);
-	});
 
 	function toggle(id: string) {
 		const win = wm.get(id);
@@ -64,7 +47,6 @@
 	</ul>
 
 	<div class="tray">
-		<time class="clock" title={date}>{time}</time>
 		<span class="copyright">&copy; {year} Ian Gillette</span>
 	</div>
 </footer>
@@ -173,18 +155,8 @@
 		display: flex;
 		align-items: center;
 		gap: 0.75rem;
-		height: calc(var(--taskbar-h) - 12px);
-		padding: 0 0.75rem;
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-		background: color-mix(in srgb, var(--white), var(--backlight-2) 50%);
+		padding: 0 0.5rem;
 		white-space: nowrap;
-	}
-
-	.clock {
-		font-weight: 700;
-		min-width: 4.5em;
-		text-align: center;
 	}
 
 	@media (max-width: 700px) {
@@ -195,7 +167,7 @@
 		}
 
 		.tray {
-			padding: 0 0.5rem;
+			padding: 0 0.25rem;
 		}
 	}
 </style>

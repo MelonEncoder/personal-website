@@ -1,10 +1,18 @@
 <script lang="ts">
-	import { root, getFolder, joinPath, breadcrumbs, fileIcon, folderIcon } from "$lib/desktop/fs";
+	import {
+		root,
+		getFolder,
+		joinPath,
+		parentPath,
+		breadcrumbs,
+		fileIcon,
+		folderIcon
+	} from "$lib/desktop/fs";
 	import type { FolderNode, FsNode, WinProps } from "$lib/desktop/types";
 	import { getWindowManager } from "$lib/desktop/windows.svelte";
-	import { untrack } from "svelte";
 	import { SvelteSet } from "svelte/reactivity";
 	import FolderGlyph from "../FolderGlyph.svelte";
+	import PdfGlyph from "../PdfGlyph.svelte";
 
 	let { props, winId }: { props: WinProps; winId: string } = $props();
 
@@ -15,26 +23,6 @@
 	/** The current folder as a UNIX path, e.g. `/home/ian/work/graphic-design`. */
 	const unixPath = $derived(path ? `/home/ian/${path}` : "/home/ian");
 
-	// Browser-style history. Every folder change is recorded, wherever it came from
-	// (clicks in here, desktop icons, the menu, or the browser's back/forward).
-	let backStack: string[] = $state([]);
-	let forwardStack: string[] = $state([]);
-	let lastPath = untrack(() => path);
-	/** Set while stepping back/forward so that move isn't recorded as a new visit. */
-	let travelling = false;
-
-	$effect(() => {
-		const current = path;
-		untrack(() => {
-			if (current === lastPath) return;
-			if (!travelling) {
-				backStack.push(lastPath);
-				forwardStack = [];
-			}
-			travelling = false;
-			lastPath = current;
-		});
-	});
 	let sidebarOpen = $state(false);
 	const expanded = new SvelteSet<string>(["", "work", "technical-writing"]);
 
@@ -50,20 +38,12 @@
 		if (win) win.props = { path: to };
 	}
 
+	/**
+	 * Back goes up one folder toward the root (/home/ian), so it always leads home no matter
+	 * which folder the window opened in.
+	 */
 	function back() {
-		const previous = backStack.pop();
-		if (previous === undefined) return;
-		forwardStack.push(path);
-		travelling = true;
-		navigate(previous);
-	}
-
-	function forward() {
-		const next = forwardStack.pop();
-		if (next === undefined) return;
-		backStack.push(path);
-		travelling = true;
-		navigate(next);
+		if (path) navigate(parentPath(path));
 	}
 
 	function activate(node: FsNode, nodePath: string) {
@@ -130,57 +110,55 @@
 	</li>
 {/snippet}
 
+<!-- Finder-style: the folder tree is a full-height column; the toolbar, files and
+     status bar stack beside it. -->
 <div class="explorer">
-	<div class="toolbar">
-		<button
-			type="button"
-			class="toolButton sidebarToggle"
-			aria-expanded={sidebarOpen}
-			aria-controls="{winId}-sidebar"
-			onclick={() => (sidebarOpen = !sidebarOpen)}
-		>
-			☰ <span class="srOnly">Toggle folders</span>
-		</button>
-		<button
-			type="button"
-			class="toolButton arrow"
-			disabled={backStack.length === 0}
-			onclick={back}
-			aria-label="Back"
-			title="Back">&lt;-</button
-		>
-		<button
-			type="button"
-			class="toolButton arrow"
-			disabled={forwardStack.length === 0}
-			onclick={forward}
-			aria-label="Forward"
-			title="Forward">-&gt;</button
-		>
-		<nav class="address" aria-label="Current folder">
-			<!-- UNIX-style path: /home/ian/work/graphic-design, each segment clickable. -->
-			{#each crumbs as crumb, i (crumb.path)}
-				<span class="sep">/</span>
-				<button
-					type="button"
-					class="crumb"
-					title={crumb.folder.name}
-					aria-label={crumb.folder.name}
-					aria-current={crumb.path === path ? "location" : undefined}
-					onclick={() => navigate(crumb.path)}
-					>{i === 0 ? "home/ian" : crumb.folder.id}</button
-				>
-			{/each}
-		</nav>
-	</div>
+	<aside id="{winId}-sidebar" class="sidebar" class:open={sidebarOpen}>
+		<p class="sidebarTitle">Folders</p>
+		<ul class="tree" role="tree" aria-label="All files">
+			{@render tree(root, "", 0)}
+		</ul>
+	</aside>
 
-	<div class="main">
-		<aside id="{winId}-sidebar" class="sidebar" class:open={sidebarOpen}>
-			<p class="sidebarTitle">Folders</p>
-			<ul class="tree" role="tree" aria-label="All files">
-				{@render tree(root, "", 0)}
-			</ul>
-		</aside>
+	<div class="content">
+		<div class="toolbar">
+			<button
+				type="button"
+				class="toolButton sidebarToggle"
+				aria-expanded={sidebarOpen}
+				aria-controls="{winId}-sidebar"
+				onclick={() => (sidebarOpen = !sidebarOpen)}
+			>
+				☰ <span class="srOnly">Toggle folders</span>
+			</button>
+			<button
+				type="button"
+				class="toolButton"
+				disabled={path === ""}
+				onclick={back}
+				aria-label="Back"
+				title="Back"
+			>
+				<svg class="chevron" viewBox="0 0 16 16" aria-hidden="true">
+					<path d="M10 3 5 8l5 5" />
+				</svg>
+			</button>
+			<nav class="address" aria-label="Current folder">
+				<!-- UNIX-style path: /home/ian/work/graphic-design, each segment clickable. -->
+				{#each crumbs as crumb, i (crumb.path)}
+					<span class="sep">/</span>
+					<button
+						type="button"
+						class="crumb"
+						title={crumb.folder.name}
+						aria-label={crumb.folder.name}
+						aria-current={crumb.path === path ? "location" : undefined}
+						onclick={() => navigate(crumb.path)}
+						>{i === 0 ? "home/ian" : crumb.folder.id}</button
+					>
+				{/each}
+			</nav>
+		</div>
 
 		<ul class="pane" aria-label="Contents of {folder.name}">
 			{#each folder.children as child (child.id)}
@@ -197,8 +175,10 @@
 							<span class="thumb">
 								<img src={child.src} alt="" loading="lazy" decoding="async" />
 							</span>
+						{:else if child.kind === "pdf"}
+							<PdfGlyph size="4.4rem" />
 						{:else}
-							<span class="glyph" class:pdf={child.kind === "pdf"}>
+							<span class="glyph">
 								<img src={iconFor(child)} alt="" aria-hidden="true" />
 							</span>
 						{/if}
@@ -209,18 +189,19 @@
 				<li class="empty">This folder is empty.</li>
 			{/each}
 		</ul>
-	</div>
 
-	<div class="statusBar">
-		<span>{countLabel(folder)}</span>
-		<span>{unixPath}</span>
+		<div class="statusBar">
+			<span>{countLabel(folder)}</span>
+			<span>{unixPath}</span>
+		</div>
 	</div>
 </div>
 
 <style>
 	.explorer {
-		display: flex;
-		flex-direction: column;
+		position: relative;
+		display: grid;
+		grid-template-columns: minmax(12rem, 15rem) minmax(0, 1fr);
 		height: 100%;
 		min-height: 0;
 		font-family: var(--font-mono), sans-serif;
@@ -270,10 +251,14 @@
 		cursor: default;
 	}
 
-	.arrow {
-		min-width: 2.4rem;
-		font-family: var(--font-terminal), monospace;
-		letter-spacing: -0.05em;
+	.chevron {
+		width: 1rem;
+		height: 1rem;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 2.25;
+		stroke-linecap: square;
+		stroke-linejoin: miter;
 	}
 
 	.sidebarToggle {
@@ -316,12 +301,11 @@
 		font-weight: 700;
 	}
 
-	.main {
-		position: relative;
-		flex: 1;
+	.content {
+		min-width: 0;
 		min-height: 0;
-		display: grid;
-		grid-template-columns: minmax(12rem, 15rem) 1fr;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.sidebar {
@@ -397,6 +381,7 @@
 	}
 
 	.pane {
+		flex: 1;
 		min-height: 0;
 		overflow: auto;
 		display: grid;
@@ -451,6 +436,11 @@
 		overflow: hidden;
 	}
 
+	.item.pdf:hover,
+	.item.pdf:focus-visible {
+		--page-fill: color-mix(in srgb, var(--accent), white 80%);
+	}
+
 	.item.folder:hover,
 	.item.folder:focus-visible {
 		--folder-back: color-mix(in srgb, var(--accent), white 35%);
@@ -460,19 +450,6 @@
 	.glyph img {
 		width: 2rem;
 		height: 2rem;
-	}
-
-	.glyph.pdf::after {
-		content: "PDF";
-		position: absolute;
-		right: 2px;
-		bottom: 2px;
-		padding: 0 0.2rem;
-		font-size: 0.6rem;
-		font-weight: 700;
-		color: var(--white);
-		background: var(--accent);
-		border-radius: 2px;
 	}
 
 	.thumb {
@@ -523,8 +500,8 @@
 			display: grid;
 		}
 
-		.main {
-			grid-template-columns: 1fr;
+		.explorer {
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.sidebar {

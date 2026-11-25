@@ -1,6 +1,8 @@
 import { getContext, setContext } from "svelte";
 import type { Pathname } from "$app/types";
-import { APPS } from "./apps";
+// Type-only: the registry is passed in, because apps.ts imports components that import
+// this file, and a runtime import here would make a cycle.
+import type { AppDef } from "./apps";
 import { folderForRoute, getNode } from "./fs";
 import type { AppId, WinProps } from "./types";
 
@@ -14,6 +16,8 @@ export interface Win {
 	h: number;
 	z: number;
 	minimized: boolean;
+	/** Size and position before zooming; set while the window is zoomed. */
+	restore?: { x: number; y: number; w: number; h: number };
 }
 
 /** Leaves room for the desktop icon column on the left. */
@@ -24,26 +28,33 @@ export function normalizePath(path: string) {
 	return path !== "/" && path.endsWith("/") ? path.slice(0, -1) : path;
 }
 
-/** Which window a site route should open, if any. */
-export function windowForRoute(path: string): { appId: AppId; props: WinProps } | undefined {
-	const route = normalizePath(path);
-	if (route === "/") return undefined;
-	for (const [appId, app] of Object.entries(APPS) as [AppId, (typeof APPS)[AppId]][]) {
-		if (appId !== "explorer" && app.route?.({}) === route) return { appId, props: {} };
-	}
-	const folder = folderForRoute(route);
-	if (folder !== undefined) return { appId: "explorer", props: { path: folder } };
-	return undefined;
-}
+export type AppRegistry = Record<AppId, AppDef>;
 
 export class WindowManager {
 	windows = $state<Win[]>([]);
 	/** Size of the area windows live in; updated by the layout on the client. */
 	area = $state({ w: 1280, h: 760 });
 
+	#apps: AppRegistry;
 	#z = 0;
 	#opened = 0;
 	#nextId = 0;
+
+	constructor(apps: AppRegistry) {
+		this.#apps = apps;
+	}
+
+	/** Which window a site route should open, if any. */
+	windowForRoute(path: string): { appId: AppId; props: WinProps } | undefined {
+		const route = normalizePath(path);
+		if (route === "/") return undefined;
+		for (const [appId, app] of Object.entries(this.#apps) as [AppId, AppDef][]) {
+			if (appId !== "explorer" && app.route?.({}) === route) return { appId, props: {} };
+		}
+		const folder = folderForRoute(route);
+		if (folder !== undefined) return { appId: "explorer", props: { path: folder } };
+		return undefined;
+	}
 
 	// Plain getters rather than $derived: on the server, a derived value is computed once and
 	// would miss windows opened during the same render.
@@ -58,11 +69,11 @@ export class WindowManager {
 	/** The route the active window represents, if it has one. */
 	get activeRoute(): Pathname | undefined {
 		const win = this.active;
-		return win ? APPS[win.appId].route?.(win.props) : undefined;
+		return win ? this.#apps[win.appId].route?.(win.props) : undefined;
 	}
 
 	open(appId: AppId, props: WinProps = {}): Win {
-		const app = APPS[appId];
+		const app = this.#apps[appId];
 		const key = app.key(props);
 		const existing = this.windows.find((w) => w.appId === appId && app.key(w.props) === key);
 		if (existing) {
@@ -94,10 +105,10 @@ export class WindowManager {
 
 	/** Opens or focuses the window for a route. Returns false if the route has none. */
 	openRoute(path: string): boolean {
-		const target = windowForRoute(path);
+		const target = this.windowForRoute(path);
 		if (!target) return false;
 		const active = this.active;
-		const app = APPS[target.appId];
+		const app = this.#apps[target.appId];
 		// Already showing this route, so leave it alone (avoids churn from URL sync).
 		if (active && app.route?.(active.props) === normalizePath(path)) return true;
 		this.open(target.appId, target.props);
@@ -138,6 +149,19 @@ export class WindowManager {
 		if (!win) return;
 		win.minimized = false;
 		if (win.z !== this.#z) win.z = ++this.#z;
+	}
+
+	/** macOS-style zoom: fill the desktop, or go back to the size it had before. */
+	toggleZoom(id: string) {
+		const win = this.get(id);
+		if (!win) return;
+		if (win.restore) {
+			Object.assign(win, win.restore);
+			win.restore = undefined;
+		} else {
+			win.restore = { x: win.x, y: win.y, w: win.w, h: win.h };
+			Object.assign(win, { x: 0, y: 0, w: this.area.w, h: this.area.h });
+		}
 	}
 
 	minimize(id: string) {

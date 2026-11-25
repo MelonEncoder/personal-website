@@ -7,7 +7,7 @@ import codeIcon from "$lib/assets/icons/code-xml.svg";
 import gameIcon from "$lib/assets/icons/joystick.svg";
 import imageIcon from "$lib/assets/icons/image.svg";
 import jobIcon from "$lib/assets/icons/briefcase.svg";
-import documentIcon from "$lib/assets/icons/description.svg";
+import pdfIcon from "$lib/assets/icons/file-pdf.svg";
 import notesIcon from "$lib/assets/icons/assignment.svg";
 
 import magazineCover from "$lib/assets/media/graphic-design/magazine-cover.webp";
@@ -247,7 +247,7 @@ export function folderForRoute(route: string): string | undefined {
 
 export function fileIcon(file: FileNode): string {
 	if (file.kind === "app") return file.icon;
-	return file.kind === "image" ? imageIcon : documentIcon;
+	return file.kind === "image" ? imageIcon : pdfIcon;
 }
 
 export { folderIcon };
