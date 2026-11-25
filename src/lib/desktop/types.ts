@@ -3,8 +3,7 @@ import type { Pathname } from "$app/types";
 export type AppId =
 	| "about"
 	| "links"
-	| "programming"
-	| "games"
+	| "project"
 	| "brochure"
 	| "instructions"
 	| "jobMaterials"
@@ -44,5 +43,19 @@ export interface MediaFileNode {
 	date?: string;
 }
 
-export type FileNode = AppFileNode | MediaFileNode;
+/** A portfolio project; opens in its own Project window. */
+export interface ProjectFileNode {
+	kind: "project";
+	id: string;
+	name: string;
+	icon: string;
+	title: string;
+	description: string;
+	href: string;
+	date: string;
+	tags?: string[];
+	image?: string;
+}
+
+export type FileNode = AppFileNode | MediaFileNode | ProjectFileNode;
 export type FsNode = FolderNode | FileNode;

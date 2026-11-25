@@ -295,13 +295,24 @@
 	}
 
 	@container (max-width: 560px) {
+		/*
+		 * Stack the file above its info. A column flexbox (not a grid row sized to the info's
+		 * content) so the info box and the space it takes are the same height: it shrinks to
+		 * fit its text, caps at 45%, and scrolls past that.
+		 */
 		.stage.withInfo {
-			grid-template-columns: 1fr;
-			grid-template-rows: 1fr auto;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.stage.withInfo .canvas {
+			flex: 1 1 0;
 		}
 
 		.info {
-			max-height: 40%;
+			flex: 0 0 auto;
+			max-height: 45%;
+			box-sizing: border-box;
 			border-left: none;
 			border-top: 2px solid var(--black);
 		}

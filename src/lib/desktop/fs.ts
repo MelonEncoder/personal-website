@@ -1,4 +1,4 @@
-import type { FileNode, FolderNode, FsNode, MediaFileNode } from "./types";
+import type { FileNode, FolderNode, FsNode, MediaFileNode, ProjectFileNode } from "./types";
 
 import folderIcon from "$lib/assets/icons/folder.svg";
 import infoIcon from "$lib/assets/icons/info.svg";
@@ -18,6 +18,8 @@ import flatSpace from "$lib/assets/media/graphic-design/flat-space.webp";
 import teaParty from "$lib/assets/media/graphic-design/tea-party.webp";
 import robot from "$lib/assets/media/graphic-design/robot.webp";
 import jibiRamen from "$lib/assets/media/graphic-design/jibi-ramen.webp";
+import whiteButtonScreenshot from "$lib/assets/media/video-games/white-button-screenshot.png";
+import blackedOut from "$lib/assets/media/video-games/blacked-out.png";
 import brochurePdf from "$lib/assets/media/technical-writing/udl-brochure.pdf?url";
 import brochureWriteupPdf from "$lib/assets/media/technical-writing/udl-brochure-writeup.pdf?url";
 import instructionsPdf from "$lib/assets/media/technical-writing/instructions.pdf?url";
@@ -30,6 +32,15 @@ function image(
 	date: string
 ): MediaFileNode {
 	return { kind: "image", id, name: `${id}.webp`, src, title, description, date };
+}
+
+/** Project entries are named after their title, like an app ("PDF to Video"). */
+function project(
+	id: string,
+	icon: string,
+	data: Omit<ProjectFileNode, "kind" | "id" | "name" | "icon">
+): ProjectFileNode {
+	return { kind: "project", id, name: data.title, icon, ...data };
 }
 
 export const root: FolderNode = {
@@ -47,13 +58,76 @@ export const root: FolderNode = {
 			route: "/work",
 			children: [
 				{
-					kind: "app",
+					kind: "folder",
 					id: "programming",
 					name: "Programming",
-					icon: codeIcon,
-					app: "programming"
+					route: "/work/programming",
+					children: [
+						project("personal-website", codeIcon, {
+							title: "Personal Website (this site)",
+							description:
+								"Made using Svelte with the intention to showcase myself and my work.",
+							href: "https://github.com/MelonEncoder/personal-website",
+							tags: ["Svelte", "TypeScript", "HTML/CSS"],
+							date: "2024"
+						}),
+						project("pdf-to-video", codeIcon, {
+							title: "PDF to Video",
+							description:
+								"This is a program that converts a .pdf file into a .mp4 file. You can set the FPS, duration, resolution, and even animate the pdf.",
+							href: "https://github.com/MelonEncoder/pdf-to-video",
+							tags: ["C++", "Meson", "OpenCV", "Poppler"],
+							date: "2023"
+						}),
+						project("html-image-parser", codeIcon, {
+							title: "HTML Image Parser",
+							description:
+								'I created this program to test out the Go programming language. Just describe the prefix you want to look for like "src=" and then all the respective images will downloaded.',
+							href: "https://github.com/MelonEncoder/img-downloader",
+							tags: ["Go"],
+							date: "2023"
+						}),
+						project("wallpaper-switcher", codeIcon, {
+							title: "Linux Wallpaper Switcher",
+							description:
+								"A lightweight wallpaper switcher for Linux that rotates images from a folder with simple keyboard controls.",
+							href: "https://github.com/MelonEncoder/simple-wallpaper-switcher",
+							tags: ["C++", "SFML"],
+							date: "2023"
+						}),
+						project("pong", codeIcon, {
+							title: "PONG",
+							description: "Recreated the classic game of Pong with a little twist.",
+							href: "https://github.com/MelonEncoder/pong",
+							tags: ["C", "RayLib"],
+							date: "2023"
+						})
+					]
 				},
-				{ kind: "app", id: "games", name: "Video Games", icon: gameIcon, app: "games" },
+				{
+					kind: "folder",
+					id: "games",
+					name: "Video Games",
+					route: "/work/games",
+					children: [
+						project("white-button", gameIcon, {
+							title: "White Button",
+							description:
+								"White Button was created during a week long game jam where the theme was 1-bit color palette. Your goal is to click all the buttons before the lava reaches you.",
+							href: "https://karpoonz.itch.io/white-button",
+							image: whiteButtonScreenshot,
+							date: "2025"
+						}),
+						project("blacked-out", gameIcon, {
+							title: "Blacked Out",
+							description:
+								"Someone knocked you out and trapped you inside of a pitch black room. Your goal is to escape by using a flashlight and keys you find lying around in the environment.",
+							href: "https://karpoonz.itch.io/blacked-out",
+							image: blackedOut,
+							date: "2024"
+						})
+					]
+				},
 				{
 					kind: "folder",
 					id: "graphic-design",
@@ -216,6 +290,11 @@ export function getMedia(path: string): MediaFileNode | undefined {
 	return node && (node.kind === "image" || node.kind === "pdf") ? node : undefined;
 }
 
+export function getProject(path: string): ProjectFileNode | undefined {
+	const node = index.get(path);
+	return node?.kind === "project" ? node : undefined;
+}
+
 export function joinPath(parent: string, id: string) {
 	return parent ? `${parent}/${id}` : id;
 }
@@ -246,7 +325,7 @@ export function folderForRoute(route: string): string | undefined {
 }
 
 export function fileIcon(file: FileNode): string {
-	if (file.kind === "app") return file.icon;
+	if (file.kind === "app" || file.kind === "project") return file.icon;
 	return file.kind === "image" ? imageIcon : pdfIcon;
 }
 

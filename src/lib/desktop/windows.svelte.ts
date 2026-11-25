@@ -121,6 +121,7 @@ export class WindowManager {
 		if (!node) return;
 		if (node.kind === "folder") this.open("explorer", { path });
 		else if (node.kind === "app") this.open(node.app);
+		else if (node.kind === "project") this.open("project", { path });
 		else this.open("preview", { path });
 	}
 

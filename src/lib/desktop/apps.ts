@@ -1,12 +1,10 @@
 import type { Component } from "svelte";
 import type { Pathname } from "$app/types";
 import type { AppId, WinProps } from "./types";
-import { getFolder, getMedia, fileIcon } from "./fs";
+import { getFolder, getMedia, getProject, fileIcon } from "./fs";
 
 import infoIcon from "$lib/assets/icons/info.svg";
 import linkIcon from "$lib/assets/icons/link.svg";
-import codeIcon from "$lib/assets/icons/code-xml.svg";
-import gameIcon from "$lib/assets/icons/joystick.svg";
 import jobIcon from "$lib/assets/icons/briefcase.svg";
 import notesIcon from "$lib/assets/icons/assignment.svg";
 import brochureIcon from "$lib/assets/icons/newsmode.svg";
@@ -15,14 +13,13 @@ import computerIcon from "$lib/assets/icons/computer.svg";
 
 import About from "$lib/content/About.svelte";
 import Links from "$lib/content/Links.svelte";
-import Programming from "$lib/content/Programming.svelte";
-import Games from "$lib/content/Games.svelte";
 import Brochure from "$lib/content/Brochure.svelte";
 import Instructions from "$lib/content/Instructions.svelte";
 import JobMaterials from "$lib/content/JobMaterials.svelte";
 import AboutSite from "$lib/content/AboutSite.svelte";
 import FileExplorer from "$lib/components/desktop/apps/FileExplorer.svelte";
 import Preview from "$lib/components/desktop/apps/Preview.svelte";
+import Project from "$lib/components/desktop/apps/Project.svelte";
 
 export interface AppDef {
 	title: (props: WinProps) => string;
@@ -60,11 +57,6 @@ function content(
 export const APPS: Record<AppId, AppDef> = {
 	about: content("About Me", infoIcon, "/about", About),
 	links: content("Links", linkIcon, undefined, Links, { w: 520, h: 480 }),
-	programming: content("Programming", codeIcon, "/work/programming", Programming, {
-		w: 900,
-		h: 620
-	}),
-	games: content("Video Games", gameIcon, "/work/games", Games, { w: 900, h: 620 }),
 	brochure: content(
 		"UN SDG Brochure — Reflection",
 		brochureIcon,
@@ -93,6 +85,14 @@ export const APPS: Record<AppId, AppDef> = {
 		size: { w: 860, h: 540 },
 		padded: false,
 		component: FileExplorer
+	},
+	project: {
+		title: (p) => getProject(p.path ?? "")?.title ?? "Project",
+		icon: (p) => getProject(p.path ?? "")?.icon ?? infoIcon,
+		key: (p) => p.path ?? "",
+		size: { w: 620, h: 600 },
+		padded: true,
+		component: Project
 	},
 	preview: {
 		title: (p) => `Preview — ${getMedia(p.path ?? "")?.name ?? "Untitled"}`,

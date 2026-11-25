@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { APPS } from "$lib/desktop/apps";
 	import { getWindowManager } from "$lib/desktop/windows.svelte";
-	import folderIcon from "$lib/assets/icons/folder.svg";
 
 	const wm = getWindowManager();
 	const year = new Date().getFullYear();
@@ -15,16 +14,6 @@
 </script>
 
 <footer class="taskbar">
-	<button
-		type="button"
-		class="launcher"
-		onclick={() => wm.open("explorer", { path: "" })}
-		aria-label="Open File Explorer"
-	>
-		<img src={folderIcon} alt="" aria-hidden="true" />
-		<span class="launcherLabel">Files</span>
-	</button>
-
 	<ul class="tasks" aria-label="Open windows">
 		{#each wm.windows as win (win.id)}
 			{@const app = APPS[win.appId]}
@@ -80,7 +69,6 @@
 		outline-offset: 1px;
 	}
 
-	.launcher,
 	.task {
 		display: flex;
 		align-items: center;
@@ -91,20 +79,6 @@
 		border-radius: var(--radius-sm);
 		background: var(--white);
 		box-shadow: 0 2px 0 0 var(--black);
-	}
-
-	.launcher {
-		font-weight: 700;
-		background: var(--accent);
-		color: var(--white);
-	}
-
-	.launcher img {
-		filter: invert(1);
-	}
-
-	.launcher:hover {
-		background: color-mix(in srgb, var(--accent), black 12%);
 	}
 
 	img {
@@ -160,7 +134,6 @@
 	}
 
 	@media (max-width: 700px) {
-		.launcherLabel,
 		.taskLabel,
 		.copyright {
 			display: none;
