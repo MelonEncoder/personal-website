@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { getNode, fileIcon } from "$lib/desktop/fs";
-	import { getWindowManager } from "$lib/desktop/windows.svelte";
+	import { getNode, fileIcon } from "#lib/desktop/fs.ts";
+	import { getWindowManager } from "#lib/desktop/windows.svelte.ts";
 	import FolderGlyph from "./FolderGlyph.svelte";
 	import PdfGlyph from "./PdfGlyph.svelte";
 

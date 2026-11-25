@@ -7,9 +7,9 @@
 		breadcrumbs,
 		fileIcon,
 		folderIcon
-	} from "$lib/desktop/fs";
-	import type { FolderNode, FsNode, WinProps } from "$lib/desktop/types";
-	import { getWindowManager } from "$lib/desktop/windows.svelte";
+	} from "#lib/desktop/fs.ts";
+	import type { FolderNode, FsNode, WinProps } from "#lib/desktop/types.ts";
+	import { getWindowManager } from "#lib/desktop/windows.svelte.ts";
 	import { SvelteSet } from "svelte/reactivity";
 	import FolderGlyph from "../FolderGlyph.svelte";
 	import PdfGlyph from "../PdfGlyph.svelte";

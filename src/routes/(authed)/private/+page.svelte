@@ -30,7 +30,7 @@
 	{#if data.authenticated}
 		<h1 class="title">PRIVATE FILES</h1>
 		<p class="signedIn">You are signed in!</p>
-		<a class="button" href={resolve("/")}>Go Home</a>
+		<a class="button" href={resolve("")}>Go Home</a>
 	{:else}
 		{#if embedded}
 			<p class="hint">Enter the password to view this file.</p>

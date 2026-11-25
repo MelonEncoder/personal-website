@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { getWindowManager } from "$lib/desktop/windows.svelte";
+	import { getWindowManager } from "#lib/desktop/windows.svelte.ts";
 	import FolderGlyph from "./FolderGlyph.svelte";
-	import infoIcon from "$lib/assets/icons/info.svg";
-	import linkIcon from "$lib/assets/icons/link.svg";
-	import computerIcon from "$lib/assets/icons/computer.svg";
+	import infoIcon from "#lib/assets/icons/info.svg";
+	import linkIcon from "#lib/assets/icons/link.svg";
+	import computerIcon from "#lib/assets/icons/computer.svg";
 
 	const wm = getWindowManager();
 

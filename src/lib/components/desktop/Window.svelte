@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { APPS } from "$lib/desktop/apps";
-	import { getWindowManager, type Win } from "$lib/desktop/windows.svelte";
+	import { APPS } from "#lib/desktop/apps.ts";
+	import { getWindowManager, type Win } from "#lib/desktop/windows.svelte.ts";
 
 	let { win }: { win: Win } = $props();
 

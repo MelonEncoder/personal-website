@@ -1,10 +1,9 @@
 import { getContext, setContext } from "svelte";
-import type { Pathname } from "$app/types";
 // Type-only: the registry is passed in, because apps.ts imports components that import
 // this file, and a runtime import here would make a cycle.
 import type { AppDef } from "./apps";
 import { folderForRoute, getNode } from "./fs";
-import type { AppId, WinProps } from "./types";
+import type { AppId, SiteRoute, WinProps } from "./types";
 
 export interface Win {
 	id: string;
@@ -67,7 +66,7 @@ export class WindowManager {
 	}
 
 	/** The route the active window represents, if it has one. */
-	get activeRoute(): Pathname | undefined {
+	get activeRoute(): SiteRoute | undefined {
 		const win = this.active;
 		return win ? this.#apps[win.appId].route?.(win.props) : undefined;
 	}

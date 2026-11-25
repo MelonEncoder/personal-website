@@ -1,4 +1,7 @@
-import type { Pathname } from "$app/types";
+import type { Path } from "$app/types";
+
+/** A site pathname, such as "/work". Kit 3's `Path` drops the leading slash. */
+export type SiteRoute = `/${Path}`;
 
 export type AppId =
 	| "about"
@@ -23,7 +26,7 @@ export interface FolderNode {
 	name: string;
 	children: FsNode[];
 	/** Site route this folder corresponds to, if any. */
-	route?: Pathname;
+	route?: SiteRoute;
 }
 
 export interface AppFileNode {

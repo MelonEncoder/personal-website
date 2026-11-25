@@ -14,7 +14,7 @@
 				<h1 id="error-title">Error {page.status}</h1>
 				<p>{page.error?.message ?? "Something went wrong."}</p>
 				<p class="path">{page.url.pathname}</p>
-				<a href={resolve("/")}>Back to Desktop</a>
+				<a href={resolve("")}>Back to Desktop</a>
 			</div>
 		</div>
 	</div>

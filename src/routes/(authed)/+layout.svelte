@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { resolve } from "$app/paths";
 	import { page } from "$app/state";
-	import favicon from "$lib/assets/brand/favicon.svg";
-	import monogram from "$lib/assets/brand/monogram.svg";
+	import favicon from "#lib/assets/brand/favicon.svg";
+	import monogram from "#lib/assets/brand/monogram.svg";
 
 	let { children } = $props();
 	let embedded = $derived(page.url.searchParams.get("embed") === "1");
@@ -15,7 +15,7 @@
 <div class="page" class:embedded>
 	{#if !embedded}
 		<header class="header">
-			<a href={resolve("/")} class="homeLink" aria-label="Go home">
+			<a href={resolve("")} class="homeLink" aria-label="Go home">
 				<img class="monogram" src={monogram} alt="Ian Gillette monogram" />
 			</a>
 		</header>

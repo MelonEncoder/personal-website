@@ -1,5 +1,5 @@
-import { isPrivateAuthenticated } from "$lib/server/auth";
-import { BOOT_COOKIE } from "$lib/desktop/session";
+import { isPrivateAuthenticated } from "#lib/server/auth.ts";
+import { BOOT_COOKIE } from "#lib/desktop/session.ts";
 
 export function load({ cookies }) {
 	return {

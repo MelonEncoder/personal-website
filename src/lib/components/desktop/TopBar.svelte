@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import monogram from "$lib/assets/brand/monogram.svg";
-	import { APPS } from "$lib/desktop/apps";
-	import { getWindowManager } from "$lib/desktop/windows.svelte";
+	import monogram from "#lib/assets/brand/monogram.svg";
+	import { APPS } from "#lib/desktop/apps.ts";
+	import { getWindowManager } from "#lib/desktop/windows.svelte.ts";
 
 	let { onlogout }: { onlogout: () => void } = $props();
 

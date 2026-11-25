@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import monogram from "$lib/assets/brand/monogram.svg";
+	import monogram from "#lib/assets/brand/monogram.svg";
 
 	/** Called once the exit animation has finished. */
 	let { onenter }: { onenter: () => void } = $props();

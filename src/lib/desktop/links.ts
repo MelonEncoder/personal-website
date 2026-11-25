@@ -1,6 +1,6 @@
-import githubLogo from "$lib/assets/logos/github.svg";
-import itchLogo from "$lib/assets/logos/itch.svg";
-import linkedinLogo from "$lib/assets/logos/linkedin.svg";
+import githubLogo from "#lib/assets/logos/github.svg";
+import itchLogo from "#lib/assets/logos/itch.svg";
+import linkedinLogo from "#lib/assets/logos/linkedin.svg";
 
 export interface ExternalLink {
 	label: string;

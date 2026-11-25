@@ -1,5 +1,5 @@
-import whiteButtonScreenshot from "$lib/assets/media/video-games/white-button-screenshot.png";
-import blackedOut from "$lib/assets/media/video-games/blacked-out.png";
+import whiteButtonScreenshot from "#lib/assets/media/video-games/white-button-screenshot.png";
+import blackedOut from "#lib/assets/media/video-games/blacked-out.png";
 
 /** A portfolio project, shown as a card in the Programming or Video Games app. */
 export interface Project {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/state";
-	import AppPage from "$lib/components/desktop/AppPage.svelte";
-	import jobIcon from "$lib/assets/icons/briefcase.svg";
+	import AppPage from "#lib/components/desktop/AppPage.svelte";
+	import jobIcon from "#lib/assets/icons/briefcase.svg";
 
 	// Comes from the (app) layout server load so it is available whichever route is focused.
 	const authenticated = $derived(page.data.privateAuthenticated === true);

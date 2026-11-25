@@ -1,6 +1,6 @@
 <script lang="ts">
-	import AppPage from "$lib/components/desktop/AppPage.svelte";
-	import monogram from "$lib/assets/brand/monogram.svg";
+	import AppPage from "#lib/components/desktop/AppPage.svelte";
+	import monogram from "#lib/assets/brand/monogram.svg";
 
 	interface LanguageItem {
 		name: string;

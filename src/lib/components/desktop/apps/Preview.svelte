@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { tick } from "svelte";
-	import { getMedia, fileIcon } from "$lib/desktop/fs";
-	import type { WinProps } from "$lib/desktop/types";
-	import zoomInIcon from "$lib/assets/icons/zoom-in.svg";
-	import infoIcon from "$lib/assets/icons/info.svg";
-	import arrowOut from "$lib/assets/icons/arrow-outward.svg";
+	import { getMedia, fileIcon } from "#lib/desktop/fs.ts";
+	import type { WinProps } from "#lib/desktop/types.ts";
+	import zoomInIcon from "#lib/assets/icons/zoom-in.svg";
+	import infoIcon from "#lib/assets/icons/info.svg";
+	import arrowOut from "#lib/assets/icons/arrow-outward.svg";
 
 	let { props }: { props: WinProps } = $props();
 

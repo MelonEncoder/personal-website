@@ -1,5 +1,5 @@
 <script lang="ts">
-	import monogram from "$lib/assets/brand/monogram.svg";
+	import monogram from "#lib/assets/brand/monogram.svg";
 </script>
 
 <div class="wallpaper" aria-hidden="true">

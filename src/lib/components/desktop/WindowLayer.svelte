@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { untrack } from "svelte";
 	import Window from "./Window.svelte";
-	import { getWindowManager } from "$lib/desktop/windows.svelte";
+	import { getWindowManager } from "#lib/desktop/windows.svelte.ts";
 
 	const wm = getWindowManager();
 

@@ -3,17 +3,18 @@
 	import { goto } from "$app/navigation";
 	import { page } from "$app/state";
 	import { resolve } from "$app/paths";
+	import type { Path } from "$app/types";
 
-	import favicon from "$lib/assets/brand/favicon.svg";
-	import { APPS } from "$lib/desktop/apps";
-	import { clearBooted, markBooted } from "$lib/desktop/session";
-	import { WindowManager, normalizePath, setWindowManager } from "$lib/desktop/windows.svelte";
-	import BootScreen from "$lib/components/desktop/BootScreen.svelte";
-	import TopBar from "$lib/components/desktop/TopBar.svelte";
-	import Wallpaper from "$lib/components/desktop/Wallpaper.svelte";
-	import DesktopIcons from "$lib/components/desktop/DesktopIcons.svelte";
-	import WindowLayer from "$lib/components/desktop/WindowLayer.svelte";
-	import Taskbar from "$lib/components/desktop/Taskbar.svelte";
+	import favicon from "#lib/assets/brand/favicon.svg";
+	import { APPS } from "#lib/desktop/apps.ts";
+	import { clearBooted, markBooted } from "#lib/desktop/session.ts";
+	import { WindowManager, normalizePath, setWindowManager } from "#lib/desktop/windows.svelte.ts";
+	import BootScreen from "#lib/components/desktop/BootScreen.svelte";
+	import TopBar from "#lib/components/desktop/TopBar.svelte";
+	import Wallpaper from "#lib/components/desktop/Wallpaper.svelte";
+	import DesktopIcons from "#lib/components/desktop/DesktopIcons.svelte";
+	import WindowLayer from "#lib/components/desktop/WindowLayer.svelte";
+	import Taskbar from "#lib/components/desktop/Taskbar.svelte";
 
 	let { data, children } = $props();
 
@@ -39,10 +40,10 @@
 		untrack(() => {
 			const current = normalizePath(page.url.pathname);
 			if (route) {
-				if (route !== current) goto(resolve(route), { keepFocus: true, noScroll: true });
+				if (route !== current) goto(resolve(route.slice(1) as Path), { reset: false });
 			} else if (!hasActive && wm.windowForRoute(current)) {
 				// The window for this URL was closed or minimized.
-				goto(resolve("/"), { keepFocus: true, noScroll: true });
+				goto(resolve(""), { reset: false });
 			}
 		});
 	});
@@ -64,7 +65,7 @@
 		clearBooted();
 		wm.closeAll();
 		booted = false;
-		goto(resolve("/"));
+		goto(resolve(""));
 	}
 </script>
 

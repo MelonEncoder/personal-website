@@ -1,34 +1,33 @@
 import type { Component } from "svelte";
-import type { Pathname } from "$app/types";
-import type { AppId, WinProps } from "./types";
+import type { AppId, SiteRoute, WinProps } from "./types";
 import { getFolder, getMedia, fileIcon } from "./fs";
 
-import infoIcon from "$lib/assets/icons/info.svg";
-import linkIcon from "$lib/assets/icons/link.svg";
-import jobIcon from "$lib/assets/icons/briefcase.svg";
-import notesIcon from "$lib/assets/icons/assignment.svg";
-import brochureIcon from "$lib/assets/icons/newsmode.svg";
-import folderIcon from "$lib/assets/icons/folder.svg";
-import computerIcon from "$lib/assets/icons/computer.svg";
-import codeIcon from "$lib/assets/icons/code-xml.svg";
-import gameIcon from "$lib/assets/icons/joystick.svg";
+import infoIcon from "#lib/assets/icons/info.svg";
+import linkIcon from "#lib/assets/icons/link.svg";
+import jobIcon from "#lib/assets/icons/briefcase.svg";
+import notesIcon from "#lib/assets/icons/assignment.svg";
+import brochureIcon from "#lib/assets/icons/newsmode.svg";
+import folderIcon from "#lib/assets/icons/folder.svg";
+import computerIcon from "#lib/assets/icons/computer.svg";
+import codeIcon from "#lib/assets/icons/code-xml.svg";
+import gameIcon from "#lib/assets/icons/joystick.svg";
 
-import About from "$lib/content/About.svelte";
-import Links from "$lib/content/Links.svelte";
-import Programming from "$lib/content/Programming.svelte";
-import Games from "$lib/content/Games.svelte";
-import Brochure from "$lib/content/Brochure.svelte";
-import Instructions from "$lib/content/Instructions.svelte";
-import JobMaterials from "$lib/content/JobMaterials.svelte";
-import AboutSite from "$lib/content/AboutSite.svelte";
-import FileExplorer from "$lib/components/desktop/apps/FileExplorer.svelte";
-import Preview from "$lib/components/desktop/apps/Preview.svelte";
+import About from "#lib/content/About.svelte";
+import Links from "#lib/content/Links.svelte";
+import Programming from "#lib/content/Programming.svelte";
+import Games from "#lib/content/Games.svelte";
+import Brochure from "#lib/content/Brochure.svelte";
+import Instructions from "#lib/content/Instructions.svelte";
+import JobMaterials from "#lib/content/JobMaterials.svelte";
+import AboutSite from "#lib/content/AboutSite.svelte";
+import FileExplorer from "#lib/components/desktop/apps/FileExplorer.svelte";
+import Preview from "#lib/components/desktop/apps/Preview.svelte";
 
 export interface AppDef {
 	title: (props: WinProps) => string;
 	icon: (props: WinProps) => string;
 	/** Route this window represents; focusing it moves the URL here. */
-	route?: (props: WinProps) => Pathname | undefined;
+	route?: (props: WinProps) => SiteRoute | undefined;
 	/** Windows with the same key are the same window (opening again focuses it). */
 	key: (props: WinProps) => string;
 	size: { w: number; h: number };
@@ -45,7 +44,7 @@ export interface AppDef {
 function content(
 	title: string,
 	icon: string,
-	route: Pathname | undefined,
+	route: SiteRoute | undefined,
 	component: AppDef["component"],
 	size = { w: 820, h: 600 },
 	padded = false

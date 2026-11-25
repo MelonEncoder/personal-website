@@ -1,27 +1,27 @@
 import type { FileNode, FolderNode, FsNode, MediaFileNode } from "./types";
 import { GAME_PROJECTS, screenshotPath } from "./projects";
 
-import folderIcon from "$lib/assets/icons/folder.svg";
-import infoIcon from "$lib/assets/icons/info.svg";
-import linkIcon from "$lib/assets/icons/link.svg";
-import codeIcon from "$lib/assets/icons/code-xml.svg";
-import gameIcon from "$lib/assets/icons/joystick.svg";
-import imageIcon from "$lib/assets/icons/image.svg";
-import jobIcon from "$lib/assets/icons/briefcase.svg";
-import pdfIcon from "$lib/assets/icons/file-pdf.svg";
-import notesIcon from "$lib/assets/icons/assignment.svg";
+import folderIcon from "#lib/assets/icons/folder.svg";
+import infoIcon from "#lib/assets/icons/info.svg";
+import linkIcon from "#lib/assets/icons/link.svg";
+import codeIcon from "#lib/assets/icons/code-xml.svg";
+import gameIcon from "#lib/assets/icons/joystick.svg";
+import imageIcon from "#lib/assets/icons/image.svg";
+import jobIcon from "#lib/assets/icons/briefcase.svg";
+import pdfIcon from "#lib/assets/icons/file-pdf.svg";
+import notesIcon from "#lib/assets/icons/assignment.svg";
 
-import magazineCover from "$lib/assets/media/graphic-design/magazine-cover.webp";
-import theQueensGambitPoster from "$lib/assets/media/graphic-design/the-queens-gambit-poster.webp";
-import businessCard from "$lib/assets/media/graphic-design/business-card.webp";
-import mountain from "$lib/assets/media/graphic-design/mountain.webp";
-import flatSpace from "$lib/assets/media/graphic-design/flat-space.webp";
-import teaParty from "$lib/assets/media/graphic-design/tea-party.webp";
-import robot from "$lib/assets/media/graphic-design/robot.webp";
-import jibiRamen from "$lib/assets/media/graphic-design/jibi-ramen.webp";
-import brochurePdf from "$lib/assets/media/technical-writing/udl-brochure.pdf?url";
-import brochureWriteupPdf from "$lib/assets/media/technical-writing/udl-brochure-writeup.pdf?url";
-import instructionsPdf from "$lib/assets/media/technical-writing/instructions.pdf?url";
+import magazineCover from "#lib/assets/media/graphic-design/magazine-cover.webp";
+import theQueensGambitPoster from "#lib/assets/media/graphic-design/the-queens-gambit-poster.webp";
+import businessCard from "#lib/assets/media/graphic-design/business-card.webp";
+import mountain from "#lib/assets/media/graphic-design/mountain.webp";
+import flatSpace from "#lib/assets/media/graphic-design/flat-space.webp";
+import teaParty from "#lib/assets/media/graphic-design/tea-party.webp";
+import robot from "#lib/assets/media/graphic-design/robot.webp";
+import jibiRamen from "#lib/assets/media/graphic-design/jibi-ramen.webp";
+import brochurePdf from "#lib/assets/media/technical-writing/udl-brochure.pdf?url";
+import brochureWriteupPdf from "#lib/assets/media/technical-writing/udl-brochure-writeup.pdf?url";
+import instructionsPdf from "#lib/assets/media/technical-writing/instructions.pdf?url";
 
 function image(
 	id: string,

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { APPS } from "$lib/desktop/apps";
-	import { getWindowManager } from "$lib/desktop/windows.svelte";
+	import { APPS } from "#lib/desktop/apps.ts";
+	import { getWindowManager } from "#lib/desktop/windows.svelte.ts";
 
 	const wm = getWindowManager();
 	const year = new Date().getFullYear();

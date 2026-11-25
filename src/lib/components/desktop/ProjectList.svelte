@@ -1,8 +1,8 @@
 <script lang="ts">
 	import AppPage from "./AppPage.svelte";
-	import { screenshotPath, type Project } from "$lib/desktop/projects";
-	import { getWindowManager } from "$lib/desktop/windows.svelte";
-	import arrowOut from "$lib/assets/icons/arrow-outward.svg";
+	import { screenshotPath, type Project } from "#lib/desktop/projects.ts";
+	import { getWindowManager } from "#lib/desktop/windows.svelte.ts";
+	import arrowOut from "#lib/assets/icons/arrow-outward.svg";
 
 	/**
 	 * A list of projects as cards (the Programming and Video Games apps). Clicking a game's

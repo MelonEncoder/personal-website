@@ -1,8 +1,8 @@
 <script lang="ts">
-	import AppPage from "$lib/components/desktop/AppPage.svelte";
-	import { LINKS } from "$lib/desktop/links";
-	import linkIcon from "$lib/assets/icons/link.svg";
-	import arrowOut from "$lib/assets/icons/arrow-outward.svg";
+	import AppPage from "#lib/components/desktop/AppPage.svelte";
+	import { LINKS } from "#lib/desktop/links.ts";
+	import linkIcon from "#lib/assets/icons/link.svg";
+	import arrowOut from "#lib/assets/icons/arrow-outward.svg";
 </script>
 
 <AppPage icon={linkIcon} title="Links" subtitle="Find me and my work elsewhere on the web.">

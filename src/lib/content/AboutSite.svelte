@@ -1,5 +1,5 @@
 <script lang="ts">
-	import monogram from "$lib/assets/brand/monogram.svg";
+	import monogram from "#lib/assets/brand/monogram.svg";
 
 	const year = new Date().getFullYear();
 </script>

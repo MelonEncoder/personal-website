@@ -1,7 +1,7 @@
 <script lang="ts">
-	import AppPage from "$lib/components/desktop/AppPage.svelte";
-	import FileShortcut from "$lib/components/desktop/FileShortcut.svelte";
-	import instructionsIcon from "$lib/assets/icons/assignment.svg";
+	import AppPage from "#lib/components/desktop/AppPage.svelte";
+	import FileShortcut from "#lib/components/desktop/FileShortcut.svelte";
+	import instructionsIcon from "#lib/assets/icons/assignment.svg";
 </script>
 
 <AppPage
