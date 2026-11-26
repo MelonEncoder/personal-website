@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { APPS } from "#lib/desktop/apps.ts";
+	import ControlGlyph from "./ControlGlyph.svelte";
 	import { getWindowManager, type Win } from "#lib/desktop/windows.svelte.ts";
 
 	let { win }: { win: Win } = $props();
@@ -14,7 +15,7 @@
 
 	/** How much of a window must stay on screen while dragging. */
 	const KEEP_VISIBLE = 96;
-	const TITLE_H = 34;
+	const TITLE_H = 40;
 	/** The app's minimum size, but never bigger than the desktop. Matches the CSS. */
 	const minW = $derived(Math.min(app.minSize.w, wm.area.w));
 	const minH = $derived(Math.min(app.minSize.h, wm.area.h));
@@ -140,7 +141,7 @@
 				aria-label="Minimize {title}"
 				onclick={() => wm.minimize(win.id)}
 			>
-				<span class="minimizeGlyph" aria-hidden="true"></span>
+				<ControlGlyph kind="minimize" />
 			</button>
 			<button
 				type="button"
@@ -148,11 +149,7 @@
 				aria-label="{win.restore ? 'Restore' : 'Maximize'} {title}"
 				onclick={() => wm.toggleZoom(win.id)}
 			>
-				{#if win.restore}
-					<span class="restoreGlyph" aria-hidden="true"></span>
-				{:else}
-					<span class="maximizeGlyph" aria-hidden="true"></span>
-				{/if}
+				<ControlGlyph kind={win.restore ? "restore" : "maximize"} />
 			</button>
 			<button
 				type="button"
@@ -160,7 +157,7 @@
 				aria-label="Close {title}"
 				onclick={() => wm.close(win.id)}
 			>
-				<span aria-hidden="true">✕</span>
+				<ControlGlyph kind="close" />
 			</button>
 		</div>
 	</header>
@@ -222,7 +219,7 @@
 		flex: 0 0 auto;
 		display: flex;
 		justify-content: flex-end;
-		height: 34px;
+		height: 40px;
 		box-sizing: border-box;
 		border-bottom: 2px solid var(--black);
 		border-radius: var(--inner-radius) var(--inner-radius) 0 0;
@@ -249,7 +246,7 @@
 	.control {
 		display: grid;
 		place-items: center;
-		width: 36px;
+		width: 44px;
 		height: 100%;
 		padding: 0;
 		border: none;
@@ -257,9 +254,6 @@
 		border-radius: 0;
 		background: var(--white);
 		color: var(--black);
-		font-size: 0.7rem;
-		font-weight: 700;
-		line-height: 1;
 		cursor: pointer;
 	}
 
@@ -271,57 +265,6 @@
 	.control:focus-visible {
 		outline: 2px dashed var(--accent);
 		outline-offset: -4px;
-	}
-
-	.minimizeGlyph {
-		display: block;
-		width: 9px;
-		height: 2px;
-		margin-top: 7px;
-		background: currentColor;
-	}
-
-	.maximizeGlyph {
-		display: block;
-		width: 10px;
-		height: 9px;
-		box-sizing: border-box;
-		border: 1.5px solid currentColor;
-		border-top-width: 3px;
-	}
-
-	/* Two overlapping windows: shown while maximized. */
-	.restoreGlyph {
-		position: relative;
-		display: block;
-		width: 11px;
-		height: 10px;
-	}
-
-	.restoreGlyph::before,
-	.restoreGlyph::after {
-		content: "";
-		position: absolute;
-		width: 8px;
-		height: 7px;
-		box-sizing: border-box;
-		border: 1.5px solid currentColor;
-		border-top-width: 2.5px;
-	}
-
-	.restoreGlyph::before {
-		top: 0;
-		right: 0;
-	}
-
-	.restoreGlyph::after {
-		bottom: 0;
-		left: 0;
-		background: var(--white);
-	}
-
-	.control:hover .restoreGlyph::after {
-		background: var(--accent);
 	}
 
 	.body {

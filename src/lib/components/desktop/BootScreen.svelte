@@ -2,6 +2,7 @@
 	import { onMount } from "svelte";
 	import { SITE } from "#lib/site.ts";
 	import { MONOGRAM_ASCII } from "#lib/desktop/monogram-ascii.ts";
+	import ControlGlyph from "./ControlGlyph.svelte";
 
 	/**
 	 * The boot screen, drawn as a modern terminal window over the blurred desktop: a short
@@ -180,9 +181,9 @@
 		<div class="titlebar" aria-hidden="true">
 			<span class="title">{USER}@{HOST}: ~</span>
 			<span class="controls">
-				<span class="control"><span class="minimizeGlyph"></span></span>
-				<span class="control"><span class="maximizeGlyph"></span></span>
-				<span class="control">✕</span>
+				<span class="control"><ControlGlyph kind="minimize" /></span>
+				<span class="control"><ControlGlyph kind="maximize" /></span>
+				<span class="control"><ControlGlyph kind="close" /></span>
 			</span>
 		</div>
 
@@ -324,7 +325,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		height: 34px;
+		height: 40px;
 		box-sizing: border-box;
 		border-bottom: 2px solid var(--black);
 		background: var(--accent-2);
@@ -351,28 +352,9 @@
 	.control {
 		display: grid;
 		place-items: center;
-		width: 36px;
+		width: 44px;
 		border-left: 2px solid var(--black);
 		background: var(--white);
-		font-size: 0.7rem;
-		line-height: 1;
-	}
-
-	.minimizeGlyph {
-		display: block;
-		width: 9px;
-		height: 2px;
-		margin-top: 7px;
-		background: currentColor;
-	}
-
-	.maximizeGlyph {
-		display: block;
-		width: 10px;
-		height: 9px;
-		box-sizing: border-box;
-		border: 1.5px solid currentColor;
-		border-top-width: 3px;
 	}
 
 	.terminal {
