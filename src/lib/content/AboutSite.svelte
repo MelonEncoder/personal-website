@@ -15,7 +15,7 @@
 		</div>
 		<div>
 			<dt>Built with</dt>
-			<dd>Svelte 5 &amp; SvelteKit 2</dd>
+			<dd>Svelte 5 &amp; SvelteKit 3</dd>
 		</div>
 		<div>
 			<dt>Display</dt>
@@ -26,15 +26,22 @@
 </div>
 
 <style>
+	/* White scrolling body, like AppPage's, around the original centered layout. */
 	.aboutSite {
+		flex: 1;
+		min-height: 0;
+		overflow: auto;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		text-align: center;
-		gap: 0.5rem;
-		font-family: var(--font-mono), monospace;
+		gap: 0.35rem;
+		padding: 1.5rem 1.25rem;
+		background: var(--white);
 		color: var(--black);
-		padding: 0.5rem 0;
+		font-family: var(--font-mono), sans-serif;
+		font-size: var(--fs-body-sm);
+		scrollbar-color: var(--accent) transparent;
 	}
 
 	.monogram {
@@ -43,39 +50,47 @@
 		margin-bottom: 0.5rem;
 	}
 
+	/* Same type as the app headers, a size up. */
 	.title {
-		font-family: var(--font-title), monospace;
-		font-size: var(--fs-h1);
 		margin: 0;
+		font-size: var(--fs-h2);
+		font-weight: 700;
+		line-height: 1.25;
 	}
 
 	.version {
 		margin: 0;
-		font-size: var(--fs-body-sm);
 		color: color-mix(in srgb, var(--black), white 35%);
 	}
 
+	/* Same card and label/value rows as the Languages cards in About Me. */
 	.specs {
 		display: grid;
-		gap: 0.35rem;
+		gap: 0.4rem;
+		width: min(100%, 22rem);
 		margin: 1rem 0;
-		font-size: var(--fs-body-sm);
+		padding: 0.75rem 0.9rem;
+		border: 2px solid var(--black);
+		border-radius: var(--radius-sm);
+		background: color-mix(in srgb, var(--backlight-2), white 45%);
+		box-shadow: 0 3px 0 0 var(--black);
+		text-align: left;
 	}
 
 	.specs div {
-		display: grid;
-		grid-template-columns: 6rem 1fr;
-		gap: 0.75rem;
-		text-align: left;
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
 	}
 
 	dt {
 		font-weight: 700;
-		text-align: right;
+		color: color-mix(in srgb, var(--black), white 35%);
 	}
 
 	dd {
 		margin: 0;
+		text-align: right;
 	}
 
 	.copyright {

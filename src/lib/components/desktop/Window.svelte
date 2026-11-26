@@ -162,14 +162,8 @@
 			</button>
 		</div>
 	</header>
-	<div class="body" class:padded={app.padded}>
-		{#if app.padded}
-			<div class="inner">
-				<AppComponent props={win.props} winId={win.id} />
-			</div>
-		{:else}
-			<AppComponent props={win.props} winId={win.id} />
-		{/if}
+	<div class="body">
+		<AppComponent props={win.props} winId={win.id} />
 	</div>
 
 	<!-- Invisible grips along every edge and corner, for pointer resizing. -->
@@ -324,25 +318,13 @@
 	.body {
 		flex: 1;
 		min-height: 0;
-		overflow: auto;
-		overscroll-behavior: contain;
-		container-type: inline-size;
-		border-radius: 0 0 var(--inner-radius) var(--inner-radius);
-		background: var(--backlight);
-		scrollbar-color: var(--accent) transparent;
-	}
-
-	.body:not(.padded) {
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
+		overscroll-behavior: contain;
+		container-type: inline-size;
+		border-radius: 0 0 var(--inner-radius) var(--inner-radius);
 		background: var(--white);
-	}
-
-	.inner {
-		max-width: var(--content-max-width);
-		margin: 0 auto;
-		padding: clamp(1rem, 3cqi, 2.25rem);
 	}
 
 	/* Resize grips straddle the border so they don't cover scrollbars. */

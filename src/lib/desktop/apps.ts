@@ -31,11 +31,6 @@ export interface AppDef {
 	/** Windows with the same key are the same window (opening again focuses it). */
 	key: (props: WinProps) => string;
 	size: { w: number; h: number };
-	/**
-	 * Old-style content frame: padding, a max width and a mint background. Most apps draw
-	 * their own frame instead (AppPage, Explorer, Preview); only About This Site uses it.
-	 */
-	padded: boolean;
 	/** Rendered with `{ props, winId }`; content pages simply ignore them. */
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	component: Component<any>;
@@ -46,8 +41,7 @@ function content(
 	icon: string,
 	route: SiteRoute | undefined,
 	component: AppDef["component"],
-	size = { w: 820, h: 600 },
-	padded = false
+	size = { w: 820, h: 600 }
 ): AppDef {
 	return {
 		title: () => title,
@@ -55,7 +49,6 @@ function content(
 		route: route ? () => route : undefined,
 		key: () => "",
 		size,
-		padded,
 		component
 	};
 }
@@ -87,14 +80,7 @@ export const APPS: Record<AppId, AppDef> = {
 		"/technical-writing/job-materials",
 		JobMaterials
 	),
-	aboutSite: content(
-		"About This Site",
-		computerIcon,
-		undefined,
-		AboutSite,
-		{ w: 440, h: 420 },
-		true
-	),
+	aboutSite: content("About This Site", computerIcon, undefined, AboutSite, { w: 440, h: 420 }),
 	explorer: {
 		title: (p) => `File Explorer — ${getFolder(p.path ?? "")?.name ?? "Home"}`,
 		icon: () => folderIcon,
@@ -102,7 +88,6 @@ export const APPS: Record<AppId, AppDef> = {
 		route: (p) => getFolder(p.path ?? "")?.route,
 		key: () => "",
 		size: { w: 860, h: 540 },
-		padded: false,
 		component: FileExplorer
 	},
 	preview: {
@@ -113,7 +98,6 @@ export const APPS: Record<AppId, AppDef> = {
 		},
 		key: (p) => p.path ?? "",
 		size: { w: 760, h: 640 },
-		padded: false,
 		component: Preview
 	}
 };

@@ -43,7 +43,6 @@
 		--radius-lg: 1rem;
 
 		/* Constraints */
-		--content-max-width: 1300px;
 		/* Top bar and taskbar share one height. */
 		--topbar-h: 2.5rem;
 		--taskbar-h: var(--topbar-h);
