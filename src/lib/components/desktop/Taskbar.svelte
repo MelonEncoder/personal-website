@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { APPS } from "#lib/desktop/apps.ts";
 	import { getWindowManager } from "#lib/desktop/windows.svelte.ts";
+	import { SITE } from "#lib/site.ts";
 
 	const wm = getWindowManager();
-	const year = new Date().getFullYear();
 
 	function toggle(id: string) {
 		const win = wm.get(id);
@@ -36,7 +36,7 @@
 	</ul>
 
 	<div class="tray">
-		<span class="copyright">&copy; {year} Ian Gillette</span>
+		<span class="copyright">{SITE.copyright.short}</span>
 	</div>
 </footer>
 
@@ -50,11 +50,11 @@
 		height: var(--taskbar-h);
 		padding: 0 0.4rem;
 		box-sizing: border-box;
-		background: var(--backlight-2);
+		background: var(--desktop-bar);
 		border-top: 2px solid var(--black);
 		font-family: var(--font-mono), sans-serif;
 		font-size: var(--fs-body-sm);
-		color: var(--black);
+		color: var(--white);
 		user-select: none;
 	}
 
@@ -79,6 +79,8 @@
 		border-radius: var(--radius-sm);
 		background: var(--white);
 		box-shadow: 0 2px 0 0 var(--black);
+		/* White buttons keep dark text on the dark bar. */
+		color: var(--black);
 	}
 
 	img {

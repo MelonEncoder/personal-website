@@ -1,12 +1,14 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import monogram from "#lib/assets/brand/monogram-white.svg";
+	import { SITE } from "#lib/site.ts";
 
 	/** Called once the exit animation has finished. */
 	let { onenter }: { onenter: () => void } = $props();
 
 	const LOG = [
-		"IG-BIOS v0.4  (c) Ian Gillette",
+		`${SITE.biosName} v${SITE.version}`,
+		`${SITE.copyright.short}`,
 		"CPU: Curiosity Core @ 4.20 GHz ........ OK",
 		"Memory test: 640K ...................... OK",
 		"Detecting drives ....... /home/ian [WORK] [WRITING]",
@@ -72,7 +74,7 @@
 	class:exiting
 	role="dialog"
 	aria-modal="true"
-	aria-label="Log in to Ian Gillette's desktop"
+	aria-label="Log in to {SITE.owner}'s desktop"
 >
 	<div class="screen">
 		<pre class="log" aria-live="polite">{LOG.slice(0, visibleLines).join("\n")}</pre>
@@ -80,7 +82,7 @@
 		<div class="login" class:ready>
 			<header class="brand">
 				<img class="monogram" src={monogram} alt="" aria-hidden="true" />
-				<h1 class="name">IAN GILLETTE<span class="cursor" aria-hidden="true">_</span></h1>
+				<h1 class="name">{SITE.osName}<span class="cursor" aria-hidden="true">_</span></h1>
 			</header>
 
 			<form

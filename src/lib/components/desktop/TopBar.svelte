@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import monogram from "#lib/assets/brand/monogram.svg";
+	import monogram from "#lib/assets/brand/monogram-white.svg";
 	import { APPS } from "#lib/desktop/apps.ts";
 	import { getWindowManager } from "#lib/desktop/windows.svelte.ts";
 
@@ -110,10 +110,10 @@
 		height: var(--topbar-h);
 		padding: 0 0.5rem;
 		box-sizing: border-box;
-		background: var(--backlight-2);
+		background: var(--desktop-bar);
 		border-bottom: 2px solid var(--black);
 		font-family: var(--font-mono), sans-serif;
-		color: var(--black);
+		color: var(--white);
 		user-select: none;
 	}
 
@@ -146,7 +146,7 @@
 
 	.monogramButton:hover,
 	.monogramButton.open {
-		background: var(--accent-2);
+		background: color-mix(in srgb, var(--desktop-bar), white 18%);
 	}
 
 	.monogramButton:focus-visible {

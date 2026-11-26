@@ -6,6 +6,7 @@
 	import type { Path } from "$app/types";
 
 	import favicon from "#lib/assets/brand/favicon.svg";
+	import { SITE } from "#lib/site.ts";
 	import { APPS } from "#lib/desktop/apps.ts";
 	import { clearBooted, markBooted } from "#lib/desktop/session.ts";
 	import { WindowManager, normalizePath, setWindowManager } from "#lib/desktop/windows.svelte.ts";
@@ -51,7 +52,7 @@
 	const title = $derived.by(() => {
 		const win = wm.active;
 		const name = win ? APPS[win.appId].title(win.props) : undefined;
-		return name ? `${name} · Ian Gillette` : "Ian Gillette · Portfolio";
+		return name ? `${name} · ${SITE.owner}` : SITE.title;
 	});
 
 	function logIn() {
@@ -71,10 +72,7 @@
 
 <svelte:head>
 	<title>{title}</title>
-	<meta
-		name="description"
-		content="Ian Gillette's portfolio: programming projects, video games, graphic design and technical writing."
-	/>
+	<meta name="description" content={SITE.description} />
 	<link rel="icon" href={favicon} />
 </svelte:head>
 

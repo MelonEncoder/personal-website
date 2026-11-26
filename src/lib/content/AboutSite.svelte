@@ -1,28 +1,23 @@
 <script lang="ts">
 	import monogram from "#lib/assets/brand/monogram.svg";
-
-	const year = new Date().getFullYear();
+	import { SITE } from "#lib/site.ts";
 </script>
 
 <div class="aboutSite">
-	<img class="monogram" src={monogram} alt="Ian Gillette monogram" />
-	<h1 class="title">IG-OS</h1>
-	<p class="version">Version 0.4 &middot; Portfolio Edition</p>
+	<img class="monogram" src={monogram} alt="{SITE.owner} monogram" />
+	<h1 class="title">{SITE.osName}</h1>
+	<p class="version">Version {SITE.version} &middot; {SITE.edition}</p>
 	<dl class="specs">
 		<div>
 			<dt>Owner</dt>
-			<dd>Ian Gillette</dd>
+			<dd>{SITE.owner}</dd>
 		</div>
 		<div>
 			<dt>Built with</dt>
 			<dd>Svelte 5 &amp; SvelteKit 3</dd>
 		</div>
-		<div>
-			<dt>Display</dt>
-			<dd>Retro desktop, CRT scanlines</dd>
-		</div>
 	</dl>
-	<p class="copyright">&copy; {year} Ian Gillette. All rights reserved.</p>
+	<p class="copyright">{SITE.copyright.long}</p>
 </div>
 
 <style>

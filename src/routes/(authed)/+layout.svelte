@@ -3,6 +3,7 @@
 	import { page } from "$app/state";
 	import favicon from "#lib/assets/brand/favicon.svg";
 	import monogram from "#lib/assets/brand/monogram.svg";
+	import { SITE } from "#lib/site.ts";
 
 	let { children } = $props();
 	let embedded = $derived(page.url.searchParams.get("embed") === "1");
@@ -16,7 +17,7 @@
 	{#if !embedded}
 		<header class="header">
 			<a href={resolve("")} class="homeLink" aria-label="Go home">
-				<img class="monogram" src={monogram} alt="Ian Gillette monogram" />
+				<img class="monogram" src={monogram} alt="{SITE.owner} monogram" />
 			</a>
 		</header>
 	{/if}
