@@ -81,36 +81,42 @@
 	}
 </script>
 
-{#snippet tree(node: FolderNode, nodePath: string, depth: number)}
+{#snippet tree(node: FolderNode, nodePath: string)}
 	{@const isOpen = expanded.has(nodePath)}
 	<li role="treeitem" aria-expanded={isOpen} aria-selected={nodePath === path}>
-		<div class="treeRow folder" class:current={nodePath === path} style:--depth={depth}>
+		<div class="treeRow folder" class:current={nodePath === path} class:open={isOpen}>
 			<button
 				type="button"
 				class="twisty"
 				aria-label="{isOpen ? 'Collapse' : 'Expand'} {node.name}"
 				onclick={() => toggle(nodePath)}
 			>
-				{isOpen ? "▾" : "▸"}
+				<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" /></svg>
 			</button>
-			<button type="button" class="treeLabel" onclick={() => navigate(nodePath)}>
+			<button
+				type="button"
+				class="treeLabel"
+				title={node.name}
+				onclick={() => navigate(nodePath)}
+			>
 				<img src={folderIcon} alt="" aria-hidden="true" />
 				<span>{node.name}</span>
 			</button>
 		</div>
 		{#if isOpen}
-			<ul role="group">
+			<ul role="group" class="branch">
 				{#each node.children as child (child.id)}
 					{@const childPath = joinPath(nodePath, child.id)}
 					{#if child.kind === "folder"}
-						{@render tree(child, childPath, depth + 1)}
+						{@render tree(child, childPath)}
 					{:else}
 						<li role="treeitem" aria-selected="false">
-							<div class="treeRow file" style:--depth={depth + 1}>
-								<span class="twisty spacer" aria-hidden="true"></span>
+							<div class="treeRow file">
+								<span class="twisty" aria-hidden="true"></span>
 								<button
 									type="button"
 									class="treeLabel"
+									title={child.name}
 									onclick={() => activate(child, childPath)}
 								>
 									<img src={iconFor(child)} alt="" aria-hidden="true" />
@@ -131,7 +137,7 @@
 	<aside id="{winId}-sidebar" class="sidebar" class:open={sidebarOpen}>
 		<p class="sidebarTitle">Folders</p>
 		<ul class="tree" role="tree" aria-label="All files">
-			{@render tree(root, "", 0)}
+			{@render tree(root, "")}
 		</ul>
 	</aside>
 
@@ -232,7 +238,7 @@
 	.explorer {
 		position: relative;
 		display: grid;
-		grid-template-columns: minmax(12rem, 15rem) minmax(0, 1fr);
+		grid-template-columns: minmax(13rem, 17rem) minmax(0, 1fr);
 		height: 100%;
 		min-height: 0;
 		font-family: var(--font-mono), sans-serif;
@@ -354,54 +360,108 @@
 
 	.sidebarTitle {
 		margin: 0;
-		padding: 0.6rem 0.75rem 0.4rem;
+		padding: 0.75rem 0.9rem 0.45rem;
 		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: 0.06em;
 		color: color-mix(in srgb, var(--black), white 30%);
 	}
 
+	/*
+	 * Folder tree: rounded rows inset from the sidebar's edges. Clicking a row opens it;
+	 * the chevron beside it is its own button that expands or collapses the folder.
+	 */
+	.tree {
+		--row-h: 2.25rem;
+		--twisty: 1.6rem;
+		--row-pad: 0.25rem;
+		--row-border: 2px;
+		padding: 0 0.45rem 0.75rem;
+	}
+
 	.tree,
 	.tree :global(ul) {
 		margin: 0;
-		padding: 0;
 		list-style: none;
 	}
 
+	.tree :global(ul) {
+		padding: 0;
+	}
+
+	/* Each open folder's contents hang off a guide line under its chevron. */
+	.tree .branch {
+		margin: 2px 0 0 calc(var(--row-border) + var(--row-pad) + var(--twisty) / 2 - 1px);
+		padding-left: 0.3rem;
+		border-left: 2px solid color-mix(in srgb, var(--black), transparent 85%);
+	}
+
 	.treeRow {
-		--depth: 0;
 		display: flex;
 		align-items: center;
-		padding-left: calc(0.35rem + var(--depth) * 0.9rem);
+		gap: 0.1rem;
+		min-height: var(--row-h);
+		margin-bottom: 2px;
+		padding: 0 var(--row-pad);
+		box-sizing: border-box;
+		border: var(--row-border) solid transparent;
+		border-radius: var(--radius-md);
 		white-space: nowrap;
+		transition: background 0.12s ease;
 	}
 
 	.treeRow:hover {
-		background: var(--accent-2);
+		background: color-mix(in srgb, var(--accent), white 82%);
 	}
 
 	.treeRow.current {
-		background: color-mix(in srgb, var(--accent-2), var(--accent) 42%);
+		border-color: var(--black);
+		background: var(--accent-2);
 		font-weight: 700;
 	}
 
 	.twisty {
-		flex: 0 0 1.1rem;
-		width: 1.1rem;
+		flex: 0 0 var(--twisty);
+		display: grid;
+		place-items: center;
+		width: var(--twisty);
+		height: var(--twisty);
 		padding: 0;
 		border: none;
+		border-radius: var(--radius-sm);
 		background: transparent;
-		font-size: 0.75rem;
 	}
 
+	button.twisty:hover {
+		background: var(--glyph-mid);
+	}
+
+	.twisty svg {
+		width: 0.95rem;
+		height: 0.95rem;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 2.25;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		transition: transform 0.15s ease;
+	}
+
+	.treeRow.open .twisty svg {
+		transform: rotate(90deg);
+	}
+
+	/* The label fills the rest of the row, so the whole row is clickable. */
 	.treeLabel {
 		flex: 1;
+		align-self: stretch;
 		min-width: 0;
 		display: flex;
 		align-items: center;
-		gap: 0.4rem;
-		padding: 0.3rem 0.5rem 0.3rem 0.15rem;
+		gap: 0.55rem;
+		padding: 0 0.35rem 0 0.2rem;
 		border: none;
+		border-radius: var(--radius-sm);
 		background: transparent;
 		text-align: left;
 	}
@@ -412,9 +472,17 @@
 	}
 
 	.treeLabel img {
-		width: 1rem;
-		height: 1rem;
+		width: 1.25rem;
+		height: 1.25rem;
 		flex: 0 0 auto;
+	}
+
+	/* Touch screens get taller rows and a bigger chevron. */
+	@media (pointer: coarse) {
+		.tree {
+			--row-h: 2.75rem;
+			--twisty: 2rem;
+		}
 	}
 
 	.pane {
@@ -541,7 +609,7 @@
 			position: absolute;
 			inset: 0 auto 0 0;
 			z-index: 2;
-			width: min(16rem, 85%);
+			width: min(18rem, 85%);
 			transform: translateX(-102%);
 			transition: transform 0.18s ease;
 		}
