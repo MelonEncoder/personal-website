@@ -3,9 +3,6 @@
 	import { page } from "$app/state";
 	import { getMedia, fileIcon } from "#lib/desktop/fs.ts";
 	import type { WinProps } from "#lib/desktop/types.ts";
-	import zoomInIcon from "#lib/assets/icons/zoom-in.svg";
-	import infoIcon from "#lib/assets/icons/info.svg";
-	import arrowOut from "#lib/assets/icons/arrow-outward.svg";
 	import PdfGlyph from "../PdfGlyph.svelte";
 	import ImageGlyph from "../ImageGlyph.svelte";
 
@@ -80,8 +77,13 @@
 						class="tool"
 						aria-label="Zoom out"
 						title="Zoom out"
-						onclick={() => zoomBy(-1)}>−</button
+						onclick={() => zoomBy(-1)}
 					>
+						<svg class="toolGlyph" viewBox="0 0 24 24" aria-hidden="true">
+							<circle cx="10.5" cy="10.5" r="6.5" />
+							<path d="M15.5 15.5 20.5 20.5M7.5 10.5h6" />
+						</svg>
+					</button>
 					<button
 						type="button"
 						class="tool zoomLabel"
@@ -97,7 +99,10 @@
 						title="Zoom in"
 						onclick={() => zoomBy(1)}
 					>
-						<img src={zoomInIcon} alt="" aria-hidden="true" />
+						<svg class="toolGlyph" viewBox="0 0 24 24" aria-hidden="true">
+							<circle cx="10.5" cy="10.5" r="6.5" />
+							<path d="M15.5 15.5 20.5 20.5M7.5 10.5h6M10.5 7.5v6" />
+						</svg>
 					</button>
 				{/if}
 				<button
@@ -108,7 +113,11 @@
 					title="Info"
 					onclick={() => (showInfo = !showInfo)}
 				>
-					<img src={infoIcon} alt="" aria-hidden="true" />
+					<svg class="toolGlyph" viewBox="0 0 24 24" aria-hidden="true">
+						<circle cx="12" cy="12" r="9" />
+						<path d="M12 11v5.5" />
+						<circle class="dot" cx="12" cy="7.4" r="1.9" />
+					</svg>
 				</button>
 				{#if file.src && !showLogin}
 					<a
@@ -119,7 +128,9 @@
 						aria-label="Open in new tab"
 						title="Open in new tab"
 					>
-						<img src={arrowOut} alt="" aria-hidden="true" />
+						<svg class="toolGlyph" viewBox="0 0 24 24" aria-hidden="true">
+							<path d="M6.5 17.5 17 7M9 6.5h8.5V15" />
+						</svg>
 					</a>
 				{/if}
 			</div>
@@ -249,9 +260,9 @@
 	.tool {
 		display: grid;
 		place-items: center;
-		min-width: 2rem;
-		height: 1.9rem;
-		padding: 0 0.4rem;
+		min-width: 2.25rem;
+		height: 2.25rem;
+		padding: 0 0.35rem;
 		box-sizing: border-box;
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
@@ -285,9 +296,20 @@
 		outline-offset: 1px;
 	}
 
-	.tool img {
-		width: 1rem;
-		height: 1rem;
+	/* Bold, rounded strokes, as heavy as the file explorer's toolbar icons. */
+	.toolGlyph {
+		width: 1.2rem;
+		height: 1.2rem;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 2.6;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.toolGlyph .dot {
+		fill: currentColor;
+		stroke: none;
 	}
 
 	.zoomLabel {
