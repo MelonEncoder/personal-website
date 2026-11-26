@@ -2,6 +2,7 @@
 	import { onMount } from "svelte";
 	import monogram from "#lib/assets/brand/monogram-white.svg";
 	import { SITE } from "#lib/site.ts";
+	import AsciiCube from "./AsciiCube.svelte";
 
 	/** Called once the exit animation has finished. */
 	let { onenter }: { onenter: () => void } = $props();
@@ -77,12 +78,14 @@
 	aria-label="Log in to {SITE.owner}'s desktop"
 >
 	<div class="screen">
+		<AsciiCube />
+
 		<pre class="log" aria-live="polite">{LOG.slice(0, visibleLines).join("\n")}</pre>
 
 		<div class="login" class:ready>
 			<header class="brand">
 				<img class="monogram" src={monogram} alt="" aria-hidden="true" />
-				<h1 class="name">{SITE.osName}<span class="cursor" aria-hidden="true">_</span></h1>
+				<h1 class="name">{SITE.osName}</h1>
 			</header>
 
 			<form
@@ -157,9 +160,9 @@
 	.screen {
 		display: flex;
 		flex-direction: column;
-		gap: 2.25rem;
+		gap: clamp(1.25rem, 4vh, 2.25rem);
 		width: min(40rem, 100% - 2rem);
-		padding: 2rem 0;
+		padding: clamp(1rem, 4vh, 2rem) 0;
 	}
 
 	.log {
@@ -205,11 +208,6 @@
 		font-size: clamp(1.1rem, 3.6vw, 1.75rem);
 		line-height: 1.4;
 		letter-spacing: 0.04em;
-	}
-
-	.cursor {
-		color: var(--accent);
-		animation: blink 0.9s steps(1) infinite;
 	}
 
 	.form {
@@ -313,17 +311,6 @@
 			opacity: 0;
 			transform: scale(0, 0.004);
 			filter: brightness(3);
-		}
-	}
-
-	@keyframes blink {
-		0%,
-		50% {
-			opacity: 1;
-		}
-		50.01%,
-		100% {
-			opacity: 0;
 		}
 	}
 
