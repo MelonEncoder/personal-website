@@ -5,17 +5,18 @@
 {@render children()}
 
 <style>
+    /* fonts */
 	@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 	@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap");
 	@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap");
 
 	/* display fonts */
-	@import url('https://fonts.googleapis.com/css2?family=Redaction+100:ital,wght@0,400;0,700;1,400&display=swap');
-	@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Train+One&display=swap');
 
 	:global(:root) {
 		/* Fonts */
-		--font-title: "Gugi";
+		--font-title: "Michroma";
 		--font-body: "Inter";
 		--font-mono: "IBM Plex Sans";
 		--font-terminal: "IBM Plex Mono";

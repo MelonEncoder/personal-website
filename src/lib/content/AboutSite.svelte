@@ -48,6 +48,7 @@
 	/* Same type as the app headers, a size up. */
 	.title {
 		margin: 0;
+		font-family: var(--font-title);
 		font-size: var(--fs-h2);
 		font-weight: 700;
 		line-height: 1.25;
