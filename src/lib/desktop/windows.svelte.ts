@@ -82,8 +82,15 @@ export class WindowManager {
 			return existing;
 		}
 
-		const w = Math.min(app.size.w, Math.max(320, this.area.w - CASCADE_ORIGIN.x - 16));
-		const h = Math.min(app.size.h, Math.max(240, this.area.h - CASCADE_ORIGIN.y - 16));
+		const min = this.#minSize(app);
+		const w = Math.max(
+			min.w,
+			Math.min(app.size.w, Math.max(320, this.area.w - CASCADE_ORIGIN.x - 16))
+		);
+		const h = Math.max(
+			min.h,
+			Math.min(app.size.h, Math.max(240, this.area.h - CASCADE_ORIGIN.y - 16))
+		);
 		const step = (this.#opened++ % 8) * CASCADE_STEP;
 		const x = Math.max(0, Math.min(CASCADE_ORIGIN.x + step, this.area.w - w));
 		const y = Math.max(0, Math.min(CASCADE_ORIGIN.y + step, this.area.h - h));
@@ -123,13 +130,23 @@ export class WindowManager {
 		else this.open("preview", { path });
 	}
 
+	/** An app's minimum window size, capped at the desktop's size. */
+	#minSize(app: AppDef) {
+		return {
+			w: Math.min(app.minSize.w, this.area.w),
+			h: Math.min(app.minSize.h, this.area.h)
+		};
+	}
+
 	/** Pulls windows back inside the desktop, e.g. after a resize or server-side sizing. */
 	clampToArea() {
 		const { w: areaW, h: areaH } = this.area;
 		if (areaW <= 0 || areaH <= 0) return;
 		for (const win of this.windows) {
-			const w = Math.min(win.w, areaW);
-			const h = Math.min(win.h, areaH);
+			// Maximized windows already fill the desktop, so only grow normal ones to their minimum.
+			const min = win.restore ? { w: 0, h: 0 } : this.#minSize(this.#apps[win.appId]);
+			const w = Math.max(min.w, Math.min(win.w, areaW));
+			const h = Math.max(min.h, Math.min(win.h, areaH));
 			const x = Math.max(0, Math.min(win.x, areaW - w));
 			const y = Math.max(0, Math.min(win.y, areaH - h));
 			if (w !== win.w) win.w = w;

@@ -15,9 +15,9 @@
 	/** How much of a window must stay on screen while dragging. */
 	const KEEP_VISIBLE = 96;
 	const TITLE_H = 34;
-	/** Matches the CSS min-width / min-height. */
-	const MIN_W = 288;
-	const MIN_H = 192;
+	/** The app's minimum size, but never bigger than the desktop. Matches the CSS. */
+	const minW = $derived(Math.min(app.minSize.w, wm.area.w));
+	const minH = $derived(Math.min(app.minSize.h, wm.area.h));
 
 	type Edge = "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw";
 	const EDGES: Edge[] = ["n", "s", "e", "w", "ne", "nw", "se", "sw"];
@@ -87,15 +87,15 @@
 		const dy = event.clientY - startY;
 		const area = wm.area;
 
-		if (edge.includes("e")) win.w = Math.round(clamp(w + dx, MIN_W, area.w - x));
-		if (edge.includes("s")) win.h = Math.round(clamp(h + dy, MIN_H, area.h - y));
+		if (edge.includes("e")) win.w = Math.round(clamp(w + dx, minW, area.w - x));
+		if (edge.includes("s")) win.h = Math.round(clamp(h + dy, minH, area.h - y));
 		if (edge.includes("w")) {
-			const left = Math.round(clamp(x + dx, 0, x + w - MIN_W));
+			const left = Math.round(clamp(x + dx, 0, x + w - minW));
 			win.w = w + (x - left);
 			win.x = left;
 		}
 		if (edge.includes("n")) {
-			const top = Math.round(clamp(y + dy, 0, y + h - MIN_H));
+			const top = Math.round(clamp(y + dy, 0, y + h - minH));
 			win.h = h + (y - top);
 			win.y = top;
 		}
@@ -118,6 +118,8 @@
 	style:--y="{win.y}px"
 	style:--w="{win.w}px"
 	style:--h="{win.h}px"
+	style:--min-w="{app.minSize.w}px"
+	style:--min-h="{app.minSize.h}px"
 	style:z-index={win.z}
 	onpointerdowncapture={() => wm.focus(win.id)}
 >
@@ -187,8 +189,9 @@
 		top: var(--y);
 		width: var(--w);
 		height: var(--h);
-		min-width: 18rem;
-		min-height: 12rem;
+		/* The app's minimum size, capped at the desktop's size. */
+		min-width: min(var(--min-w), 100%);
+		min-height: min(var(--min-h), 100%);
 		max-width: 100%;
 		max-height: 100%;
 		display: flex;
@@ -203,6 +206,12 @@
 
 	.window[hidden] {
 		display: none;
+	}
+
+	/* Maximized windows fill the desktop, so the minimum size doesn't apply. */
+	.window.zoomed {
+		min-width: 0;
+		min-height: 0;
 	}
 
 	.window.active {
@@ -413,6 +422,7 @@
 			width: 100%;
 			height: 100%;
 			min-width: 0;
+			min-height: 0;
 			border-left: 0;
 			border-right: 0;
 			border-radius: 0;

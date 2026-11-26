@@ -30,18 +30,30 @@ export interface AppDef {
 	route?: (props: WinProps) => SiteRoute | undefined;
 	/** Windows with the same key are the same window (opening again focuses it). */
 	key: (props: WinProps) => string;
+	/** Size a window opens at (shrunk to fit a small desktop). */
 	size: { w: number; h: number };
+	/**
+	 * Smallest size the window can be resized to, so its content stays usable. Ignored when
+	 * the window is maximized or fills the screen on phones.
+	 */
+	minSize: { w: number; h: number };
 	/** Rendered with `{ props, winId }`; content pages simply ignore them. */
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	component: Component<any>;
 }
+
+/**
+ * Long text pages (About Me, the reflections): the header plus a readable chunk of text,
+ * at a width where the header's subtitle mostly stays on one line.
+ */
+const TEXT_PAGE_MIN = { w: 400, h: 360 };
 
 function content(
 	title: string,
 	icon: string,
 	route: SiteRoute | undefined,
 	component: AppDef["component"],
-	size = { w: 820, h: 600 }
+	{ size = { w: 820, h: 600 }, minSize }: Pick<AppDef, "minSize"> & Partial<Pick<AppDef, "size">>
 ): AppDef {
 	return {
 		title: () => title,
@@ -49,38 +61,54 @@ function content(
 		route: route ? () => route : undefined,
 		key: () => "",
 		size,
+		minSize,
 		component
 	};
 }
 
 export const APPS: Record<AppId, AppDef> = {
-	about: content("About Me", infoIcon, "/about", About),
-	links: content("Links", linkIcon, undefined, Links, { w: 480, h: 420 }),
-	// Each lists every project as a card (data in projects.ts).
-	programming: content("Programming", codeIcon, "/work/programming", Programming, {
-		w: 860,
-		h: 620
+	about: content("About Me", infoIcon, "/about", About, { minSize: TEXT_PAGE_MIN }),
+	// Tall enough to show every link without scrolling.
+	links: content("Links", linkIcon, undefined, Links, {
+		size: { w: 480, h: 420 },
+		minSize: { w: 360, h: 410 }
 	}),
-	games: content("Video Games", gameIcon, "/work/games", Games, { w: 760, h: 600 }),
+	// Each lists every project as a card (data in projects.ts). The minimum shows the
+	// first card: all of it for Programming, the screenshot and title for Video Games.
+	programming: content("Programming", codeIcon, "/work/programming", Programming, {
+		size: { w: 860, h: 615 },
+		minSize: { w: 400, h: 380 }
+	}),
+	games: content("Video Games", gameIcon, "/work/games", Games, {
+		size: { w: 760, h: 620 },
+		minSize: { w: 400, h: 480 }
+	}),
 	brochure: content(
 		"UN SDG Brochure — Reflection",
 		brochureIcon,
 		"/technical-writing/brochure",
-		Brochure
+		Brochure,
+		{ minSize: TEXT_PAGE_MIN }
 	),
 	instructions: content(
 		"Instructions — Reflection",
 		notesIcon,
 		"/technical-writing/instructions",
-		Instructions
+		Instructions,
+		{ minSize: TEXT_PAGE_MIN }
 	),
 	jobMaterials: content(
 		"Job Materials — Reflection",
 		jobIcon,
 		"/technical-writing/job-materials",
-		JobMaterials
+		JobMaterials,
+		{ minSize: TEXT_PAGE_MIN }
 	),
-	aboutSite: content("About This Site", computerIcon, undefined, AboutSite, { w: 440, h: 420 }),
+	// Tall enough to show everything without scrolling.
+	aboutSite: content("About This Site", computerIcon, undefined, AboutSite, {
+		size: { w: 440, h: 420 },
+		minSize: { w: 360, h: 364 }
+	}),
 	explorer: {
 		title: (p) => `File Explorer — ${getFolder(p.path ?? "")?.name ?? "Home"}`,
 		icon: () => folderIcon,
@@ -88,6 +116,8 @@ export const APPS: Record<AppId, AppDef> = {
 		route: (p) => getFolder(p.path ?? "")?.route,
 		key: () => "",
 		size: { w: 860, h: 540 },
+		// The toolbar, one row of files and the status bar (the folder tree folds away).
+		minSize: { w: 360, h: 300 },
 		component: FileExplorer
 	},
 	preview: {
@@ -98,6 +128,8 @@ export const APPS: Record<AppId, AppDef> = {
 		},
 		key: (p) => p.path ?? "",
 		size: { w: 760, h: 640 },
+		// The toolbar and a usable view of the file, with its info stacked below.
+		minSize: { w: 360, h: 400 },
 		component: Preview
 	}
 };
