@@ -16,7 +16,9 @@
 						target="_blank"
 						rel="external noopener noreferrer"
 					>
-						<span class="tile"><img src={link.icon} alt={link.alt} /></span>
+						<span class="tile" aria-hidden="true">
+							<span class="logo" style:--logo={`url("${link.icon}")`}></span>
+						</span>
 						<span class="text">
 							<span class="name">{link.label}</span>
 							<span class="handle">{link.handle}</span>
@@ -57,21 +59,31 @@
 		outline: none;
 	}
 
+	/* Flat tiles in the app icons' colors: light pink, black outline, hot pink mark. */
 	.tile {
 		display: grid;
 		place-items: center;
 		flex: 0 0 auto;
 		width: 2.75rem;
 		height: 2.75rem;
+		box-sizing: border-box;
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
-		background: var(--white);
-		box-shadow: 0 3px 0 0 var(--black);
+		background: var(--glyph-light);
+		transition: background 0.12s ease;
 	}
 
-	.tile img {
+	.row:hover .tile,
+	.row:focus-visible .tile {
+		background: var(--glyph-mid);
+	}
+
+	/* The logo files are single-color, so they're used as masks and painted in the accent. */
+	.logo {
 		width: 1.6rem;
 		height: 1.6rem;
+		background: var(--accent);
+		mask: var(--logo) center / contain no-repeat;
 	}
 
 	.text {
