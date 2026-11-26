@@ -69,12 +69,13 @@
 		outline-offset: 1px;
 	}
 
+	/* Fills the bar, leaving room for the 2px top border, the shadow and a little air. */
 	.task {
 		display: flex;
 		align-items: center;
-		gap: 0.4rem;
-		height: calc(var(--taskbar-h) - 12px);
-		padding: 0 0.6rem;
+		gap: 0.55rem;
+		height: calc(var(--taskbar-h) - 14px);
+		padding: 0 0.85rem;
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
 		background: var(--white);
@@ -84,8 +85,8 @@
 	}
 
 	img {
-		width: 1rem;
-		height: 1rem;
+		width: 1.35rem;
+		height: 1.35rem;
 		flex: 0 0 auto;
 	}
 
@@ -93,7 +94,7 @@
 		flex: 1;
 		min-width: 0;
 		display: flex;
-		gap: 0.35rem;
+		gap: 0.4rem;
 		margin: 0;
 		padding: 0 0 2px;
 		list-style: none;
@@ -102,7 +103,7 @@
 	}
 
 	.task {
-		max-width: 13rem;
+		max-width: 15rem;
 	}
 
 	.task:hover {
@@ -135,10 +136,22 @@
 		white-space: nowrap;
 	}
 
+	/* Phones: each window is a square icon button. */
 	@media (max-width: 700px) {
 		.taskLabel,
 		.copyright {
 			display: none;
+		}
+
+		.task {
+			justify-content: center;
+			width: calc(var(--taskbar-h) - 14px);
+			padding: 0;
+		}
+
+		img {
+			width: 1.6rem;
+			height: 1.6rem;
 		}
 
 		.tray {

@@ -53,9 +53,9 @@
 		--glyph-mid: color-mix(in srgb, var(--accent), white 62%);
 
 		/* Constraints */
-		/* Top bar and taskbar share one height. */
 		--topbar-h: 2.5rem;
-		--taskbar-h: var(--topbar-h);
+		/* Taller than the top bar, so its buttons are easy to hit. */
+		--taskbar-h: 3.25rem;
 	}
 
 	:global(body) {
