@@ -140,8 +140,8 @@
 	}
 
 	.monogramButton img {
-		width: 1.75rem;
-		height: 1.75rem;
+		width: 2.25rem;
+		height: 2.25rem;
 	}
 
 	.monogramButton:hover,
