@@ -54,26 +54,32 @@
 	];
 </script>
 
-<AppPage icon={monogram} title="Ian Gillette" subtitle="Game Design student at UCF">
+<AppPage icon={monogram} title="Ian Gillette" subtitle="Economics B.S. student at UCF">
 	<section class="section">
 		<h2 class="label">About</h2>
 		<div class="prose">
 			<p>
-				Hello! My name is Ian Gillette. I'm currently studying Game Design at UCF. I want to
-				learn how to make interactive art that can make peoples every day lives more fun and
-				accessable. One of my biggest goals in life is to bring world class public transit
-				back to the united states, for everyone to experience.
+				Hello! My name is Ian Gillette, and I'm currently studying economics at UCF.
+				I've found that learning new things is genuinely fun, and that so much of it comes
+				down to your mindset. That curiosity has taken me in a lot of directions. I've done
+				lots of programming, art, and design, made some simple video games, worked on crafts
+				and robotics, and gotten into photography, makeup, and cosplay. I also love to travel and go hiking.
+			</p>
+		</div>
+	</section>
+
+	<section class="section">
+		<h2 class="label">Why Economics</h2>
+		<div class="prose">
+			<p>
+				I'm drawn to economics because incentive structures interest me. I want to learn how
+				economies work and how they influence the way people behave and make decisions.
 			</p>
 			<p>
-				Some things I enjoy are photography, drawing, programming, and learning new
-				languages. My interests are always changing and expanding so I tend to stay busy
-				with my hobbies.
-			</p>
-			<p>
-				The ability to learn, in my opinion, is the most important ability humans have. Ever
-				since I was little I loved learning just about anything, specifically space and
-				marine biology, and I have carried that curiosity with me through my life. With this
-				mideset I have been able to discover just how beautifully complex our world is.
+				In particular, I'm interested in how policy and tax structure can create incentives
+				that support the development of public infrastructure, like public transit, roads,
+				local and national parks, and electrical grids, along with the public services
+				communities rely on, like police, firefighters, food banks, and medical care.
 			</p>
 		</div>
 	</section>
