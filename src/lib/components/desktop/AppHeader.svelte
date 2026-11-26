@@ -1,15 +1,16 @@
 <script lang="ts">
+	import type { AppId } from "#lib/desktop/types.ts";
+	import AppGlyph from "./AppGlyph.svelte";
+
 	/**
-	 * The header strip at the top of simple apps (About Me, Links): a square app tile, a name
+	 * The header strip at the top of simple apps (About Me, Links): the app's icon, a name
 	 * and a one-line subtitle, styled like the Explorer and Preview toolbars.
 	 */
-	let { icon, title, subtitle }: { icon: string; title: string; subtitle?: string } = $props();
+	let { app, title, subtitle }: { app: AppId; title: string; subtitle?: string } = $props();
 </script>
 
 <header class="appHeader">
-	<span class="tile">
-		<img src={icon} alt="" aria-hidden="true" />
-	</span>
+	<AppGlyph {app} size="3rem" />
 	<div class="text">
 		<h1 class="title">{title}</h1>
 		{#if subtitle}<p class="subtitle">{subtitle}</p>{/if}
@@ -27,20 +28,6 @@
 		background: var(--backlight-2);
 		font-family: var(--font-mono), sans-serif;
 		color: var(--black);
-	}
-
-	/* Flat: no border or shadow, so it doesn't read as a button. */
-	.tile {
-		display: grid;
-		place-items: center;
-		flex: 0 0 auto;
-		width: 2.75rem;
-		height: 2.75rem;
-	}
-
-	.tile img {
-		width: 100%;
-		height: 100%;
 	}
 
 	.text {

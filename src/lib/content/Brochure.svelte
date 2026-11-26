@@ -1,11 +1,10 @@
 <script lang="ts">
 	import AppPage from "#lib/components/desktop/AppPage.svelte";
 	import FileShortcut from "#lib/components/desktop/FileShortcut.svelte";
-	import brochureIcon from "#lib/assets/icons/newsmode.svg";
 </script>
 
 <AppPage
-	icon={brochureIcon}
+	app="brochure"
 	title="UN SDG Brochure"
 	subtitle="Brochure designed around a UN Sustainable Development Goal."
 >

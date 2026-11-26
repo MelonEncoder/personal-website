@@ -1,11 +1,10 @@
 <script lang="ts">
 	import AppPage from "#lib/components/desktop/AppPage.svelte";
 	import FileShortcut from "#lib/components/desktop/FileShortcut.svelte";
-	import jobIcon from "#lib/assets/icons/briefcase.svg";
 </script>
 
 <AppPage
-	icon={jobIcon}
+	app="jobMaterials"
 	title="Job Materials"
 	subtitle="Resume and cover letter for a job application."
 >

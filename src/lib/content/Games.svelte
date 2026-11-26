@@ -4,4 +4,4 @@
 	import { GAME_PROJECTS } from "#lib/desktop/projects.ts";
 </script>
 
-<ProjectList projects={GAME_PROJECTS} title="Video Games" icon={gameIcon} />
+<ProjectList projects={GAME_PROJECTS} title="Video Games" app="games" icon={gameIcon} />

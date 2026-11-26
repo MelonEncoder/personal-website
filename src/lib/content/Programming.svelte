@@ -4,4 +4,9 @@
 	import { PROGRAMMING_PROJECTS } from "#lib/desktop/projects.ts";
 </script>
 
-<ProjectList projects={PROGRAMMING_PROJECTS} title="Programming" icon={codeIcon} />
+<ProjectList
+	projects={PROGRAMMING_PROJECTS}
+	title="Programming"
+	app="programming"
+	icon={codeIcon}
+/>

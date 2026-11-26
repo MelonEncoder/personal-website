@@ -1,14 +1,9 @@
 <script lang="ts">
 	import AppPage from "#lib/components/desktop/AppPage.svelte";
 	import FileShortcut from "#lib/components/desktop/FileShortcut.svelte";
-	import instructionsIcon from "#lib/assets/icons/assignment.svg";
 </script>
 
-<AppPage
-	icon={instructionsIcon}
-	title="Instructions"
-	subtitle="Step-by-step instructional document."
->
+<AppPage app="instructions" title="Instructions" subtitle="Step-by-step instructional document.">
 	<section class="section">
 		<h2 class="label">About this Project</h2>
 		<div class="prose">

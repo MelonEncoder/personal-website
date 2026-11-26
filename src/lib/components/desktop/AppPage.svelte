@@ -1,46 +1,49 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
+	import type { AppId } from "#lib/desktop/types.ts";
 	import AppHeader from "./AppHeader.svelte";
 
 	/**
 	 * The shared frame for simple content apps (About Me, Links, the Technical Writing
-	 * projects): a header strip and a white scrolling body. Inside the body, use
+	 * projects): a header strip over a white body, scrolling together so the header moves
+	 * out of the way of long pages. Inside the body, use
 	 * `<section class="section">`, `<h2 class="label">` and `<div class="prose">` for the
 	 * standard section, label and paragraph styles.
 	 */
 	let {
-		icon,
+		app,
 		title,
 		subtitle,
 		children
-	}: { icon: string; title: string; subtitle?: string; children: Snippet } = $props();
+	}: { app: AppId; title: string; subtitle?: string; children: Snippet } = $props();
 </script>
 
 <div class="app">
-	<AppHeader {icon} {title} {subtitle} />
+	<AppHeader {app} {title} {subtitle} />
 	<div class="body">
 		{@render children()}
 	</div>
 </div>
 
 <style>
+	/* The whole page scrolls, header included. */
 	.app {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
 		min-height: 0;
+		overflow: auto;
+		background: var(--white);
 		color: var(--black);
 		font-family: var(--font-mono), sans-serif;
 		font-size: var(--fs-body-sm);
+		scrollbar-color: var(--accent) transparent;
 	}
 
+	/* Grows to fill a short page, and to fit its content on a long one. */
 	.body {
-		flex: 1;
-		min-height: 0;
-		overflow: auto;
+		flex: 1 0 auto;
 		padding: 0.5rem 1.25rem 1.5rem;
-		background: var(--white);
-		scrollbar-color: var(--accent) transparent;
 	}
 
 	.body :global(.section) {

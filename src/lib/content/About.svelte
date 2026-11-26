@@ -1,6 +1,5 @@
 <script lang="ts">
 	import AppPage from "#lib/components/desktop/AppPage.svelte";
-	import monogram from "#lib/assets/brand/monogram.svg";
 
 	interface LanguageItem {
 		name: string;
@@ -54,16 +53,17 @@
 	];
 </script>
 
-<AppPage icon={monogram} title="Ian Gillette" subtitle="Economics B.S. student at UCF">
+<AppPage app="about" title="Ian Gillette" subtitle="Economics B.S. student at UCF">
 	<section class="section">
 		<h2 class="label">About</h2>
 		<div class="prose">
 			<p>
-				Hello! My name is Ian Gillette, and I'm currently studying economics at UCF.
-				I've found that learning new things is genuinely fun, and that so much of it comes
-				down to your mindset. That curiosity has taken me in a lot of directions. I've done
-				lots of programming, art, and design, made some simple video games, worked on crafts
-				and robotics, and gotten into photography, makeup, and cosplay. I also love to travel and go hiking.
+				Hello! My name is Ian Gillette, and I'm currently studying economics at UCF. I've
+				found that learning new things is genuinely fun, and that so much of it comes down
+				to your mindset. That curiosity has taken me in a lot of directions. I've done lots
+				of programming, art, and design, made some simple video games, worked on crafts and
+				robotics, and gotten into photography, makeup, and cosplay. I also love to travel
+				and go hiking.
 			</p>
 		</div>
 	</section>

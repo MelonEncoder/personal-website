@@ -1,14 +1,20 @@
 <script lang="ts">
 	import AppPage from "./AppPage.svelte";
 	import { screenshotPath, type Project } from "#lib/desktop/projects.ts";
+	import type { AppId } from "#lib/desktop/types.ts";
 	import { getWindowManager } from "#lib/desktop/windows.svelte.ts";
 	import arrowOut from "#lib/assets/icons/arrow-outward.svg";
 
 	/**
 	 * A list of projects as cards (the Programming and Video Games apps). Clicking a game's
-	 * screenshot opens it in Preview.
+	 * screenshot opens it in Preview. `app` picks the header icon; `icon` marks each card.
 	 */
-	let { projects, title, icon }: { projects: Project[]; title: string; icon: string } = $props();
+	let {
+		projects,
+		title,
+		app,
+		icon
+	}: { projects: Project[]; title: string; app: AppId; icon: string } = $props();
 
 	const wm = getWindowManager();
 
@@ -19,7 +25,7 @@
 	}
 </script>
 
-<AppPage {icon} {title} subtitle="{projects.length} project{projects.length === 1 ? '' : 's'}">
+<AppPage {app} {title} subtitle="{projects.length} project{projects.length === 1 ? '' : 's'}">
 	<section class="section wide">
 		<h2 class="label">Projects</h2>
 		<ul class="cards">
