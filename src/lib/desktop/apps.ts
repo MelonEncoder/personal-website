@@ -80,7 +80,7 @@ export const APPS: Record<AppId, AppDef> = {
 		minSize: { w: 400, h: 380 }
 	}),
 	games: content("Video Games", gameIcon, "/work/games", Games, {
-		size: { w: 760, h: 620 },
+		size: { w: 760, h: 630 },
 		minSize: { w: 400, h: 480 }
 	}),
 	brochure: content(
