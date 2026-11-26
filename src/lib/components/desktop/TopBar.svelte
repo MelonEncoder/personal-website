@@ -178,7 +178,9 @@
 		list-style: none;
 		background: var(--white);
 		border: 2px solid var(--black);
-		box-shadow: 4px 4px 0 0 var(--black);
+		border-radius: var(--radius-sm);
+		/* Same as an active window's shadow (Window.svelte). */
+		box-shadow: 0 0 36px 2px color-mix(in srgb, var(--black), transparent 65%);
 	}
 
 	.menuItem {
