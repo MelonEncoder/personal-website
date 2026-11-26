@@ -2,13 +2,13 @@ import type { FileNode, FolderNode, FsNode, MediaFileNode } from "./types";
 import { GAME_PROJECTS, screenshotPath } from "./projects";
 
 import folderIcon from "#lib/assets/icons/folder.svg";
-import infoIcon from "#lib/assets/icons/info.svg";
 import linkIcon from "#lib/assets/icons/link.svg";
 import codeIcon from "#lib/assets/icons/code-xml.svg";
 import gameIcon from "#lib/assets/icons/joystick.svg";
 import imageIcon from "#lib/assets/icons/image.svg";
 import pdfIcon from "#lib/assets/icons/file-pdf.svg";
-import notesIcon from "#lib/assets/icons/assignment.svg";
+import notesIcon from "#lib/assets/icons/document.svg";
+import personIcon from "#lib/assets/icons/person.svg";
 
 import magazineCover from "#lib/assets/media/graphic-design/magazine-cover.webp";
 import theQueensGambitPoster from "#lib/assets/media/graphic-design/the-queens-gambit-poster.webp";
@@ -40,7 +40,7 @@ export const root: FolderNode = {
 	name: "Home",
 	route: "/",
 	children: [
-		{ kind: "app", id: "about", name: "About Me", icon: infoIcon, app: "about" },
+		{ kind: "app", id: "about", name: "About Me", icon: personIcon, app: "about" },
 		{ kind: "app", id: "links", name: "Links", icon: linkIcon, app: "links" },
 		{
 			kind: "folder",
