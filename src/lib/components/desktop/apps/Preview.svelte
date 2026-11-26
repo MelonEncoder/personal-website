@@ -114,9 +114,9 @@
 					onclick={() => (showInfo = !showInfo)}
 				>
 					<svg class="toolGlyph" viewBox="0 0 24 24" aria-hidden="true">
-						<circle cx="12" cy="12" r="9" />
-						<path d="M12 11v5.5" />
-						<circle class="dot" cx="12" cy="7.4" r="1.9" />
+						<!-- A serif lowercase i: dot, stem with a flag at the top, flat foot. -->
+						<circle class="dot" cx="12" cy="5.6" r="2.1" />
+						<path d="M8.8 10.2H12v8.6M8.4 18.8h7.2" />
 					</svg>
 				</button>
 				{#if file.src && !showLogin}
