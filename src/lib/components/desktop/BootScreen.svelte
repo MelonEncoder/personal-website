@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import monogram from "#lib/assets/brand/monogram.svg";
+	import monogram from "#lib/assets/brand/monogram-white.svg";
 
 	/** Called once the exit animation has finished. */
 	let { onenter }: { onenter: () => void } = $props();
@@ -195,7 +195,6 @@
 	.monogram {
 		width: clamp(3rem, 8vw, 4rem);
 		height: auto;
-		filter: invert(1);
 	}
 
 	.name {

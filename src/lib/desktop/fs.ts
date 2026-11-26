@@ -19,6 +19,7 @@ import flatSpace from "#lib/assets/media/graphic-design/flat-space.webp";
 import teaParty from "#lib/assets/media/graphic-design/tea-party.webp";
 import robot from "#lib/assets/media/graphic-design/robot.webp";
 import jibiRamen from "#lib/assets/media/graphic-design/jibi-ramen.webp";
+import oldMonogram from "#lib/assets/media/graphic-design/old-monogram.svg";
 import brochurePdf from "#lib/assets/media/technical-writing/udl-brochure.pdf?url";
 import brochureWriteupPdf from "#lib/assets/media/technical-writing/udl-brochure-writeup.pdf?url";
 import instructionsPdf from "#lib/assets/media/technical-writing/instructions.pdf?url";
@@ -28,9 +29,10 @@ function image(
 	src: string,
 	title: string,
 	description: string,
-	date: string
+	date: string,
+	ext = "webp"
 ): MediaFileNode {
-	return { kind: "image", id, name: `${id}.webp`, src, title, description, date };
+	return { kind: "image", id, name: `${id}.${ext}`, src, title, description, date };
 }
 
 export const root: FolderNode = {
@@ -117,6 +119,14 @@ export const root: FolderNode = {
 							"Jibi Ramen Branding",
 							"Created the branding for a fake business named Jibi Ramen.",
 							"2023"
+						),
+						image(
+							"old-monogram",
+							oldMonogram,
+							"Original Monogram",
+							"My previous personal monogram, built from angular, straight strokes before I moved to a rounder design.",
+							"2025",
+							"svg"
 						)
 					]
 				}
