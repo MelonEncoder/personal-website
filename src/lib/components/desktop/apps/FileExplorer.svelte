@@ -135,7 +135,47 @@
      status bar stack beside it. -->
 <div class="explorer">
 	<aside id="{winId}-sidebar" class="sidebar" class:open={sidebarOpen}>
-		<p class="sidebarTitle">Folders</p>
+		<div class="sidebarHeader">
+			<p class="sidebarTitle">Folders</p>
+			<!-- Narrow windows only: closes the slide-over folder tree. -->
+			<button
+				type="button"
+				class="toolButton sidebarClose"
+				aria-label="Close folders"
+				title="Close folders"
+				onclick={() => (sidebarOpen = false)}
+			>
+				<!-- The menu's three bars, with a left chevron cut into their right ends. -->
+				<svg class="menuGlyph" viewBox="0 0 24 24" aria-hidden="true">
+					<mask id="{winId}-close-mask">
+						<rect width="24" height="24" fill="white" />
+						<!-- Clears the bars inside the chevron's opening, too. -->
+						<path d="M15.5 12 24 3.5V20.5Z" fill="black" />
+						<path
+							d="M21 6.5 15.5 12l5.5 5.5"
+							fill="none"
+							stroke="black"
+							stroke-width="7"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</mask>
+					<g mask="url(#{winId}-close-mask)">
+						<rect x="2" y="4" width="20" height="3.2" rx="1.6" />
+						<rect x="2" y="10.4" width="20" height="3.2" rx="1.6" />
+						<rect x="2" y="16.8" width="20" height="3.2" rx="1.6" />
+					</g>
+					<path
+						d="M21 6.5 15.5 12l5.5 5.5"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="3.2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					/>
+				</svg>
+			</button>
+		</div>
 		<ul class="tree" role="tree" aria-label="All files">
 			{@render tree(root, "")}
 		</ul>
@@ -304,7 +344,8 @@
 		fill: currentColor;
 	}
 
-	.sidebarToggle {
+	.sidebarToggle,
+	.sidebarClose {
 		display: none;
 	}
 
@@ -356,6 +397,13 @@
 		overflow: auto;
 		border-right: 2px solid var(--black);
 		background: color-mix(in srgb, var(--backlight-2), white 45%);
+	}
+
+	.sidebarHeader {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
 	}
 
 	.sidebarTitle {
@@ -597,8 +645,18 @@
 
 	/* Narrow windows: the folder tree slides over the pane behind a toggle. */
 	@container (max-width: 620px) {
-		.sidebarToggle {
+		.sidebarToggle,
+		.sidebarClose {
 			display: grid;
+		}
+
+		/* Lines the close button up with the menu button in the toolbar beside it. */
+		.sidebarHeader {
+			padding: 0.4rem 0.5rem 0.25rem 0;
+		}
+
+		.sidebarHeader .sidebarTitle {
+			padding: 0 0.9rem;
 		}
 
 		.explorer {
