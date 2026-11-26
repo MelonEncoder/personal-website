@@ -80,8 +80,8 @@
 
 	/* The logo files are single-color, so they're used as masks and painted in the accent. */
 	.logo {
-		width: 1.6rem;
-		height: 1.6rem;
+		width: 2rem;
+		height: 2rem;
 		background: var(--accent);
 		mask: var(--logo) center / contain no-repeat;
 	}
