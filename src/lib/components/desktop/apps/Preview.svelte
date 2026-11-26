@@ -7,6 +7,7 @@
 	import infoIcon from "#lib/assets/icons/info.svg";
 	import arrowOut from "#lib/assets/icons/arrow-outward.svg";
 	import PdfGlyph from "../PdfGlyph.svelte";
+	import ImageGlyph from "../ImageGlyph.svelte";
 
 	let { props }: { props: WinProps } = $props();
 
@@ -127,9 +128,13 @@
 		<div class="stage" class:withInfo={showInfo}>
 			<div class="canvas" class:pdf={file.kind === "pdf"} bind:this={canvasEl}>
 				{#if imageSrc}
+					{#if !naturalWidth}
+						<div class="loading"><ImageGlyph size="5rem" /></div>
+					{/if}
 					<div class="imageWrap" class:fit={zoom === null}>
 						<img
 							class="image"
+							class:pending={!naturalWidth}
 							src={imageSrc}
 							alt={file.title}
 							bind:this={imageEl}
@@ -337,6 +342,19 @@
 		max-width: none;
 		border: 2px solid var(--black);
 		box-shadow: 4px 4px 0 0 color-mix(in srgb, var(--black), transparent 70%);
+	}
+
+	/* Until the image loads, ImageGlyph sits in the middle of the canvas instead. */
+	.image.pending {
+		visibility: hidden;
+	}
+
+	.loading {
+		position: absolute;
+		inset: 0;
+		display: grid;
+		place-items: center;
+		pointer-events: none;
 	}
 
 	.imageWrap.fit .image {

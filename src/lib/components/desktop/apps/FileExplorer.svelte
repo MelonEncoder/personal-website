@@ -13,6 +13,8 @@
 	import { SvelteSet } from "svelte/reactivity";
 	import FolderGlyph from "../FolderGlyph.svelte";
 	import PdfGlyph from "../PdfGlyph.svelte";
+	import AppGlyph from "../AppGlyph.svelte";
+	import ImageGlyph from "../ImageGlyph.svelte";
 
 	let { props, winId }: { props: WinProps; winId: string } = $props();
 
@@ -23,6 +25,21 @@
 
 	let sidebarOpen = $state(false);
 	const expanded = new SvelteSet<string>(["", "work", "technical-writing"]);
+
+	/** Image thumbnails that have finished loading; the rest show ImageGlyph instead. */
+	const loadedThumbs = new SvelteSet<string>();
+
+	/**
+	 * Marks a thumbnail loaded. It may already be loaded (from cache or before hydration),
+	 * so its load event can be missed; check `complete` as well.
+	 */
+	function trackLoad(src: string) {
+		return (img: HTMLImageElement) => {
+			const done = () => loadedThumbs.add(src);
+			if (img.complete && img.naturalWidth) done();
+			else img.addEventListener("load", done, { once: true });
+		};
+	}
 
 	// Keep the folder you're in (and its parents) expanded in the sidebar.
 	$effect(() => {
@@ -173,15 +190,23 @@
 						{#if child.kind === "folder"}
 							<FolderGlyph size="4.4rem" />
 						{:else if child.kind === "image"}
-							<span class="thumb">
-								<img src={child.src} alt="" loading="lazy" decoding="async" />
+							{@const loaded = child.src !== undefined && loadedThumbs.has(child.src)}
+							<span class="thumb" class:loaded>
+								<span class="placeholder"><ImageGlyph size="4.4rem" /></span>
+								{#if child.src}
+									<img
+										src={child.src}
+										alt=""
+										loading="lazy"
+										decoding="async"
+										{@attach trackLoad(child.src)}
+									/>
+								{/if}
 							</span>
 						{:else if child.kind === "pdf"}
 							<PdfGlyph size="4.4rem" locked={child.locked} />
-						{:else}
-							<span class="glyph">
-								<img src={iconFor(child)} alt="" aria-hidden="true" />
-							</span>
+						{:else if child.kind === "app"}
+							<AppGlyph app={child.app} size="4.4rem" />
 						{/if}
 						<span class="itemName">{child.name}</span>
 					</button>
@@ -417,49 +442,45 @@
 
 	.item:hover,
 	.item:focus-visible {
+		--glyph-light: var(--accent-2);
+		--glyph-mid: color-mix(in srgb, var(--accent), white 45%);
 		border-color: var(--accent);
 		background: color-mix(in srgb, var(--accent), white 82%);
 		outline: none;
 	}
 
-	.glyph,
+	/* ImageGlyph and the thumbnail share one cell; the thumbnail replaces it once loaded. */
 	.thumb {
-		position: relative;
 		display: grid;
 		place-items: center;
+		width: 4.4rem;
+		height: 4.4rem;
+	}
+
+	.thumb > * {
+		grid-area: 1 / 1;
+	}
+
+	.thumb img {
+		box-sizing: border-box;
 		width: 4rem;
 		height: 4rem;
 		border: 2px solid var(--black);
 		border-radius: var(--radius-sm);
-		background: var(--white);
-		box-shadow: 0 3px 0 0 var(--black);
-		overflow: hidden;
-	}
-
-	.item.pdf:hover,
-	.item.pdf:focus-visible {
-		--page-fill: color-mix(in srgb, var(--accent), white 80%);
-	}
-
-	.item.folder:hover,
-	.item.folder:focus-visible {
-		--folder-back: color-mix(in srgb, var(--accent), white 35%);
-		--folder-front: color-mix(in srgb, var(--accent), white 60%);
-	}
-
-	.glyph img {
-		width: 2rem;
-		height: 2rem;
-	}
-
-	.thumb {
 		background: var(--off-white);
+		object-fit: cover;
+		opacity: 0;
+		transition: opacity 0.2s ease;
 	}
 
-	.thumb img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
+	.thumb.loaded img {
+		opacity: 1;
+	}
+
+	/* Hidden only after the thumbnail has faded in over it. */
+	.thumb.loaded .placeholder {
+		visibility: hidden;
+		transition: visibility 0s 0.2s;
 	}
 
 	.itemName {

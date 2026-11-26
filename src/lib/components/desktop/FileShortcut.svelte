@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { getNode, fileIcon } from "#lib/desktop/fs.ts";
+	import { getNode } from "#lib/desktop/fs.ts";
 	import { getWindowManager } from "#lib/desktop/windows.svelte.ts";
 	import FolderGlyph from "./FolderGlyph.svelte";
 	import PdfGlyph from "./PdfGlyph.svelte";
+	import AppGlyph from "./AppGlyph.svelte";
+	import ImageGlyph from "./ImageGlyph.svelte";
 
 	/**
 	 * A file inside a content window, shown as a row like an Explorer item. Clicking it
@@ -33,8 +35,10 @@
 			<PdfGlyph size="2.6rem" locked={node.locked} />
 		{:else if node.kind === "folder"}
 			<FolderGlyph size="2.6rem" />
+		{:else if node.kind === "app"}
+			<AppGlyph app={node.app} size="2.6rem" />
 		{:else}
-			<span class="tile"><img src={fileIcon(node)} alt="" aria-hidden="true" /></span>
+			<ImageGlyph size="2.6rem" />
 		{/if}
 		<span class="text">
 			<span class="name">{node.name}</span>
@@ -64,27 +68,11 @@
 	/* Highlights like items in the Explorer. */
 	.fileRow:hover,
 	.fileRow:focus-visible {
-		--page-fill: color-mix(in srgb, var(--accent), white 80%);
+		--glyph-light: var(--accent-2);
+		--glyph-mid: color-mix(in srgb, var(--accent), white 45%);
 		border-color: var(--accent);
 		background: color-mix(in srgb, var(--accent), white 82%);
 		outline: none;
-	}
-
-	.tile {
-		display: grid;
-		place-items: center;
-		flex: 0 0 auto;
-		width: 2.6rem;
-		height: 2.6rem;
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-		background: var(--white);
-		box-shadow: 0 3px 0 0 var(--black);
-	}
-
-	.tile img {
-		width: 1.4rem;
-		height: 1.4rem;
 	}
 
 	.text {

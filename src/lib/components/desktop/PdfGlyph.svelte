@@ -1,102 +1,118 @@
 <script lang="ts">
 	/**
-	 * A page-shaped PDF icon in a square box, like FolderGlyph for folders. The page color
-	 * comes from `--page-fill`, which parents set on hover. `locked` adds a padlock badge for
-	 * password-protected files.
+	 * A PDF icon, in the same style and scale as AppGlyph. The two pinks come from
+	 * `--glyph-light` / `--glyph-mid`, which parents set on hover. `locked` adds a padlock
+	 * badge for password-protected files.
 	 */
 	let { size = "3rem", locked = false }: { size?: string; locked?: boolean } = $props();
 </script>
 
-<svg class="pdfGlyph" viewBox="0 0 64 64" style:width={size} style:height={size} aria-hidden="true">
-	<!-- Hard drop shadow, matching the other icons. -->
-	<path class="shadow" d="M14 5h25l13 13v40H14z" transform="translate(0 3)" />
-	<!-- Page with a dog-eared corner. -->
-	<path class="page" d="M14 5h25l13 13v40H14z" />
-	<path class="fold" d="M39 5v13h13" />
-	<!-- Text lines. -->
-	<path class="lines" d="M20 14h13M20 20h26M20 49h26M20 54h18" />
+<!-- The 189×206 drawing, centered in a 250-unit square like the other glyphs. -->
+<svg
+	class="pdfGlyph"
+	viewBox="-30.5 -22 250 250"
+	style:width={size}
+	style:height={size}
+	aria-hidden="true"
+>
+	<!-- Page with a folded corner and lines of text. -->
+	<g transform="translate(-276.115 -33.615)">
+		<g transform="matrix(1,0,0,0.944882,0,2.562992)" style:--r="1.027">
+			<path class="light" d="M452,97.5L452,187.449L405,237L351,237L351,46.5L401,46.5L452,97.5Z" />
+			<path
+				class="mid"
+				d="M452,97.5L452,214.995C452,227.148 442.691,237 431.208,237L334.792,237C323.309,237 314,227.148 314,214.995C314,178.334 314,105.166 314,68.505C314,56.352 323.309,46.5 334.792,46.5C360.528,46.5 401,46.5 401,46.5L401,97.5L452,97.5Z"
+			/>
+		</g>
+		<path
+			class="line"
+			d="M337.5,120L428.5,120M337.5,145.917L428.5,145.917M337.5,171.833L428.5,171.833M337.5,197.75L428.5,197.75"
+		/>
+	</g>
 	<!-- Label band that sticks out past the page edge. -->
-	<rect class="band" x="7" y="27" width="40" height="16" rx="2" />
-	<text class="label" x="27" y="39.5" text-anchor="middle">PDF</text>
+	<g transform="translate(-276.115 -280.49)">
+		<path
+			class="hot"
+			transform="matrix(0.933333,0,0,1.244444,27.666667,-98.872222)"
+			style:--r="0.909"
+			d="M383.929,383C392.799,383 400,388.401 400,395.054L400,415.946C400,422.599 392.799,428 383.929,428L296.071,428C287.201,428 280,422.599 280,415.946L280,395.054C280,388.401 287.201,383 296.071,383L383.929,383Z"
+		/>
+		<g class="label" transform="translate(9.224267 0.741138)">
+			<path
+				d="M301.641,418L301.641,392.018L310.059,392.018C313.249,392.018 315.329,392.148 316.298,392.408C317.787,392.798 319.033,393.645 320.037,394.951C321.042,396.257 321.544,397.943 321.544,400.011C321.544,401.606 321.254,402.947 320.676,404.034C320.097,405.121 319.361,405.975 318.469,406.595C317.577,407.215 316.67,407.626 315.748,407.827C314.496,408.075 312.682,408.199 310.307,408.199L306.887,408.199L306.887,418L301.641,418ZM306.887,396.413L306.887,403.786L309.758,403.786C311.826,403.786 313.208,403.65 313.905,403.378C314.602,403.107 315.149,402.681 315.545,402.102C315.94,401.523 316.138,400.85 316.138,400.082C316.138,399.137 315.861,398.357 315.305,397.742C314.75,397.128 314.047,396.744 313.196,396.59C312.57,396.472 311.312,396.413 309.421,396.413L306.887,396.413Z"
+			/>
+			<path
+				d="M325.833,392.018L335.421,392.018C337.584,392.018 339.232,392.183 340.366,392.514C341.89,392.963 343.196,393.761 344.283,394.907C345.37,396.053 346.197,397.456 346.764,399.116C347.331,400.776 347.615,402.823 347.615,405.257C347.615,407.396 347.349,409.239 346.817,410.787C346.167,412.677 345.24,414.207 344.035,415.377C343.125,416.263 341.896,416.954 340.348,417.451C339.19,417.817 337.643,418 335.705,418L325.833,418L325.833,392.018ZM331.079,396.413L331.079,413.622L334.996,413.622C336.461,413.622 337.519,413.54 338.168,413.374C339.019,413.162 339.725,412.801 340.286,412.293C340.848,411.785 341.305,410.949 341.66,409.785C342.014,408.621 342.192,407.035 342.192,405.027C342.192,403.018 342.014,401.476 341.66,400.401C341.305,399.326 340.809,398.487 340.171,397.884C339.533,397.282 338.724,396.874 337.743,396.661C337.01,396.496 335.575,396.413 333.436,396.413L331.079,396.413Z"
+			/>
+			<path
+				d="M352.099,418L352.099,392.018L369.911,392.018L369.911,396.413L357.345,396.413L357.345,402.563L368.192,402.563L368.192,406.958L357.345,406.958L357.345,418L352.099,418Z"
+			/>
+		</g>
+	</g>
 	{#if locked}
-		<!-- Padlock badge on the bottom-right corner, with the same hard shadow. -->
-		<g class="lock">
-			<rect class="shadow" x="39" y="47" width="22" height="16" rx="2" />
-			<path class="shackle" d="M44 44v-4a6 6 0 0 1 12 0v4" />
-			<rect class="lockBody" x="39" y="44" width="22" height="16" rx="2" />
-			<path class="keyhole" d="M50 49.5v4.5" />
+		<!-- Padlock badge on the bottom-right corner, at 90% scale. -->
+		<g transform="translate(130 136) scale(0.9)">
+			<g transform="translate(-383.115 -550.53)">
+				<path
+					class="line"
+					transform="matrix(0.722222,0,0,0.816785,102.777778,99.691904)"
+					style:--r="1.92"
+					d="M424.002,600.29C424.001,600.194 424,600.097 424,600C424,585.098 436.098,573 451,573C465.902,573 478,585.098 478,600C478,600.097 477.999,600.194 477.998,600.29C477.028,600.1 476.026,600 475,600L427,600C425.974,600 424.972,600.1 424.002,600.29Z"
+				/>
+				<path
+					class="light"
+					transform="matrix(0.822785,0,0,0.72807,62.772152,159.350877)"
+					style:--r="1.43"
+					d="M458.781,586C472.7,586 484,598.77 484,614.5C484,630.23 472.7,643 458.781,643L430.219,643C416.3,643 405,630.23 405,614.5C405,598.77 416.3,586 430.219,586L458.781,586Z"
+				/>
+				<path
+					class="line"
+					transform="matrix(1,0,0,0.607143,-16,232.142857)"
+					style:--r="1.34"
+					d="M444.5,603L444.5,631"
+				/>
+			</g>
 		</g>
 	{/if}
 </svg>
 
 <style>
 	.pdfGlyph {
+		/* Same outline width as AppGlyph (set in the root layout). */
+		--s: var(--glyph-stroke);
 		display: block;
 		flex: 0 0 auto;
 		overflow: visible;
+		fill-rule: evenodd;
+		stroke-linecap: round;
 	}
 
-	.shadow {
-		fill: var(--black);
-	}
-
-	.page {
-		fill: var(--page-fill, var(--white));
+	path {
 		stroke: var(--black);
-		stroke-width: 2.5;
-		stroke-linejoin: round;
-		vector-effect: non-scaling-stroke;
+		stroke-width: calc(var(--s) * var(--r, 1));
 		transition: fill 0.12s ease;
 	}
 
-	.fold {
-		fill: color-mix(in srgb, var(--black), white 82%);
-		stroke: var(--black);
-		stroke-width: 2.5;
-		stroke-linejoin: round;
-		vector-effect: non-scaling-stroke;
+	.light {
+		fill: var(--glyph-light);
 	}
 
-	.lines {
-		fill: none;
-		stroke: color-mix(in srgb, var(--black), white 70%);
-		stroke-width: 2.5;
-		stroke-linecap: round;
+	.mid {
+		fill: var(--glyph-mid);
 	}
 
-	.band {
+	.hot {
 		fill: var(--accent);
-		stroke: var(--black);
-		stroke-width: 2.5;
-		vector-effect: non-scaling-stroke;
 	}
 
-	.label {
+	.line {
+		fill: none;
+	}
+
+	/* "PDF" lettering, drawn as outlines so it doesn't depend on a font. */
+	.label path {
 		fill: var(--white);
-		font-family: var(--font-mono), sans-serif;
-		font-size: 12px;
-		font-weight: 700;
-		letter-spacing: 0.06em;
-	}
-
-	.shackle {
-		fill: none;
-		stroke: var(--black);
-		stroke-width: 3.5;
-		stroke-linecap: round;
-	}
-
-	.lockBody {
-		fill: var(--accent-2);
-		stroke: var(--black);
-		stroke-width: 2.5;
-		vector-effect: non-scaling-stroke;
-	}
-
-	.keyhole {
-		fill: none;
-		stroke: var(--black);
-		stroke-width: 3;
-		stroke-linecap: round;
+		fill-rule: nonzero;
+		stroke: none;
 	}
 </style>

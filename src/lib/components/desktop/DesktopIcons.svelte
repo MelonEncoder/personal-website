@@ -1,26 +1,25 @@
 <script lang="ts">
 	import { getWindowManager } from "#lib/desktop/windows.svelte.ts";
+	import type { AppId } from "#lib/desktop/types.ts";
 	import FolderGlyph from "./FolderGlyph.svelte";
-	import infoIcon from "#lib/assets/icons/info.svg";
-	import linkIcon from "#lib/assets/icons/link.svg";
-	import computerIcon from "#lib/assets/icons/computer.svg";
+	import AppGlyph from "./AppGlyph.svelte";
 
 	const wm = getWindowManager();
 
-	/** Apps get a square tile with an icon; folders get a folder shape. */
+	/** Apps get their own icon shape (My Computer is a File Explorer window); folders a folder. */
 	type Icon =
-		| { kind: "app"; label: string; icon: string; action: () => void }
+		| { kind: "app"; label: string; app: AppId; action: () => void }
 		| { kind: "folder"; label: string; action: () => void };
 
 	const icons: Icon[] = [
 		{
 			kind: "app",
 			label: "My Computer",
-			icon: computerIcon,
+			app: "explorer",
 			action: () => wm.open("explorer", { path: "" })
 		},
-		{ kind: "app", label: "About Me", icon: infoIcon, action: () => wm.open("about") },
-		{ kind: "app", label: "Links", icon: linkIcon, action: () => wm.open("links") },
+		{ kind: "app", label: "About Me", app: "about", action: () => wm.open("about") },
+		{ kind: "app", label: "Links", app: "links", action: () => wm.open("links") },
 		{ kind: "folder", label: "Work", action: () => wm.open("explorer", { path: "work" }) },
 		{
 			kind: "folder",
@@ -37,7 +36,7 @@
 				{#if item.kind === "folder"}
 					<FolderGlyph size="3.4rem" />
 				{:else}
-					<span class="glyph"><img src={item.icon} alt="" aria-hidden="true" /></span>
+					<AppGlyph app={item.app} size="3.4rem" />
 				{/if}
 				<span class="label">{item.label}</span>
 			</button>
@@ -79,24 +78,6 @@
 		cursor: pointer;
 	}
 
-	/* Same footprint for app tiles and folders so labels line up. */
-	.glyph {
-		display: grid;
-		place-items: center;
-		width: 3rem;
-		height: 3rem;
-		margin: 0.2rem 0;
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-		background: var(--white);
-		box-shadow: 0 3px 0 0 var(--black);
-	}
-
-	.glyph img {
-		width: 1.75rem;
-		height: 1.75rem;
-	}
-
 	.label {
 		padding: 0.05rem 0.3rem;
 		line-height: 1.25;
@@ -104,31 +85,19 @@
 		background: color-mix(in srgb, var(--white), transparent 25%);
 	}
 
-	.icon.app:hover .glyph,
-	.icon.app:focus-visible .glyph {
-		border-color: var(--accent);
-		background: color-mix(in srgb, var(--accent), white 65%);
-		box-shadow: 0 3px 0 0 var(--accent);
-	}
-
-	.icon.folder:hover,
-	.icon.folder:focus-visible {
-		--folder-back: color-mix(in srgb, var(--accent), white 35%);
-		--folder-front: color-mix(in srgb, var(--accent), white 60%);
-	}
-
+	/* Same highlight as items in the File Explorer. */
+	.icon:hover,
 	.icon:focus-visible {
+		--glyph-light: var(--accent-2);
+		--glyph-mid: color-mix(in srgb, var(--accent), white 45%);
+		border-color: var(--accent);
+		background: color-mix(in srgb, var(--accent), white 82%);
 		outline: none;
 	}
 
+	.icon:hover .label,
 	.icon:focus-visible .label {
-		background: var(--accent);
-		color: var(--white);
-	}
-
-	.icon.app:active .glyph {
-		transform: translateY(3px);
-		box-shadow: none;
+		background: transparent;
 	}
 
 	@media (max-width: 700px) {

@@ -48,6 +48,12 @@
 		--radius-md: 0.5rem;
 		--radius-lg: 1rem;
 
+		/* Desktop icon outline width, in the icons' 250-unit drawing space. */
+		--glyph-stroke: 9;
+		/* Desktop icon fills: the same pinks as the window chrome. Items darken them on hover. */
+		--glyph-light: color-mix(in srgb, var(--accent), white 85%);
+		--glyph-mid: color-mix(in srgb, var(--accent), white 62%);
+
 		/* Constraints */
 		/* Top bar and taskbar share one height. */
 		--topbar-h: 2.5rem;
