@@ -144,7 +144,13 @@
 				aria-controls="{winId}-sidebar"
 				onclick={() => (sidebarOpen = !sidebarOpen)}
 			>
-				☰ <span class="srOnly">Toggle folders</span>
+				<!-- Three rounded bars, filled like the window bar icons. -->
+				<svg class="menuGlyph" viewBox="0 0 24 24" aria-hidden="true">
+					<rect x="2" y="4" width="20" height="3.2" rx="1.6" />
+					<rect x="2" y="10.4" width="20" height="3.2" rx="1.6" />
+					<rect x="2" y="16.8" width="20" height="3.2" rx="1.6" />
+				</svg>
+				<span class="srOnly">Toggle folders</span>
 			</button>
 			<button
 				type="button"
@@ -284,6 +290,12 @@
 		stroke-width: 2.25;
 		stroke-linecap: square;
 		stroke-linejoin: miter;
+	}
+
+	.menuGlyph {
+		width: 1.2rem;
+		height: 1.2rem;
+		fill: currentColor;
 	}
 
 	.sidebarToggle {
