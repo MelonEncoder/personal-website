@@ -1,16 +1,21 @@
 <script lang="ts">
 	import { tick } from "svelte";
+	import { page } from "$app/state";
 	import { getMedia, fileIcon } from "#lib/desktop/fs.ts";
 	import type { WinProps } from "#lib/desktop/types.ts";
 	import zoomInIcon from "#lib/assets/icons/zoom-in.svg";
 	import infoIcon from "#lib/assets/icons/info.svg";
 	import arrowOut from "#lib/assets/icons/arrow-outward.svg";
+	import PdfGlyph from "../PdfGlyph.svelte";
 
 	let { props }: { props: WinProps } = $props();
 
 	/** An image or a PDF. */
 	const file = $derived(getMedia(props.path ?? ""));
 	const imageSrc = $derived(file?.kind === "image" ? file.src : undefined);
+	// From the (app) layout server load, so it is available whichever route is focused.
+	const authenticated = $derived(page.data.privateAuthenticated === true);
+	const showLogin = $derived(file?.locked === true && !authenticated);
 
 	/** Zoom levels relative to the image's real size (1 = 100% = actual pixels). */
 	const ZOOM_STEPS = [0.1, 0.25, 0.5, 0.75, 1, 1.5, 2, 3];
@@ -104,16 +109,18 @@
 				>
 					<img src={infoIcon} alt="" aria-hidden="true" />
 				</button>
-				<a
-					class="tool"
-					href={file.src}
-					target="_blank"
-					rel="external noopener noreferrer"
-					aria-label="Open in new tab"
-					title="Open in new tab"
-				>
-					<img src={arrowOut} alt="" aria-hidden="true" />
-				</a>
+				{#if file.src && !showLogin}
+					<a
+						class="tool"
+						href={file.src}
+						target="_blank"
+						rel="external noopener noreferrer"
+						aria-label="Open in new tab"
+						title="Open in new tab"
+					>
+						<img src={arrowOut} alt="" aria-hidden="true" />
+					</a>
+				{/if}
 			</div>
 		</div>
 
@@ -132,8 +139,27 @@
 								: `${Math.round(naturalWidth * zoom)}px`}
 						/>
 					</div>
-				{:else if file.kind === "pdf"}
+				{:else if showLogin}
+					<div class="notice">
+						<PdfGlyph size="4.4rem" locked />
+						<p class="noticeTitle">Password protected</p>
+						<div class="embedWrapper">
+							<iframe
+								class="embed"
+								src="/private?embed=1&redirect=/private"
+								title="{file.title} login"
+								aria-label="Password prompt for {file.title}"
+							></iframe>
+						</div>
+					</div>
+				{:else if file.kind === "pdf" && file.src}
 					<iframe class="document" src={file.src} title={file.title}></iframe>
+				{:else}
+					<div class="notice">
+						<PdfGlyph size="4.4rem" locked={file.locked} />
+						<p class="noticeTitle">Not uploaded yet</p>
+						<p class="noticeText">This file will be available here soon.</p>
+					</div>
 				{/if}
 			</div>
 
@@ -146,6 +172,10 @@
 							<dt>Kind</dt>
 							<dd>{file.kind === "pdf" ? "PDF document" : "Image"}</dd>
 						</div>
+						{#if file.locked}<div>
+								<dt>Access</dt>
+								<dd>Password protected</dd>
+							</div>{/if}
 						{#if file.date}<div>
 								<dt>Created</dt>
 								<dd>{file.date}</dd>
@@ -272,6 +302,11 @@
 		background: var(--off-white);
 	}
 
+	/* A message (not the document itself) can scroll in a small window. */
+	.canvas.pdf:has(.notice) {
+		overflow: auto;
+	}
+
 	/*
 	 * Zoomed: the wrapper grows to fit the image, and the image is centered with auto
 	 * margins. (Centering with place-items pushed an oversized image past the left and top
@@ -315,6 +350,45 @@
 		display: block;
 		width: 100%;
 		height: 100%;
+		border: none;
+	}
+
+	/* Locked or not-yet-uploaded PDFs: a centered message instead of the document. */
+	.notice {
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.6rem;
+		min-height: 100%;
+		padding: 1.5rem 1rem;
+		text-align: center;
+	}
+
+	.noticeTitle {
+		margin: 0.4rem 0 0;
+		font-size: var(--fs-body);
+		font-weight: 700;
+	}
+
+	.noticeText {
+		margin: 0;
+		color: color-mix(in srgb, var(--black), white 35%);
+	}
+
+	.embedWrapper {
+		width: min(100%, 24rem);
+		border: 2px solid var(--black);
+		border-radius: var(--radius-sm);
+		overflow: hidden;
+		background: var(--white);
+	}
+
+	.embed {
+		display: block;
+		width: 100%;
+		height: 10rem;
 		border: none;
 	}
 

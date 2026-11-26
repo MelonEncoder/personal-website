@@ -165,6 +165,9 @@
 					<button
 						type="button"
 						class="item {child.kind}"
+						title={child.kind === "pdf" && child.locked
+							? "Password protected"
+							: undefined}
 						onclick={() => activate(child, childPath)}
 					>
 						{#if child.kind === "folder"}
@@ -174,7 +177,7 @@
 								<img src={child.src} alt="" loading="lazy" decoding="async" />
 							</span>
 						{:else if child.kind === "pdf"}
-							<PdfGlyph size="4.4rem" />
+							<PdfGlyph size="4.4rem" locked={child.locked} />
 						{:else}
 							<span class="glyph">
 								<img src={iconFor(child)} alt="" aria-hidden="true" />

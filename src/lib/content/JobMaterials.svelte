@@ -1,10 +1,7 @@
 <script lang="ts">
-	import { page } from "$app/state";
 	import AppPage from "#lib/components/desktop/AppPage.svelte";
+	import FileShortcut from "#lib/components/desktop/FileShortcut.svelte";
 	import jobIcon from "#lib/assets/icons/briefcase.svg";
-
-	// Comes from the (app) layout server load so it is available whichever route is focused.
-	const authenticated = $derived(page.data.privateAuthenticated === true);
 </script>
 
 <AppPage
@@ -59,78 +56,17 @@
 	</section>
 
 	<section class="section">
-		<div class="labelRow">
-			<h2 class="label">Resume</h2>
-			{#if !authenticated}<span class="lock">Password protected</span>{/if}
+		<h2 class="label">Files</h2>
+		<div class="files">
+			<FileShortcut path="technical-writing/job-materials/resume" />
+			<FileShortcut path="technical-writing/job-materials/cover-letter" />
 		</div>
-		{#if !authenticated}
-			<div class="embedWrapper">
-				<iframe
-					class="embed"
-					src="/private?embed=1&redirect=/private"
-					title="Resume login"
-					aria-label="Password prompt for the resume"
-				></iframe>
-			</div>
-		{/if}
-	</section>
-
-	<section class="section">
-		<div class="labelRow">
-			<h2 class="label">Cover Letter</h2>
-			{#if !authenticated}<span class="lock">Password protected</span>{/if}
-		</div>
-		{#if !authenticated}
-			<div class="embedWrapper">
-				<iframe
-					class="embed"
-					src="/private?embed=1&redirect=/private"
-					title="Cover Letter login"
-					aria-label="Password prompt for the cover letter"
-				></iframe>
-			</div>
-		{/if}
 	</section>
 </AppPage>
 
 <style>
-	/* The section label with a "Password protected" tag on the right. */
-	.labelRow {
-		display: flex;
-		align-items: flex-end;
-		gap: 0.75rem;
-		margin-bottom: 0.6rem;
-		border-bottom: 1px solid color-mix(in srgb, var(--black), white 80%);
-	}
-
-	.labelRow :global(.label) {
-		flex: 1;
-		margin: 0;
-		border-bottom: none;
-	}
-
-	.lock {
-		margin-bottom: 0.35rem;
-		padding: 0.15rem 0.45rem;
-		border: 1.5px solid var(--black);
-		border-radius: var(--radius-sm);
-		background: var(--accent-2);
-		font-size: 0.75rem;
-		font-weight: 700;
-		white-space: nowrap;
-	}
-
-	.embedWrapper {
-		border: 2px solid var(--black);
-		border-radius: var(--radius-sm);
-		overflow: hidden;
-		background: var(--white);
-	}
-
-	.embed {
-		display: block;
-		width: 100%;
-		height: 10rem;
-		border: none;
+	.files {
+		display: grid;
+		gap: 0.25rem;
 	}
 </style>

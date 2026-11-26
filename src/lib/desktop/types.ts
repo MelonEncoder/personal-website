@@ -41,10 +41,13 @@ export interface MediaFileNode {
 	kind: "image" | "pdf";
 	id: string;
 	name: string;
-	src: string;
+	/** Missing for a placeholder that isn't uploaded yet. */
+	src?: string;
 	title: string;
 	description?: string;
 	date?: string;
+	/** Needs the private-area password to open. */
+	locked?: boolean;
 }
 
 export type FileNode = AppFileNode | MediaFileNode;

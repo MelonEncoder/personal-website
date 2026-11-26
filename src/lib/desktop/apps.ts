@@ -75,7 +75,7 @@ export const APPS: Record<AppId, AppDef> = {
 		Instructions
 	),
 	jobMaterials: content(
-		"Job Materials",
+		"Job Materials — Reflection",
 		jobIcon,
 		"/technical-writing/job-materials",
 		JobMaterials

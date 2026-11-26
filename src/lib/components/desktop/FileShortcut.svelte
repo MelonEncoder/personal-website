@@ -16,7 +16,7 @@
 	const kind = $derived.by(() => {
 		switch (node?.kind) {
 			case "pdf":
-				return "PDF document";
+				return node.locked ? "PDF document · Password protected" : "PDF document";
 			case "image":
 				return "Image";
 			case "folder":
@@ -30,7 +30,7 @@
 {#if node}
 	<button type="button" class="fileRow" onclick={() => wm.openPath(path)}>
 		{#if node.kind === "pdf"}
-			<PdfGlyph size="2.6rem" />
+			<PdfGlyph size="2.6rem" locked={node.locked} />
 		{:else if node.kind === "folder"}
 			<FolderGlyph size="2.6rem" />
 		{:else}

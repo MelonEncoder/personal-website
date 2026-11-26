@@ -7,7 +7,6 @@ import linkIcon from "#lib/assets/icons/link.svg";
 import codeIcon from "#lib/assets/icons/code-xml.svg";
 import gameIcon from "#lib/assets/icons/joystick.svg";
 import imageIcon from "#lib/assets/icons/image.svg";
-import jobIcon from "#lib/assets/icons/briefcase.svg";
 import pdfIcon from "#lib/assets/icons/file-pdf.svg";
 import notesIcon from "#lib/assets/icons/assignment.svg";
 
@@ -139,11 +138,36 @@ export const root: FolderNode = {
 			route: "/technical-writing",
 			children: [
 				{
-					kind: "app",
+					kind: "folder",
 					id: "job-materials",
 					name: "Job Materials",
-					icon: jobIcon,
-					app: "jobMaterials"
+					children: [
+						{
+							kind: "app",
+							id: "reflection",
+							name: "Reflection",
+							icon: notesIcon,
+							app: "jobMaterials"
+						},
+						// Placeholders: the PDFs aren't uploaded yet, so they have no src.
+						{
+							kind: "pdf",
+							id: "resume",
+							name: "resume.pdf",
+							title: "Resume",
+							description: "Resume written for the job materials assignment.",
+							locked: true
+						},
+						{
+							kind: "pdf",
+							id: "cover-letter",
+							name: "cover-letter.pdf",
+							title: "Cover Letter",
+							description:
+								"Cover letter for an internship listing found on Handshake.",
+							locked: true
+						}
+					]
 				},
 				{
 					kind: "folder",

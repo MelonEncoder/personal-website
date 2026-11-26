@@ -1,9 +1,10 @@
 <script lang="ts">
 	/**
 	 * A page-shaped PDF icon in a square box, like FolderGlyph for folders. The page color
-	 * comes from `--page-fill`, which parents set on hover.
+	 * comes from `--page-fill`, which parents set on hover. `locked` adds a padlock badge for
+	 * password-protected files.
 	 */
-	let { size = "3rem" }: { size?: string } = $props();
+	let { size = "3rem", locked = false }: { size?: string; locked?: boolean } = $props();
 </script>
 
 <svg class="pdfGlyph" viewBox="0 0 64 64" style:width={size} style:height={size} aria-hidden="true">
@@ -17,6 +18,15 @@
 	<!-- Label band that sticks out past the page edge. -->
 	<rect class="band" x="7" y="27" width="40" height="16" rx="2" />
 	<text class="label" x="27" y="39.5" text-anchor="middle">PDF</text>
+	{#if locked}
+		<!-- Padlock badge on the bottom-right corner, with the same hard shadow. -->
+		<g class="lock">
+			<rect class="shadow" x="39" y="47" width="22" height="16" rx="2" />
+			<path class="shackle" d="M44 44v-4a6 6 0 0 1 12 0v4" />
+			<rect class="lockBody" x="39" y="44" width="22" height="16" rx="2" />
+			<path class="keyhole" d="M50 49.5v4.5" />
+		</g>
+	{/if}
 </svg>
 
 <style>
@@ -67,5 +77,26 @@
 		font-size: 12px;
 		font-weight: 700;
 		letter-spacing: 0.06em;
+	}
+
+	.shackle {
+		fill: none;
+		stroke: var(--black);
+		stroke-width: 3.5;
+		stroke-linecap: round;
+	}
+
+	.lockBody {
+		fill: var(--accent-2);
+		stroke: var(--black);
+		stroke-width: 2.5;
+		vector-effect: non-scaling-stroke;
+	}
+
+	.keyhole {
+		fill: none;
+		stroke: var(--black);
+		stroke-width: 3;
+		stroke-linecap: round;
 	}
 </style>
