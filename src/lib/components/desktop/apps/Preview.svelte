@@ -263,9 +263,21 @@
 		cursor: pointer;
 	}
 
-	.tool:hover,
+	/*
+	 * Hovering an off button only tints it, so it never looks switched on. A toggle that's
+	 * on (the info button) is pink and pressed in, and darkens further on hover.
+	 */
+	.tool:hover {
+		background: var(--glyph-light);
+	}
+
 	.tool[aria-pressed="true"] {
 		background: var(--accent-2);
+		box-shadow: inset 0 2px 0 0 color-mix(in srgb, var(--black), transparent 75%);
+	}
+
+	.tool[aria-pressed="true"]:hover {
+		background: color-mix(in srgb, var(--accent-2), var(--accent) 42%);
 	}
 
 	.tool:focus-visible {
